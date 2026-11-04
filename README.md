@@ -4,6 +4,35 @@ Architecture of the Aroma Pacífico pilot: case statement, decision log, ADRs, d
 
 Part of the Aroma Pacífico pilot, the 2026 update of the coffee traceability pilot for Cauca, Huila and Tolima. Work is tracked in [aroma-pacifico-roadmap](https://github.com/aroma-pacifico/aroma-pacifico-roadmap) and on the [Aroma Pacífico Pilot board](https://github.com/orgs/aroma-pacifico/projects/1).
 
+## Documentation index
+
+The [case statement](docs/case/case-statement.pdf) is the only source of requirements. Every assumption, architecture decision and pending decision is registered in the [decision log](docs/decision-log.md), and full architecture decision records live in [`docs/adr/`](docs/adr/README.md).
+
+| Document | Purpose |
+|---|---|
+| [`docs/case/case-statement.pdf`](docs/case/case-statement.pdf) | Case statement; the only source of requirements. |
+| [`docs/decision-log.md`](docs/decision-log.md) | Master log of assumptions (`ASM-NNN`), the ADR index (`ADR-NNN`) and pending decisions (`PD-NNN`). |
+| [`docs/adr/README.md`](docs/adr/README.md) | ADR lifecycle: Proposed, Accepted, Superseded. |
+| [`docs/adr/template.md`](docs/adr/template.md) | Template every ADR copies. |
+
+```text
+aroma-pacifico-architecture/
+|-- AGENTS.md
+|-- CLAUDE.md
+|-- CONTRIBUTING.md
+|-- GEMINI.md
+|-- README.md
+|-- docs/
+|   |-- adr/
+|   |   |-- README.md
+|   |   `-- template.md
+|   |-- case/
+|   |   `-- case-statement.pdf
+|   `-- decision-log.md
+`-- standards/
+    `-- iac-rules/
+```
+
 ## Tasks delivered here
 
 - [A01](https://github.com/aroma-pacifico/aroma-pacifico-roadmap/issues/1)
