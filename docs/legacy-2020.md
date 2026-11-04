@@ -14,7 +14,7 @@ This record traces every element of the 2020 design that the case statement ment
 
 ## Exclusion of 2020 quotes, prices, devices and cloud services
 
-The case statement states that "Precios, dispositivos y servicios de nube de 2020 no son cotización válida" (2020 prices, devices and cloud services are not a valid quote). The case statement does not name any 2020 price, device model or cloud service, and this record names none. Rows L-14 to L-16 retire them as a class. No 2020 figure is used anywhere in this repository; costs are priced at current prices by A23 ([roadmap#36](https://github.com/aroma-pacifico/aroma-pacifico-roadmap/issues/36)) under PD-017, and the cloud is chosen in [`docs/adr/adr-001-primary-and-second-cloud.md`](adr/adr-001-primary-and-second-cloud.md).
+The case statement states that "Precios, dispositivos y servicios de nube de 2020 no son cotización válida" (2020 prices, devices and cloud services are not a valid quote). The case statement does not name any 2020 price, device model or cloud service, and this record names none. Rows L-14 to L-16 retire them as a class. No 2020 figure is used anywhere in this repository; costs are priced at current prices by A23 ([roadmap#36](https://github.com/aroma-pacifico/aroma-pacifico-roadmap/issues/36)) under PD-017, and the cloud is chosen in `docs/adr/adr-001-primary-and-second-cloud.md`.
 
 ## Keep, retire and replace table
 
@@ -37,7 +37,7 @@ Each row cites the page and section of the case statement it comes from. The fou
 | L-13 | Dependence on a mobile access network generation. | p. 2, Qué se actualiza: "La red de acceso móvil cambió desde 2020" (the mobile access network changed since 2020). | Retire | A10 ([roadmap#10](https://github.com/aroma-pacifico/aroma-pacifico-roadmap/issues/10)) | No flow may depend on a generation switched off before or during the pilot (ASM-041). | None. | None. | None. |
 | L-14 | 2020 prices. | p. 1, Contexto: "Precios, dispositivos y servicios de nube de 2020 no son cotización válida" (2020 prices, devices and cloud services are not a valid quote). | Retire | A23 ([roadmap#36](https://github.com/aroma-pacifico/aroma-pacifico-roadmap/issues/36)) | None. | None. | None. | None. |
 | L-15 | 2020 devices. | p. 1, Contexto: same sentence as L-14. | Retire | A23 ([roadmap#36](https://github.com/aroma-pacifico/aroma-pacifico-roadmap/issues/36)) prices current devices. | None. | None. | None. | None. |
-| L-16 | 2020 cloud services. | p. 1, Contexto: same sentence as L-14. | Retire | [`docs/adr/adr-001-primary-and-second-cloud.md`](adr/adr-001-primary-and-second-cloud.md) | None. | None. | None. | None. |
+| L-16 | 2020 cloud services. | p. 1, Contexto: same sentence as L-14. | Retire | `docs/adr/adr-001-primary-and-second-cloud.md` | None. | None. | None. | None. |
 | L-17 | The 2020 architecture as a whole. | p. 1, Contexto: "No se replica la arquitectura de 2020" (the 2020 architecture is not replicated). | Retire | Complete diagram, A19 ([roadmap#19](https://github.com/aroma-pacifico/aroma-pacifico-roadmap/issues/19)) | None. | None. | None. | None. |
 | L-18 | 2020 design manual. | p. 7, Sistema de diseño: "No se hereda un manual de 2020" (no 2020 manual is inherited). | Retire | Challenge point 7 (Sistema de diseño) | None. | None. | None. | The web lookup gets a new design system. |
 
@@ -45,6 +45,6 @@ Each row cites the page and section of the case statement it comes from. The fou
 
 | Reference | Relation to this record |
 |---|---|
-| [`docs/adr/adr-001-primary-and-second-cloud.md`](adr/adr-001-primary-and-second-cloud.md) | Chooses the 2026 clouds (row L-16) and references this record. |
+| `docs/adr/adr-001-primary-and-second-cloud.md` | Chooses the 2026 clouds (row L-16) and references this record; in pull request aroma-pacifico/aroma-pacifico-architecture#8. |
 | `docs/adr/adr-002-drone-flight-mode-and-governance.md` | Decides the drone flight mode and governance (row L-07); written in parallel by [roadmap#3](https://github.com/aroma-pacifico/aroma-pacifico-roadmap/issues/3). |
-| [`docs/decision-log.md`](decision-log.md) | PD-004 and PD-007 are closed by this record; PD-006 (complete diagram) and PD-008 (architecture document) stay open for [roadmap#19](https://github.com/aroma-pacifico/aroma-pacifico-roadmap/issues/19). ASM-040 and ASM-041 are the assumptions this record makes. |
+| [`docs/decision-log.md`](decision-log.md) | PD-004 is closed by this record; PD-007 closes when ADR-001 is merged; PD-006 (complete diagram) and PD-008 (architecture document) stay open for [roadmap#19](https://github.com/aroma-pacifico/aroma-pacifico-roadmap/issues/19). ASM-040 and ASM-041 are the assumptions this record makes. |
