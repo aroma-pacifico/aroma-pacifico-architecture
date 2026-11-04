@@ -15,6 +15,7 @@ The [case statement](docs/case/case-statement.pdf) is the only source of require
 | [`docs/adr/README.md`](docs/adr/README.md) | ADR lifecycle: Proposed, Accepted, Superseded. |
 | [`docs/adr/template.md`](docs/adr/template.md) | Template every ADR copies. |
 | [`docs/adr/adr-001-primary-and-second-cloud.md`](docs/adr/adr-001-primary-and-second-cloud.md) | ADR-001: primary cloud and prepared second cloud. |
+| [`docs/adr/adr-002-drone-flight-mode-and-governance.md`](docs/adr/adr-002-drone-flight-mode-and-governance.md) | ADR-002: drone flight mode and operational governance. |
 | [`docs/adr/adr-003-iac-tool-remote-state-and-pattern-module.md`](docs/adr/adr-003-iac-tool-remote-state-and-pattern-module.md) | ADR-003: Terraform, remote state per environment and the telemetry ingestion pattern module. |
 
 ```text
@@ -28,6 +29,7 @@ aroma-pacifico-architecture/
 |   |-- adr/
 |   |   |-- README.md
 |   |   |-- adr-001-primary-and-second-cloud.md
+|   |   |-- adr-002-drone-flight-mode-and-governance.md
 |   |   |-- adr-003-iac-tool-remote-state-and-pattern-module.md
 |   |   `-- template.md
 |   |-- case/
