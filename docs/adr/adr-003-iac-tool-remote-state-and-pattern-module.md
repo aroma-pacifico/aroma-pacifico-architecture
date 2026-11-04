@@ -175,7 +175,7 @@ The team works with one tool whose rules are already written, and the pattern mo
 | aroma-pacifico/aroma-pacifico-roadmap#4 | This decision. |
 | aroma-pacifico/aroma-pacifico-roadmap#21 to #33 | Epic 6 tasks B01 to B13 that implement it. |
 | `docs/adr/adr-001-primary-and-second-cloud.md` (reserved) | Primary and second cloud. |
-| `docs/legacy-2020.md` (reserved) | 2020 requirements kept and components retired. |
+| [`docs/legacy-2020.md`](../legacy-2020.md) | 2020 requirements kept and components retired. |
 | [Terraform S3 backend](https://developer.hashicorp.com/terraform/language/backend/s3) | `use_lockfile`, `.tflock` permissions, deprecated DynamoDB arguments. |
 | [Upgrading to Terraform v1.11](https://developer.hashicorp.com/terraform/language/v1.11.x/upgrade-guides) | S3 native locking generally available in 1.11. |
 | [Terraform 1.11: ephemeral values and write-only arguments](https://www.hashicorp.com/en/blog/terraform-1-11-ephemeral-values-managed-resources-write-only-arguments) | Ephemeral resources (1.10), write-only arguments (1.11), `aws_ssm_parameter` `value_wo`. |
