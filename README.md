@@ -29,6 +29,7 @@ The [case statement](docs/case/case-statement.pdf) is the only source of require
 | [`docs/farm-monitoring.md`](docs/farm-monitoring.md) | Farm monitoring and pilot alerts: crop and drying load, Federation-configured thresholds and their audit, alert deduplication, push and SMS farmer channel, history and pilot report. |
 | [`docs/sack-and-trip.md`](docs/sack-and-trip.md) | Sack, trip and public lookup: registration, states and transitions, events with date, time and responsible, code sheet, lookup front door, peak arithmetic, stores, RPO and RTO. |
 | [`docs/inference-functions.md`](docs/inference-functions.md) | Event-driven inference functions: the four triggers, managed inference in `us-east-1`, result record, retries, dead-letter queues and observation point, objects that leave Colombia, cost per thousand invocations and objects that contain a person. |
+| [`docs/automation-and-pipelines.md`](docs/automation-and-pipelines.md) | Platform, ingestion and flight object reception pipelines: repositories and paths, artifacts, gates, promotion from `dev` to `qa` to `pdn`, approval, notice to the Federation, rollback and secrets. |
 
 ```text
 aroma-pacifico-architecture/
@@ -45,6 +46,7 @@ aroma-pacifico-architecture/
 |   |   |-- adr-003-iac-tool-remote-state-and-pattern-module.md
 |   |   `-- template.md
 |   |-- addressing-plan.md
+|   |-- automation-and-pipelines.md
 |   |-- case/
 |   |   `-- case-statement.pdf
 |   |-- clarification-questions.md
