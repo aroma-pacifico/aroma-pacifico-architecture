@@ -17,6 +17,7 @@ The [case statement](docs/case/case-statement.pdf) is the only source of require
 | [`docs/adr/adr-001-primary-and-second-cloud.md`](docs/adr/adr-001-primary-and-second-cloud.md) | ADR-001: primary cloud and prepared second cloud. |
 | [`docs/adr/adr-002-drone-flight-mode-and-governance.md`](docs/adr/adr-002-drone-flight-mode-and-governance.md) | ADR-002: drone flight mode and operational governance. |
 | [`docs/adr/adr-003-iac-tool-remote-state-and-pattern-module.md`](docs/adr/adr-003-iac-tool-remote-state-and-pattern-module.md) | ADR-003: Terraform, remote state per environment and the telemetry ingestion pattern module. |
+| [`docs/legacy-2020.md`](docs/legacy-2020.md) | 2020 legacy: which 2020 requirement is kept, retired or replaced, and which task designs the replacement. |
 
 ```text
 aroma-pacifico-architecture/
@@ -34,7 +35,8 @@ aroma-pacifico-architecture/
 |   |   `-- template.md
 |   |-- case/
 |   |   `-- case-statement.pdf
-|   `-- decision-log.md
+|   |-- decision-log.md
+|   `-- legacy-2020.md
 `-- standards/
     `-- iac-rules/
 ```
