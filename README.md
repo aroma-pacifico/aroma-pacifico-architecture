@@ -28,6 +28,7 @@ The [case statement](docs/case/case-statement.pdf) is the only source of require
 | [`docs/drone-service.md`](docs/drone-service.md) | Drone service and fumigation order: the five services as missions, case, order and mission state machines, mission package, flight record, S3 prefixes, inference triggers, ground station endpoints and campaign cadence. |
 | [`docs/farm-monitoring.md`](docs/farm-monitoring.md) | Farm monitoring and pilot alerts: crop and drying load, Federation-configured thresholds and their audit, alert deduplication, push and SMS farmer channel, history and pilot report. |
 | [`docs/sack-and-trip.md`](docs/sack-and-trip.md) | Sack, trip and public lookup: registration, states and transitions, events with date, time and responsible, code sheet, lookup front door, peak arithmetic, stores, RPO and RTO. |
+| [`docs/inference-functions.md`](docs/inference-functions.md) | Event-driven inference functions: the four triggers, managed inference in `us-east-1`, result record, retries, dead-letter queues and observation point, objects that leave Colombia, cost per thousand invocations and objects that contain a person. |
 
 ```text
 aroma-pacifico-architecture/
@@ -53,6 +54,7 @@ aroma-pacifico-architecture/
 |   |-- drone-service.md
 |   |-- farm-monitoring.md
 |   |-- firewall-policy.md
+|   |-- inference-functions.md
 |   |-- landing-zone.md
 |   |-- legacy-2020.md
 |   |-- sack-and-trip.md
