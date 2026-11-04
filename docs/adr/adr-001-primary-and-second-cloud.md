@@ -46,7 +46,7 @@ The following are explicitly not duplicated: no Azure subscription, landing zone
 
 ### Latency to Cauca, Huila and Tolima
 
-The only latency figures in the case statement are alert targets: under 5 minutes from an out-of-range reading when a delivery path exists, and within 24 hours when the buffer drains. Bag lookup peaks at 30 reads per minute. Neither figure is sensitive to the difference between `us-east-1` and `sa-east-1`, because a network round trip to either Region is expected to take well under one second, far below 5 minutes; that is an expectation, not a measurement. Field links in the pilot are cellular and store-and-forward, so the slowest leg is the field link, not the Region. No round trip was measured; ASM-003 records the assumption and the alert-delivery SLO of point 6 is the future test that validates it.
+The only latency figures in the case statement are alert targets: under 5 minutes from an out-of-range reading when a delivery path exists, and within 24 hours when the buffer drains. Sack lookup peaks at 30 reads per minute. Neither figure is sensitive to the difference between `us-east-1` and `sa-east-1`, because a network round trip to either Region is expected to take well under one second, far below 5 minutes; that is an expectation, not a measurement. Field links in the pilot are cellular and store-and-forward, so the slowest leg is the field link, not the Region. No round trip was measured; ASM-003 records the assumption and the alert-delivery SLO of point 6 is the future test that validates it.
 
 ### Account and environment model
 
