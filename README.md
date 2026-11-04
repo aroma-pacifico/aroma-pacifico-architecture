@@ -22,6 +22,7 @@ The [case statement](docs/case/case-statement.pdf) is the only source of require
 | [`docs/landing-zone.md`](docs/landing-zone.md) | Landing zone: accounts, root controls, tagging scheme, budgets and audit of the four mandatory events. |
 | [`docs/clarification-questions.md`](docs/clarification-questions.md) | Prioritized questions for the 30-minute Q&A session, with impact and fallback assumptions. |
 | [`docs/connectivity.md`](docs/connectivity.md) | End-to-end connectivity of farm, wet mill, drone, transporter, collection center and port, including no-signal behavior. |
+| [`docs/security-and-identity.md`](docs/security-and-identity.md) | Security and identity: roles and least-privilege matrix, MFA, Cognito directory, device identities, encryption, sack code and buyer view, personal data retention and revocation. |
 
 ```text
 aroma-pacifico-architecture/
@@ -44,7 +45,8 @@ aroma-pacifico-architecture/
 |   |-- connectivity.md
 |   |-- decision-log.md
 |   |-- landing-zone.md
-|   `-- legacy-2020.md
+|   |-- legacy-2020.md
+|   `-- security-and-identity.md
 `-- standards/
     `-- iac-rules/
 ```
