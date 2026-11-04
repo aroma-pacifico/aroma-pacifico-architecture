@@ -14,6 +14,7 @@ The [case statement](docs/case/case-statement.pdf) is the only source of require
 | [`docs/decision-log.md`](docs/decision-log.md) | Master log of assumptions (`ASM-NNN`), the ADR index (`ADR-NNN`) and pending decisions (`PD-NNN`). |
 | [`docs/adr/README.md`](docs/adr/README.md) | ADR lifecycle: Proposed, Accepted, Superseded. |
 | [`docs/adr/template.md`](docs/adr/template.md) | Template every ADR copies. |
+| [`docs/adr/adr-003-iac-tool-remote-state-and-pattern-module.md`](docs/adr/adr-003-iac-tool-remote-state-and-pattern-module.md) | ADR-003: Terraform, remote state per environment and the telemetry ingestion pattern module. |
 
 ```text
 aroma-pacifico-architecture/
@@ -25,6 +26,7 @@ aroma-pacifico-architecture/
 |-- docs/
 |   |-- adr/
 |   |   |-- README.md
+|   |   |-- adr-003-iac-tool-remote-state-and-pattern-module.md
 |   |   `-- template.md
 |   |-- case/
 |   |   `-- case-statement.pdf
