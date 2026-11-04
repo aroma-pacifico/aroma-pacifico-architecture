@@ -10,6 +10,7 @@ The [case statement](docs/case/case-statement.pdf) is the only source of require
 
 | Document | Purpose |
 |---|---|
+| [`docs/architecture.md`](docs/architecture.md) | Consolidated architecture document for the final defense: executive summary, the seven challenge points with their decisions, component inventory, pest-to-fumigation flow, store-and-forward behavior, 2020 legacy, D01 to D13 traceability to the IaC and open decisions. Start here. |
 | [`docs/case/case-statement.pdf`](docs/case/case-statement.pdf) | Case statement; the only source of requirements. |
 | [`docs/decision-log.md`](docs/decision-log.md) | Master log of assumptions (`ASM-NNN`), the ADR index (`ADR-NNN`) and pending decisions (`PD-NNN`). |
 | [`docs/adr/README.md`](docs/adr/README.md) | ADR lifecycle: Proposed, Accepted, Superseded. |
@@ -39,6 +40,7 @@ aroma-pacifico-architecture/
 |-- GEMINI.md
 |-- README.md
 |-- docs/
+|   |-- architecture.md
 |   |-- adr/
 |   |   |-- README.md
 |   |   |-- adr-001-primary-and-second-cloud.md
