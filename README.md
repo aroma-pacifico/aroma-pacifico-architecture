@@ -22,6 +22,7 @@ The [case statement](docs/case/case-statement.pdf) is the only source of require
 | [`docs/landing-zone.md`](docs/landing-zone.md) | Landing zone: accounts, root controls, tagging scheme, budgets and audit of the four mandatory events. |
 | [`docs/clarification-questions.md`](docs/clarification-questions.md) | Prioritized questions for the 30-minute Q&A session, with impact and fallback assumptions. |
 | [`docs/connectivity.md`](docs/connectivity.md) | End-to-end connectivity of farm, wet mill, drone, transporter, collection center and port, including no-signal behavior. |
+| [`docs/collection-center-network.md`](docs/collection-center-network.md) | Collection center LAN and Wi-Fi pattern: zones, VLANs, SSIDs, inter-zone policy intent, capacity and non-operational traffic control. |
 
 ```text
 aroma-pacifico-architecture/
@@ -41,6 +42,7 @@ aroma-pacifico-architecture/
 |   |-- case/
 |   |   `-- case-statement.pdf
 |   |-- clarification-questions.md
+|   |-- collection-center-network.md
 |   |-- connectivity.md
 |   |-- decision-log.md
 |   |-- landing-zone.md
