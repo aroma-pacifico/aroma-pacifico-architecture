@@ -35,4 +35,5 @@ The procedure below is sequential, so it is a numbered list.
 | `README.md` | This lifecycle guide. |
 | [`template.md`](template.md) | The section skeleton every ADR copies. |
 | [`adr-001-primary-and-second-cloud.md`](adr-001-primary-and-second-cloud.md) | ADR-001: AWS primary in `us-east-1`, Azure prepared as an undeployed export target. |
-| `adr-NNN-<kebab-slug>.md` | One file per ADR. The reserved file names are listed in the decision log. |
+| [`adr-003-iac-tool-remote-state-and-pattern-module.md`](adr-003-iac-tool-remote-state-and-pattern-module.md) | ADR-003: IaC tool, remote state and pattern module (Accepted). |
+| `adr-NNN-<kebab-slug>.md` | One file per ADR; the reserved file names of the ADRs not yet written are listed in the decision log. |
