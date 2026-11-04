@@ -27,7 +27,7 @@
 | `pipeline` * | `ingestion` (A18 section 6): `functions/threshold/**` and `functions/notification-dispatcher/**` | Owner |
 | `release_candidate_commit` * | `0000000000000000000000000000000000example` (placeholder) | Pipeline |
 | `components` * | Threshold function (A17); SNS alert topic message, one added attribute `recommended_range`; notification dispatcher, push rendering only (A14 section 7.3). Rows T-01 (pH), T-04 and T-05 (air and soil temperature) of A14 section 4.1 carry a band; the other rows have none and the attribute is absent. | Owner |
-| `diagram_boxes` | Pending: the box catalog is not readable from this repository (PD-180) | Owner |
+| `diagram_boxes` | D09 (telemetry ingestion: threshold function and SNS alert topic) and D10 (event-driven function pattern), from the catalog in [architecture](../architecture.md) section 14 | Owner |
 | `user_visible_change` * | Push, before: "Soil temperature 31 C, out of range 14-30 C, measured 14:02." Push, after: "Soil temperature 31 C, out of range 14-30 C, recommended 17-23 C, measured 14:02." Values are illustrative; the text is rendered in Spanish by the design system. | Owner |
 | `qa_acceptance` * | Not run (plan-only). In a real release: the ingestion suite of ASM-177 with an out-of-range soil temperature reading, an out-of-range moisture reading (no band) and a drained reading, checking one push per episode with and without the band. | Pipeline |
 | `model_evaluation` | Not applicable: no prompt, schema or model identifier changes | Owner |

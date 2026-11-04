@@ -46,7 +46,7 @@ The design below does not reopen any accepted decision; it fills the parts they 
 
 ### 3.1 Readings per day and per hour
 
-Every reading is one MQTT publication, because the node publishes each reading as soon as it is taken and does not batch (A10 section 8.2, hop 1). Each publication causes two topic rule actions, the store write and the threshold function invocation (ADR-003). The figures below follow from the case statement alone.
+Every reading is one MQTT publication, because the node publishes each reading as soon as it is taken and does not batch (A10 section 8.2, hop 1). Each publication causes two topic rule actions, the store write and the message that invokes the threshold function through its queue (ADR-003, ASM-161). The figures below follow from the case statement alone.
 
 | Flow | Arithmetic | Per day | Average per hour | Per 30-day month |
 |---|---|---|---|---|
@@ -204,7 +204,7 @@ The threshold function is the Part E telemetry trigger ("Lote de telemetría. La
 | 5. Update the episode | Every classified variable, in range or not, updates the state item of its node and variable, which holds the open episode, if any, and the timestamp of the latest in-range reading; section 6.2 gives the rules. |
 | 6. Emit | Only the evaluation that opens, reminds or closes an episode publishes a message to the SNS alert topic (section 7.3). |
 
-The function never updates the telemetry item. It writes only to the alert store, so the result is the same whichever of the two rule actions runs first or whether the store write fails and is retried; the evaluation does not need the stored reading, because the rule passes the reading itself to the function. This makes the alert path independent of the ordering and coupling that A13 leaves open in PD-112, without deciding that entry.
+The function never updates the telemetry item and writes only to the alert store. The ordering and coupling that A13 left open in PD-112 was later closed by the inference design: the rule sends the reading key to the threshold queue, and the function evaluates a reading only after it reads the stored item with a strongly consistent read, so a reading is evaluated only once it is persisted ([inference functions](inference-functions.md#64-ordering-and-failure-coupling-of-the-telemetry-rule-closes-pd-112) section 6.4, ASM-161). The contract of this section is unchanged by that choice: the result of an evaluation is the same whichever rule action completes first.
 
 ## 6. Alerts and deduplication
 

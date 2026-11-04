@@ -29,7 +29,7 @@
 | `release_candidate_commit` * | `0000000000000000000000000000000000example` (placeholder) | Pipeline |
 | `stacks_and_accounts` * | `stacks/security` in the `qa` account (security group rule); `stacks/network` of the hub in the network account (transit gateway route tables `centers` and `qa`), applied through the `pdn` deployment environment (ASM-184); configuration of the three center firewalls | Owner |
 | `module_tags` | Not applicable: the declarations are removed from the stacks; no module changes | Owner |
-| `diagram_boxes` | Pending: the box catalog is not readable from this repository (PD-180) | Owner |
+| `diagram_boxes` | D05 (center association: hub VPN and attachments) and D07 (security group rules and Transit Gateway route-table routes, ASM-200), from the catalog in [architecture](../architecture.md) section 14 | Owner |
 | `qa_acceptance` * | Not run (plan-only). In a real release the `qa` stage removes the security group rule; the ASM-177 suites do not use the center path, and the reachability checks of section 7 replace them. | Pipeline |
 
 **Firewall and routing rules touched.**
