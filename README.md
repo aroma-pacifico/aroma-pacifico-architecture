@@ -31,6 +31,10 @@ The [case statement](docs/case/case-statement.pdf) is the only source of require
 | [`docs/sack-and-trip.md`](docs/sack-and-trip.md) | Sack, trip and public lookup: registration, states and transitions, events with date, time and responsible, code sheet, lookup front door, peak arithmetic, stores, RPO and RTO. |
 | [`docs/inference-functions.md`](docs/inference-functions.md) | Event-driven inference functions: the four triggers, managed inference in `us-east-1`, result record, retries, dead-letter queues and observation point, objects that leave Colombia, cost per thousand invocations and objects that contain a person. |
 | [`docs/automation-and-pipelines.md`](docs/automation-and-pipelines.md) | Platform, ingestion and flight object reception pipelines: repositories and paths, artifacts, gates, promotion from `dev` to `qa` to `pdn`, approval, notice to the Federation, rollback and secrets. |
+| [`docs/observability.md`](docs/observability.md) | Observability of point 6: metrics, logs and traces of ingestion, applications, databases, the three WAN links and flight object arrival; the five detections; the crop alert delivery and sack lookup availability SLOs with their SLIs and burn-rate alerts; the CodeDeploy rollback alarm set. |
+| [`docs/dashboards/README.md`](docs/dashboards/README.md) | Operational and cost dashboards: every widget and the question it answers, split by farms, drones, collection centers and testing. |
+| [`docs/dashboards/operational.json`](docs/dashboards/operational.json) | CloudWatch dashboard body of the operational dashboard, a template the IaC would apply. |
+| [`docs/dashboards/cost.json`](docs/dashboards/cost.json) | CloudWatch dashboard body of the cost dashboard, a template the IaC would apply. |
 | [`docs/release-notes/README.md`](docs/release-notes/README.md) | Release notes: what the two templates are for, who fills them, where a filled note is stored and when it is sent, and the harvest-week restriction with its incident path. |
 | [`docs/release-notes/template-application.md`](docs/release-notes/template-application.md) | Blank application release note template: sack lookup, reports web, alerts, inference outcome. |
 | [`docs/release-notes/template-infrastructure.md`](docs/release-notes/template-infrastructure.md) | Blank infrastructure release note template: network, firewall, ingestion, drone path. |
@@ -59,6 +63,10 @@ aroma-pacifico-architecture/
 |   |-- clarification-questions.md
 |   |-- collection-center-network.md
 |   |-- connectivity.md
+|   |-- dashboards/
+|   |   |-- README.md
+|   |   |-- cost.json
+|   |   `-- operational.json
 |   |-- decision-log.md
 |   |-- drone-service.md
 |   |-- farm-monitoring.md
@@ -66,6 +74,7 @@ aroma-pacifico-architecture/
 |   |-- inference-functions.md
 |   |-- landing-zone.md
 |   |-- legacy-2020.md
+|   |-- observability.md
 |   |-- release-notes/
 |   |   |-- README.md
 |   |   |-- example-application-crop-alert-recommended-band.md
