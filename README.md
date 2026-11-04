@@ -27,6 +27,7 @@ The [case statement](docs/case/case-statement.pdf) is the only source of require
 | [`docs/firewall-policy.md`](docs/firewall-policy.md) | Perimeter firewall of each collection center and cloud firewall policy: rules by group, permanent or temporary validity, and the rules to audit before production. |
 | [`docs/drone-service.md`](docs/drone-service.md) | Drone service and fumigation order: the five services as missions, case, order and mission state machines, mission package, flight record, S3 prefixes, inference triggers, ground station endpoints and campaign cadence. |
 | [`docs/farm-monitoring.md`](docs/farm-monitoring.md) | Farm monitoring and pilot alerts: crop and drying load, Federation-configured thresholds and their audit, alert deduplication, push and SMS farmer channel, history and pilot report. |
+| [`docs/sack-and-trip.md`](docs/sack-and-trip.md) | Sack, trip and public lookup: registration, states and transitions, events with date, time and responsible, code sheet, lookup front door, peak arithmetic, stores, RPO and RTO. |
 
 ```text
 aroma-pacifico-architecture/
@@ -54,6 +55,7 @@ aroma-pacifico-architecture/
 |   |-- firewall-policy.md
 |   |-- landing-zone.md
 |   |-- legacy-2020.md
+|   |-- sack-and-trip.md
 |   `-- security-and-identity.md
 `-- standards/
     `-- iac-rules/
