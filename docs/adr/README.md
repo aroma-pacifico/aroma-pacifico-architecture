@@ -34,4 +34,5 @@ The procedure below is sequential, so it is a numbered list.
 |---|---|
 | `README.md` | This lifecycle guide. |
 | [`template.md`](template.md) | The section skeleton every ADR copies. |
-| `adr-NNN-<kebab-slug>.md` | One file per ADR. None is written yet; the reserved file names are listed in the decision log. |
+| [`adr-001-primary-and-second-cloud.md`](adr-001-primary-and-second-cloud.md) | ADR-001: AWS primary in `us-east-1`, Azure prepared as an undeployed export target. |
+| `adr-NNN-<kebab-slug>.md` | One file per ADR. The reserved file names are listed in the decision log. |
