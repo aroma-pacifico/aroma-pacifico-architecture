@@ -12,6 +12,7 @@ The [case statement](docs/case/case-statement.pdf) is the only source of require
 |---|---|
 | [`docs/case/case-statement.pdf`](docs/case/case-statement.pdf) | Case statement; the only source of requirements. |
 | [`docs/decision-log.md`](docs/decision-log.md) | Master log of assumptions (`ASM-NNN`), the ADR index (`ADR-NNN`) and pending decisions (`PD-NNN`). |
+| [`docs/legacy-2020.md`](docs/legacy-2020.md) | 2020 legacy traceability: requirements kept, components retired, and 2026 replacements. |
 | [`docs/adr/README.md`](docs/adr/README.md) | ADR lifecycle: Proposed, Accepted, Superseded. |
 | [`docs/adr/template.md`](docs/adr/template.md) | Template every ADR copies. |
 
@@ -28,7 +29,8 @@ aroma-pacifico-architecture/
 |   |   `-- template.md
 |   |-- case/
 |   |   `-- case-statement.pdf
-|   `-- decision-log.md
+|   |-- decision-log.md
+|   `-- legacy-2020.md
 `-- standards/
     `-- iac-rules/
 ```
