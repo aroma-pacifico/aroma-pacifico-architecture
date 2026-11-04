@@ -34,4 +34,5 @@ The procedure below is sequential, so it is a numbered list.
 |---|---|
 | `README.md` | This lifecycle guide. |
 | [`template.md`](template.md) | The section skeleton every ADR copies. |
-| `adr-NNN-<kebab-slug>.md` | One file per ADR. None is written yet; the reserved file names are listed in the decision log. |
+| [`adr-002-drone-flight-mode-and-governance.md`](adr-002-drone-flight-mode-and-governance.md) | ADR-002: combined flight mode, contracted certified operator flies, Federation agronomist authorizes each fumigation. |
+| `adr-NNN-<kebab-slug>.md` | One file per ADR. The reserved file names are listed in the decision log. |

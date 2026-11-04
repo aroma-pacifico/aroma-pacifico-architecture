@@ -14,6 +14,7 @@ The [case statement](docs/case/case-statement.pdf) is the only source of require
 | [`docs/decision-log.md`](docs/decision-log.md) | Master log of assumptions (`ASM-NNN`), the ADR index (`ADR-NNN`) and pending decisions (`PD-NNN`). |
 | [`docs/adr/README.md`](docs/adr/README.md) | ADR lifecycle: Proposed, Accepted, Superseded. |
 | [`docs/adr/template.md`](docs/adr/template.md) | Template every ADR copies. |
+| [`docs/adr/adr-002-drone-flight-mode-and-governance.md`](docs/adr/adr-002-drone-flight-mode-and-governance.md) | ADR-002: drone flight mode and operational governance. |
 
 ```text
 aroma-pacifico-architecture/
@@ -25,6 +26,7 @@ aroma-pacifico-architecture/
 |-- docs/
 |   |-- adr/
 |   |   |-- README.md
+|   |   |-- adr-002-drone-flight-mode-and-governance.md
 |   |   `-- template.md
 |   |-- case/
 |   |   `-- case-statement.pdf
