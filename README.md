@@ -50,6 +50,7 @@ aroma-pacifico-architecture/
 |   |-- connectivity.md
 |   |-- decision-log.md
 |   |-- drone-service.md
+|   |-- farm-monitoring.md
 |   |-- firewall-policy.md
 |   |-- landing-zone.md
 |   |-- legacy-2020.md
