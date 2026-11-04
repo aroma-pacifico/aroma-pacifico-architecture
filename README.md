@@ -33,6 +33,10 @@ aroma-pacifico-architecture/
     `-- iac-rules/
 ```
 
+## What lives here
+
+This repository holds the architecture of the Aroma Pacífico pilot: the case statement, the decision log, architecture decision records, the design documents, the 100-hour IaC plan, observability, release notes and cost estimates. The AI agent rules and standards are synchronized here from the canonical `aroma-pacifico-ai-agents` repository; do not edit them in this copy.
+
 ## Tasks delivered here
 
 - [A01](https://github.com/aroma-pacifico/aroma-pacifico-roadmap/issues/1)
