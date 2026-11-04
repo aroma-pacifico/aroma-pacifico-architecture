@@ -19,7 +19,7 @@ This file is the single normative constitution for how work is produced in this 
 5. Existing conventions visible in surrounding code
 6. General best practice
 
-**Distribution.** This repository is the canonical copy of `AGENTS.md`. Agents and developers operating in this repository or in linked project repositories must adhere to these rules. `CLAUDE.md` imports this file on its first line (`@AGENTS.md`), and `GEMINI.md` points Gemini and Antigravity to it.
+**Distribution.** `aroma-pacifico-ai-agents` is the canonical home of `AGENTS.md` and related engineering standards. It is copied verbatim across delivery repositories and is never edited in a copy. Change it here, then run the sync script (`scripts/sync-rules.sh`). Agents and developers operating in this repository or in linked project repositories must adhere to these rules. `CLAUDE.md` imports this file on its first line (`@AGENTS.md`), and `GEMINI.md` points Gemini and Antigravity to it.
 
 **Maintenance.** Treat this file as a *failure log, not a wishlist*. When an agent makes the same mistake twice, this file is missing a line. Add the line.
 
@@ -34,7 +34,7 @@ This file is the single normative constitution for how work is produced in this 
 5. **Trunk-based development.** Direct commits to `main` are prohibited. Work on short-lived branches (`<type>/<issue-number>-<kebab-slug>`) under 48 hours and under 400 lines.
 6. **Atomic Conventional Commits.** Every commit must follow `<type>(<scope>): <lowercase imperative subject>` with a mandatory `Refs #<issue>` footer. Commit incrementally as you go.
 7. **Agent publishing boundary.** Agents commit locally and may push only their own assigned feature branch to open a PR to `main`. Agents never push to `main`, never merge, never force-push, and never create repositories. The lead reviews and merges.
-8. **Repository model.** This repository holds architecture, ADRs, plans, costs, design system, and release notes. Terraform code belongs in a dedicated IaC repository created in task B01; no `.tf` files in this repository.
+8. **Repository model.** Concern separation across dedicated organization repositories. Terraform code (`.tf`) belongs strictly in `aroma-pacifico-terraform-modules` and `aroma-pacifico-infrastructure`; no `.tf` files in any other repository.
 9. **Binding IaC rules.** The 26 reference module rules in `standards/iac-rules/` (`pc-iac-001.md` through `pc-iac-026.md`) and `standards/terraform-iac-best-practices.md` are binding for all Terraform work. Renaming a resource requires a `moved` block.
 10. **Show your verification.** "Done" requires running formatting, validation, and verification checks and showing the actual terminal output. Never state something works without showing the verification evidence.
 
@@ -85,23 +85,58 @@ This project is an academic DevOps challenge representing the 2026 update of a c
 
 ---
 
-## 5. Repository Model
+## 5. Organization Repository Model
 
-This repository (`aroma-pacifico-architecture`) holds the architecture of the pilot. Issues live in `aroma-pacifico/aroma-pacifico-roadmap`; the canonical copy of these rules is moving to `aroma-pacifico/aroma-pacifico-ai-agents` (issue G01, roadmap #40). Diagrams live in `aroma-pacifico-diagrams`, Terraform in `aroma-pacifico-terraform-modules` and `aroma-pacifico-infrastructure`.
+The `aroma-pacifico` GitHub organization has one repository per concern:
 
-**What lives here:**
-- Architecture specifications, design diagrams, data flow models
-- Architectural Decision Records (`docs/adr/`)
-- Requirements and case statement (`docs/case/`)
-- Project decision and assumption log (`docs/decision-log.md`)
-- Cost forecasts and Infracost plan evidence
-- Presentation artifacts and release notes
-- Engineering standards (`standards/`) and agent skills (`.agents/skills/`)
+| Repository | Visibility | Holds |
+|---|---|---|
+| `aroma-pacifico-roadmap` | Private | Issues, milestones, labels only (no rules, no code) |
+| `aroma-pacifico-ai-agents` | Private | Canonical rules, standards, skills, the sync script (this task) |
+| `aroma-pacifico-architecture` | Private | Case statement, decision log, ADRs, design documents, plan, observability, release notes, costs |
+| `aroma-pacifico-diagrams` | Private | Diagram sources and SVG/PNG exports, boxes D01-D13 |
+| `aroma-pacifico-terraform-modules` | **Public** | Reusable Terraform reference modules, versioned by git tag (pc-iac-015) |
+| `aroma-pacifico-infrastructure` | Private | Terraform root stack of the pattern environment, remote state, variables, plan-only CI/CD |
+| `aroma-pacifico-design-system` | Private | Design system of the three applications |
+| `aroma-pacifico-presentation` | Private | Final presentation and defense script |
 
-**What does NOT live here:**
-- Live application source code
-- Terraform `.tf` files (Terraform lives in a dedicated IaC repository created in task B01)
-- State files (`.tfstate`), plans (`.tfplan`), credentials, or secrets
+Every issue lives in `aroma-pacifico/aroma-pacifico-roadmap`. Reference issues as `aroma-pacifico/aroma-pacifico-roadmap#<n>`, never as a bare `#<n>`.
+
+Terraform `.tf` files belong strictly in the two Terraform repositories (`aroma-pacifico-terraform-modules` and `aroma-pacifico-infrastructure`). No `.tf` files are permitted in any other repository.
+
+### 5.1 Public Repository Hygiene
+
+`aroma-pacifico-terraform-modules` is **public** by design, allowing `terraform init` to reference modules without credentials while preserving a zero-static-keys security posture.
+
+In `aroma-pacifico-terraform-modules`, never write an account identifier, account-qualified ARN, internal hostname, real endpoint, credential, named principal, or client data, because git history is public too.
+
+**Git history is public too.** A leaked identifier, secret, or internal domain requires git history rewriting, not a follow-up commit. Pre-commit reviews and local verification must ensure no confidential identifiers enter the public repository.
+
+### 5.2 Modules and Stacks
+
+The two Terraform repositories have strictly separated roles:
+
+| Dimension | `aroma-pacifico-terraform-modules` | `aroma-pacifico-infrastructure` |
+|---|---|---|
+| Holds | Reusable reference modules | Root modules (stacks) |
+| Declares `provider` / `backend` | Never | Always |
+| Contains an account identifier | Never | Yes, in stack configuration |
+| Versioned by | Git tags (`v1.2.0`) | Not versioned; represents the pattern state |
+| Changed by | A module improvement | Wiring, or a version bump |
+
+**Separation of concerns:**
+- Never add a resource to a stack that belongs in a reference module.
+- Never hardcode a project-specific name inside a reference module. A module that names its own resources `aroma-*` is not reusable.
+- Reference modules must take a `name_prefix` input variable instead.
+- Root stacks wire reference modules and inject governance variables (`locals.tf`).
+
+### 5.3 Rules Distribution and Canonical Governance
+
+The canonical copy of `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, engineering standards (`standards/`), agent skills (`.agents/skills/`), and workflow conventions lives in `aroma-pacifico-ai-agents`.
+
+- **Verbatim synchronization**: Downstream delivery repositories receive verbatim copies of the distributed rule set.
+- **No local edits**: Rules, skills, and standards must never be edited directly in downstream repositories.
+- **Sync workflow**: Make changes in `aroma-pacifico-ai-agents`, commit and merge them through PR, then execute `scripts/sync-rules.sh apply <repo>` to synchronize the target repositories.
 
 ---
 
@@ -229,7 +264,7 @@ A task is not done until every applicable criterion is satisfied and verificatio
 | Use emojis anywhere | Strict Zero-Emoji mandate (§2). |
 | Invent values, measurements, or approvals | All requirements originate from `docs/case/case-statement.pdf` (§3). |
 | Rename Terraform resource without `moved` block | Renaming in-place causes a destroy and recreate (§8). |
-| Put `.tf` files in this repository | Architecture repo only; IaC lives in separate repo (§5). |
+| Put `.tf` files outside Terraform repositories | Terraform belongs strictly in `aroma-pacifico-terraform-modules` and `aroma-pacifico-infrastructure` (§5). |
 | Hardcode credentials, account IDs, or secrets | Use variables, data sources, and secret managers (§8). |
 
 ### Always

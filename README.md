@@ -4,6 +4,10 @@ Architecture of the Aroma Pacífico pilot: case statement, decision log, ADRs, d
 
 Part of the Aroma Pacífico pilot, the 2026 update of the coffee traceability pilot for Cauca, Huila and Tolima. Work is tracked in [aroma-pacifico-roadmap](https://github.com/aroma-pacifico/aroma-pacifico-roadmap) and on the [Aroma Pacífico Pilot board](https://github.com/orgs/aroma-pacifico/projects/1).
 
+## What lives here
+
+This repository holds the architecture specifications of the Aroma Pacífico pilot, including the requirement case statement, architecture decision records (ADRs), decision and assumption logs, telemetry and data pipeline designs, 100-hour migration plans, observability architectures, cost forecasts, and release notes. Distributed AI agent rules and standards are synchronized here from the canonical `aroma-pacifico-ai-agents` repository.
+
 ## Tasks delivered here
 
 - [A01](https://github.com/aroma-pacifico/aroma-pacifico-roadmap/issues/1)
