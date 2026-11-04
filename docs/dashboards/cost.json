@@ -24,18 +24,7 @@
         "view": "singleValue",
         "stat": "Maximum",
         "period": 21600,
-        "metrics": [
-          [
-            "AWS/Billing",
-            "EstimatedCharges",
-            "Currency",
-            "USD",
-            {
-              "stat": "Maximum",
-              "label": "All accounts"
-            }
-          ]
-        ]
+        "metrics": [["AWS/Billing", "EstimatedCharges", "Currency", "USD", {"stat": "Maximum", "label": "All accounts"}]]
       }
     },
     {
@@ -51,35 +40,9 @@
         "stat": "Maximum",
         "period": 86400,
         "metrics": [
-          [
-            {
-              "expression": "100 * u / t",
-              "label": "Unallocated % (alarm above 5)",
-              "id": "e1"
-            }
-          ],
-          [
-            "AromaPacifico/Cost",
-            "MonthToDateCost",
-            "CostLine",
-            "unallocated",
-            {
-              "stat": "Maximum",
-              "id": "u",
-              "visible": false
-            }
-          ],
-          [
-            "AromaPacifico/Cost",
-            "MonthToDateCost",
-            "CostLine",
-            "total",
-            {
-              "stat": "Maximum",
-              "id": "t",
-              "visible": false
-            }
-          ]
+          [{"expression": "100 * u / t", "label": "Unallocated % (alarm above 5)", "id": "e1"}],
+          ["AromaPacifico/Cost", "MonthToDateCost", "CostLine", "unallocated", {"stat": "Maximum", "id": "u", "visible": false}],
+          ["AromaPacifico/Cost", "MonthToDateCost", "CostLine", "total", {"stat": "Maximum", "id": "t", "visible": false}]
         ]
       }
     },
@@ -95,18 +58,7 @@
         "view": "singleValue",
         "stat": "Maximum",
         "period": 86400,
-        "metrics": [
-          [
-            "AromaPacifico/Cost",
-            "MonthToDateCost",
-            "CostLine",
-            "testing",
-            {
-              "stat": "Maximum",
-              "label": "Testing (dev and qa accounts)"
-            }
-          ]
-        ]
+        "metrics": [["AromaPacifico/Cost", "MonthToDateCost", "CostLine", "testing", {"stat": "Maximum", "label": "Testing (dev and qa accounts)"}]]
       }
     },
     {
@@ -136,12 +88,7 @@
         "view": "bar",
         "stat": "Maximum",
         "period": 86400,
-        "metrics": [
-          {
-            "expression": "SEARCH('{AromaPacifico/Cost,CostLine} MetricName=\"DailyCost\"', 'Maximum', 86400)",
-            "id": "e1"
-          }
-        ],
+        "metrics": [{"expression": "SEARCH('{AromaPacifico/Cost,CostLine} MetricName=\"DailyCost\"', 'Maximum', 86400)", "id": "e1"}],
         "start": "-P35D",
         "end": "P0D",
         "stacked": true
@@ -159,12 +106,7 @@
         "view": "bar",
         "stat": "Maximum",
         "period": 86400,
-        "metrics": [
-          {
-            "expression": "SEARCH('{AromaPacifico/Cost,CostLine} MetricName=\"MonthToDateCost\"', 'Maximum', 86400)",
-            "id": "e1"
-          }
-        ]
+        "metrics": [{"expression": "SEARCH('{AromaPacifico/Cost,CostLine} MetricName=\"MonthToDateCost\"', 'Maximum', 86400)", "id": "e1"}]
       }
     },
     {
@@ -180,46 +122,10 @@
         "stat": "Maximum",
         "period": 86400,
         "metrics": [
-          [
-            "AromaPacifico/Cost",
-            "MonthToDateCost",
-            "CollectionCenter",
-            "cauca",
-            {
-              "stat": "Maximum",
-              "label": "cauca"
-            }
-          ],
-          [
-            "AromaPacifico/Cost",
-            "MonthToDateCost",
-            "CollectionCenter",
-            "huila",
-            {
-              "stat": "Maximum",
-              "label": "huila"
-            }
-          ],
-          [
-            "AromaPacifico/Cost",
-            "MonthToDateCost",
-            "CollectionCenter",
-            "tolima",
-            {
-              "stat": "Maximum",
-              "label": "tolima"
-            }
-          ],
-          [
-            "AromaPacifico/Cost",
-            "MonthToDateCost",
-            "CollectionCenter",
-            "none",
-            {
-              "stat": "Maximum",
-              "label": "none"
-            }
-          ]
+          ["AromaPacifico/Cost", "MonthToDateCost", "CollectionCenter", "cauca", {"stat": "Maximum", "label": "cauca"}],
+          ["AromaPacifico/Cost", "MonthToDateCost", "CollectionCenter", "huila", {"stat": "Maximum", "label": "huila"}],
+          ["AromaPacifico/Cost", "MonthToDateCost", "CollectionCenter", "tolima", {"stat": "Maximum", "label": "tolima"}],
+          ["AromaPacifico/Cost", "MonthToDateCost", "CollectionCenter", "none", {"stat": "Maximum", "label": "none"}]
         ]
       }
     },
@@ -236,24 +142,8 @@
         "stat": "Maximum",
         "period": 86400,
         "metrics": [
-          [
-            "AromaPacifico/Cost",
-            "MonthToDateCost",
-            "CostLine",
-            "farms",
-            {
-              "stat": "Maximum",
-              "id": "f",
-              "label": "Farms line"
-            }
-          ],
-          [
-            {
-              "expression": "f / ${enrolled_farms}",
-              "label": "Mean per enrolled farm",
-              "id": "e1"
-            }
-          ]
+          ["AromaPacifico/Cost", "MonthToDateCost", "CostLine", "farms", {"stat": "Maximum", "id": "f", "label": "Farms line"}],
+          [{"expression": "f / ${enrolled_farms}", "label": "Mean per enrolled farm", "id": "e1"}]
         ]
       }
     },
@@ -269,12 +159,7 @@
         "view": "timeSeries",
         "stat": "Maximum",
         "period": 21600,
-        "metrics": [
-          {
-            "expression": "SEARCH('{AWS/Billing,Currency,LinkedAccount} MetricName=\"EstimatedCharges\"', 'Maximum', 21600)",
-            "id": "e1"
-          }
-        ]
+        "metrics": [{"expression": "SEARCH('{AWS/Billing,Currency,LinkedAccount} MetricName=\"EstimatedCharges\"', 'Maximum', 21600)", "id": "e1"}]
       }
     },
     {
@@ -289,12 +174,7 @@
         "view": "bar",
         "stat": "Maximum",
         "period": 86400,
-        "metrics": [
-          {
-            "expression": "SEARCH('{AromaPacifico/Cost,Driver} MetricName=\"DailyCost\"', 'Maximum', 86400)",
-            "id": "e1"
-          }
-        ],
+        "metrics": [{"expression": "SEARCH('{AromaPacifico/Cost,Driver} MetricName=\"DailyCost\"', 'Maximum', 86400)", "id": "e1"}],
         "start": "-P35D",
         "end": "P0D",
         "stacked": true
@@ -312,12 +192,7 @@
         "view": "timeSeries",
         "stat": "Maximum",
         "period": 21600,
-        "metrics": [
-          {
-            "expression": "SEARCH('{AWS/Billing,Currency,ServiceName} MetricName=\"EstimatedCharges\"', 'Maximum', 21600)",
-            "id": "e1"
-          }
-        ]
+        "metrics": [{"expression": "SEARCH('{AWS/Billing,Currency,ServiceName} MetricName=\"EstimatedCharges\"', 'Maximum', 21600)", "id": "e1"}]
       }
     },
     {
@@ -333,27 +208,8 @@
         "stat": "Maximum",
         "period": 86400,
         "metrics": [
-          [
-            "AromaPacifico/Cost",
-            "DailyCost",
-            "Driver",
-            "iot-core",
-            {
-              "stat": "Maximum",
-              "label": "Daily cost (USD)"
-            }
-          ],
-          [
-            "AromaPacifico/Cost",
-            "DailyUsage",
-            "Driver",
-            "iot-core",
-            {
-              "stat": "Maximum",
-              "label": "Daily usage quantity",
-              "yAxis": "right"
-            }
-          ]
+          ["AromaPacifico/Cost", "DailyCost", "Driver", "iot-core", {"stat": "Maximum", "label": "Daily cost (USD)"}],
+          ["AromaPacifico/Cost", "DailyUsage", "Driver", "iot-core", {"stat": "Maximum", "label": "Daily usage quantity", "yAxis": "right"}]
         ],
         "start": "-P35D",
         "end": "P0D"
@@ -372,27 +228,8 @@
         "stat": "Maximum",
         "period": 86400,
         "metrics": [
-          [
-            "AromaPacifico/Cost",
-            "DailyCost",
-            "Driver",
-            "lambda",
-            {
-              "stat": "Maximum",
-              "label": "Daily cost (USD)"
-            }
-          ],
-          [
-            "AromaPacifico/Cost",
-            "DailyUsage",
-            "Driver",
-            "lambda",
-            {
-              "stat": "Maximum",
-              "label": "Daily usage quantity",
-              "yAxis": "right"
-            }
-          ]
+          ["AromaPacifico/Cost", "DailyCost", "Driver", "lambda", {"stat": "Maximum", "label": "Daily cost (USD)"}],
+          ["AromaPacifico/Cost", "DailyUsage", "Driver", "lambda", {"stat": "Maximum", "label": "Daily usage quantity", "yAxis": "right"}]
         ],
         "start": "-P35D",
         "end": "P0D"
@@ -411,27 +248,8 @@
         "stat": "Maximum",
         "period": 86400,
         "metrics": [
-          [
-            "AromaPacifico/Cost",
-            "DailyCost",
-            "Driver",
-            "bedrock",
-            {
-              "stat": "Maximum",
-              "label": "Daily cost (USD)"
-            }
-          ],
-          [
-            "AromaPacifico/Cost",
-            "DailyUsage",
-            "Driver",
-            "bedrock",
-            {
-              "stat": "Maximum",
-              "label": "Daily usage quantity",
-              "yAxis": "right"
-            }
-          ]
+          ["AromaPacifico/Cost", "DailyCost", "Driver", "bedrock", {"stat": "Maximum", "label": "Daily cost (USD)"}],
+          ["AromaPacifico/Cost", "DailyUsage", "Driver", "bedrock", {"stat": "Maximum", "label": "Daily usage quantity", "yAxis": "right"}]
         ],
         "start": "-P35D",
         "end": "P0D"
@@ -450,27 +268,8 @@
         "stat": "Maximum",
         "period": 86400,
         "metrics": [
-          [
-            "AromaPacifico/Cost",
-            "DailyCost",
-            "Driver",
-            "dynamodb",
-            {
-              "stat": "Maximum",
-              "label": "Daily cost (USD)"
-            }
-          ],
-          [
-            "AromaPacifico/Cost",
-            "DailyUsage",
-            "Driver",
-            "dynamodb",
-            {
-              "stat": "Maximum",
-              "label": "Daily usage quantity",
-              "yAxis": "right"
-            }
-          ]
+          ["AromaPacifico/Cost", "DailyCost", "Driver", "dynamodb", {"stat": "Maximum", "label": "Daily cost (USD)"}],
+          ["AromaPacifico/Cost", "DailyUsage", "Driver", "dynamodb", {"stat": "Maximum", "label": "Daily usage quantity", "yAxis": "right"}]
         ],
         "start": "-P35D",
         "end": "P0D"
@@ -489,27 +288,8 @@
         "stat": "Maximum",
         "period": 86400,
         "metrics": [
-          [
-            "AromaPacifico/Cost",
-            "DailyCost",
-            "Driver",
-            "s3",
-            {
-              "stat": "Maximum",
-              "label": "Daily cost (USD)"
-            }
-          ],
-          [
-            "AromaPacifico/Cost",
-            "DailyUsage",
-            "Driver",
-            "s3",
-            {
-              "stat": "Maximum",
-              "label": "Daily usage quantity",
-              "yAxis": "right"
-            }
-          ]
+          ["AromaPacifico/Cost", "DailyCost", "Driver", "s3", {"stat": "Maximum", "label": "Daily cost (USD)"}],
+          ["AromaPacifico/Cost", "DailyUsage", "Driver", "s3", {"stat": "Maximum", "label": "Daily usage quantity", "yAxis": "right"}]
         ],
         "start": "-P35D",
         "end": "P0D"
@@ -528,27 +308,8 @@
         "stat": "Maximum",
         "period": 86400,
         "metrics": [
-          [
-            "AromaPacifico/Cost",
-            "DailyCost",
-            "Driver",
-            "vpn-and-transit",
-            {
-              "stat": "Maximum",
-              "label": "Daily cost (USD)"
-            }
-          ],
-          [
-            "AromaPacifico/Cost",
-            "DailyUsage",
-            "Driver",
-            "vpn-and-transit",
-            {
-              "stat": "Maximum",
-              "label": "Daily usage quantity",
-              "yAxis": "right"
-            }
-          ]
+          ["AromaPacifico/Cost", "DailyCost", "Driver", "vpn-and-transit", {"stat": "Maximum", "label": "Daily cost (USD)"}],
+          ["AromaPacifico/Cost", "DailyUsage", "Driver", "vpn-and-transit", {"stat": "Maximum", "label": "Daily usage quantity", "yAxis": "right"}]
         ],
         "start": "-P35D",
         "end": "P0D"
@@ -567,27 +328,8 @@
         "stat": "Maximum",
         "period": 86400,
         "metrics": [
-          [
-            "AromaPacifico/Cost",
-            "DailyCost",
-            "Driver",
-            "nat",
-            {
-              "stat": "Maximum",
-              "label": "Daily cost (USD)"
-            }
-          ],
-          [
-            "AromaPacifico/Cost",
-            "DailyUsage",
-            "Driver",
-            "nat",
-            {
-              "stat": "Maximum",
-              "label": "Daily usage quantity",
-              "yAxis": "right"
-            }
-          ]
+          ["AromaPacifico/Cost", "DailyCost", "Driver", "nat", {"stat": "Maximum", "label": "Daily cost (USD)"}],
+          ["AromaPacifico/Cost", "DailyUsage", "Driver", "nat", {"stat": "Maximum", "label": "Daily usage quantity", "yAxis": "right"}]
         ],
         "start": "-P35D",
         "end": "P0D"
@@ -606,27 +348,8 @@
         "stat": "Maximum",
         "period": 86400,
         "metrics": [
-          [
-            "AromaPacifico/Cost",
-            "DailyCost",
-            "Driver",
-            "cloudfront",
-            {
-              "stat": "Maximum",
-              "label": "Daily cost (USD)"
-            }
-          ],
-          [
-            "AromaPacifico/Cost",
-            "DailyUsage",
-            "Driver",
-            "cloudfront",
-            {
-              "stat": "Maximum",
-              "label": "Daily usage quantity",
-              "yAxis": "right"
-            }
-          ]
+          ["AromaPacifico/Cost", "DailyCost", "Driver", "cloudfront", {"stat": "Maximum", "label": "Daily cost (USD)"}],
+          ["AromaPacifico/Cost", "DailyUsage", "Driver", "cloudfront", {"stat": "Maximum", "label": "Daily usage quantity", "yAxis": "right"}]
         ],
         "start": "-P35D",
         "end": "P0D"
@@ -645,27 +368,8 @@
         "stat": "Maximum",
         "period": 86400,
         "metrics": [
-          [
-            "AromaPacifico/Cost",
-            "DailyCost",
-            "Driver",
-            "waf",
-            {
-              "stat": "Maximum",
-              "label": "Daily cost (USD)"
-            }
-          ],
-          [
-            "AromaPacifico/Cost",
-            "DailyUsage",
-            "Driver",
-            "waf",
-            {
-              "stat": "Maximum",
-              "label": "Daily usage quantity",
-              "yAxis": "right"
-            }
-          ]
+          ["AromaPacifico/Cost", "DailyCost", "Driver", "waf", {"stat": "Maximum", "label": "Daily cost (USD)"}],
+          ["AromaPacifico/Cost", "DailyUsage", "Driver", "waf", {"stat": "Maximum", "label": "Daily usage quantity", "yAxis": "right"}]
         ],
         "start": "-P35D",
         "end": "P0D"
@@ -684,27 +388,8 @@
         "stat": "Maximum",
         "period": 86400,
         "metrics": [
-          [
-            "AromaPacifico/Cost",
-            "DailyCost",
-            "Driver",
-            "sms-and-push",
-            {
-              "stat": "Maximum",
-              "label": "Daily cost (USD)"
-            }
-          ],
-          [
-            "AromaPacifico/Cost",
-            "DailyUsage",
-            "Driver",
-            "sms-and-push",
-            {
-              "stat": "Maximum",
-              "label": "Daily usage quantity",
-              "yAxis": "right"
-            }
-          ]
+          ["AromaPacifico/Cost", "DailyCost", "Driver", "sms-and-push", {"stat": "Maximum", "label": "Daily cost (USD)"}],
+          ["AromaPacifico/Cost", "DailyUsage", "Driver", "sms-and-push", {"stat": "Maximum", "label": "Daily usage quantity", "yAxis": "right"}]
         ],
         "start": "-P35D",
         "end": "P0D"
@@ -723,27 +408,8 @@
         "stat": "Maximum",
         "period": 86400,
         "metrics": [
-          [
-            "AromaPacifico/Cost",
-            "DailyCost",
-            "Driver",
-            "cloudwatch",
-            {
-              "stat": "Maximum",
-              "label": "Daily cost (USD)"
-            }
-          ],
-          [
-            "AromaPacifico/Cost",
-            "DailyUsage",
-            "Driver",
-            "cloudwatch",
-            {
-              "stat": "Maximum",
-              "label": "Daily usage quantity",
-              "yAxis": "right"
-            }
-          ]
+          ["AromaPacifico/Cost", "DailyCost", "Driver", "cloudwatch", {"stat": "Maximum", "label": "Daily cost (USD)"}],
+          ["AromaPacifico/Cost", "DailyUsage", "Driver", "cloudwatch", {"stat": "Maximum", "label": "Daily usage quantity", "yAxis": "right"}]
         ],
         "start": "-P35D",
         "end": "P0D"
@@ -762,27 +428,8 @@
         "stat": "Maximum",
         "period": 86400,
         "metrics": [
-          [
-            "AromaPacifico/Cost",
-            "DailyCost",
-            "Driver",
-            "kms",
-            {
-              "stat": "Maximum",
-              "label": "Daily cost (USD)"
-            }
-          ],
-          [
-            "AromaPacifico/Cost",
-            "DailyUsage",
-            "Driver",
-            "kms",
-            {
-              "stat": "Maximum",
-              "label": "Daily usage quantity",
-              "yAxis": "right"
-            }
-          ]
+          ["AromaPacifico/Cost", "DailyCost", "Driver", "kms", {"stat": "Maximum", "label": "Daily cost (USD)"}],
+          ["AromaPacifico/Cost", "DailyUsage", "Driver", "kms", {"stat": "Maximum", "label": "Daily usage quantity", "yAxis": "right"}]
         ],
         "start": "-P35D",
         "end": "P0D"
@@ -800,24 +447,8 @@
         "view": "bar",
         "stat": "Maximum",
         "period": 86400,
-        "metrics": [
-          {
-            "expression": "SEARCH('{AromaPacifico/Cost,BudgetName} MetricName=\"BudgetActualPercent\"', 'Maximum', 86400)",
-            "id": "e1"
-          }
-        ],
-        "annotations": {
-          "horizontal": [
-            {
-              "label": "80 %",
-              "value": 80
-            },
-            {
-              "label": "100 %",
-              "value": 100
-            }
-          ]
-        }
+        "metrics": [{"expression": "SEARCH('{AromaPacifico/Cost,BudgetName} MetricName=\"BudgetActualPercent\"', 'Maximum', 86400)", "id": "e1"}],
+        "annotations": {"horizontal": [{"label": "80 %", "value": 80}, {"label": "100 %", "value": 100}]}
       }
     },
     {
@@ -832,20 +463,8 @@
         "view": "bar",
         "stat": "Maximum",
         "period": 86400,
-        "metrics": [
-          {
-            "expression": "SEARCH('{AromaPacifico/Cost,BudgetName} MetricName=\"BudgetForecastPercent\"', 'Maximum', 86400)",
-            "id": "e1"
-          }
-        ],
-        "annotations": {
-          "horizontal": [
-            {
-              "label": "100 %",
-              "value": 100
-            }
-          ]
-        }
+        "metrics": [{"expression": "SEARCH('{AromaPacifico/Cost,BudgetName} MetricName=\"BudgetForecastPercent\"', 'Maximum', 86400)", "id": "e1"}],
+        "annotations": {"horizontal": [{"label": "100 %", "value": 100}]}
       }
     },
     {

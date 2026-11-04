@@ -25,29 +25,9 @@
         "stat": "Sum",
         "period": 86400,
         "metrics": [
-          [
-            {
-              "expression": "100 * g / v",
-              "label": "Attainment %",
-              "id": "e1"
-            }
-          ],
-          [
-            "AromaPacifico/Alerts",
-            "AlertDeliveryGood",
-            {
-              "id": "g",
-              "visible": false
-            }
-          ],
-          [
-            "AromaPacifico/Alerts",
-            "AlertDeliveryValid",
-            {
-              "id": "v",
-              "visible": false
-            }
-          ]
+          [{"expression": "100 * g / v", "label": "Attainment %", "id": "e1"}],
+          ["AromaPacifico/Alerts", "AlertDeliveryGood", {"id": "g", "visible": false}],
+          ["AromaPacifico/Alerts", "AlertDeliveryValid", {"id": "v", "visible": false}]
         ],
         "setPeriodToTimeRange": true,
         "start": "-P28D",
@@ -67,29 +47,9 @@
         "stat": "Sum",
         "period": 86400,
         "metrics": [
-          [
-            {
-              "expression": "100 * (1 - ((v - g) / v) / 0.05)",
-              "label": "Budget remaining %",
-              "id": "e1"
-            }
-          ],
-          [
-            "AromaPacifico/Alerts",
-            "AlertDeliveryGood",
-            {
-              "id": "g",
-              "visible": false
-            }
-          ],
-          [
-            "AromaPacifico/Alerts",
-            "AlertDeliveryValid",
-            {
-              "id": "v",
-              "visible": false
-            }
-          ]
+          [{"expression": "100 * (1 - ((v - g) / v) / 0.05)", "label": "Budget remaining %", "id": "e1"}],
+          ["AromaPacifico/Alerts", "AlertDeliveryGood", {"id": "g", "visible": false}],
+          ["AromaPacifico/Alerts", "AlertDeliveryValid", {"id": "v", "visible": false}]
         ],
         "setPeriodToTimeRange": true,
         "start": "-P28D",
@@ -109,29 +69,9 @@
         "stat": "Sum",
         "period": 86400,
         "metrics": [
-          [
-            {
-              "expression": "100 * g / v",
-              "label": "Attainment %",
-              "id": "e1"
-            }
-          ],
-          [
-            "AromaPacifico/Lookup",
-            "LookupGood",
-            {
-              "id": "g",
-              "visible": false
-            }
-          ],
-          [
-            "AromaPacifico/Lookup",
-            "LookupValid",
-            {
-              "id": "v",
-              "visible": false
-            }
-          ]
+          [{"expression": "100 * g / v", "label": "Attainment %", "id": "e1"}],
+          ["AromaPacifico/Lookup", "LookupGood", {"id": "g", "visible": false}],
+          ["AromaPacifico/Lookup", "LookupValid", {"id": "v", "visible": false}]
         ],
         "setPeriodToTimeRange": true,
         "start": "-P28D",
@@ -151,29 +91,9 @@
         "stat": "Sum",
         "period": 86400,
         "metrics": [
-          [
-            {
-              "expression": "100 * (1 - ((v - g) / v) / 0.005)",
-              "label": "Budget remaining %",
-              "id": "e1"
-            }
-          ],
-          [
-            "AromaPacifico/Lookup",
-            "LookupGood",
-            {
-              "id": "g",
-              "visible": false
-            }
-          ],
-          [
-            "AromaPacifico/Lookup",
-            "LookupValid",
-            {
-              "id": "v",
-              "visible": false
-            }
-          ]
+          [{"expression": "100 * (1 - ((v - g) / v) / 0.005)", "label": "Budget remaining %", "id": "e1"}],
+          ["AromaPacifico/Lookup", "LookupGood", {"id": "g", "visible": false}],
+          ["AromaPacifico/Lookup", "LookupValid", {"id": "v", "visible": false}]
         ],
         "setPeriodToTimeRange": true,
         "start": "-P28D",
@@ -213,55 +133,15 @@
         "stat": "Sum",
         "period": 3600,
         "metrics": [
-          [
-            {
-              "expression": "IF(v > 0, 100 * g / v)",
-              "label": "Good %",
-              "id": "e1"
-            }
-          ],
-          [
-            "AromaPacifico/Alerts",
-            "AlertDeliveryGood",
-            {
-              "id": "g",
-              "visible": false
-            }
-          ],
-          [
-            "AromaPacifico/Alerts",
-            "AlertDeliveryValid",
-            {
-              "id": "v",
-              "visible": false
-            }
-          ],
-          [
-            "AromaPacifico/Alerts",
-            "AlertDeliveryExcluded",
-            {
-              "id": "x",
-              "label": "Excluded (handset unreachable)",
-              "yAxis": "right"
-            }
-          ]
+          [{"expression": "IF(v > 0, 100 * g / v)", "label": "Good %", "id": "e1"}],
+          ["AromaPacifico/Alerts", "AlertDeliveryGood", {"id": "g", "visible": false}],
+          ["AromaPacifico/Alerts", "AlertDeliveryValid", {"id": "v", "visible": false}],
+          ["AromaPacifico/Alerts", "AlertDeliveryExcluded", {"id": "x", "label": "Excluded (handset unreachable)", "yAxis": "right"}]
         ],
         "start": "-P7D",
         "end": "P0D",
-        "annotations": {
-          "horizontal": [
-            {
-              "label": "Objective",
-              "value": 95
-            }
-          ]
-        },
-        "yAxis": {
-          "left": {
-            "min": 0,
-            "max": 100
-          }
-        }
+        "annotations": {"horizontal": [{"label": "Objective", "value": 95}]},
+        "yAxis": {"left": {"min": 0, "max": 100}}
       }
     },
     {
@@ -290,56 +170,15 @@
         "stat": "Sum",
         "period": 3600,
         "metrics": [
-          [
-            {
-              "expression": "IF(v > 0, 100 * g / v)",
-              "label": "Good %",
-              "id": "e1"
-            }
-          ],
-          [
-            "AromaPacifico/Lookup",
-            "LookupGood",
-            {
-              "id": "g",
-              "visible": false
-            }
-          ],
-          [
-            "AromaPacifico/Lookup",
-            "LookupValid",
-            {
-              "id": "v",
-              "visible": false
-            }
-          ],
-          [
-            "CloudWatchSynthetics",
-            "SuccessPercent",
-            "CanaryName",
-            "${prefix}-${env}-canary-lookup",
-            {
-              "stat": "Average",
-              "label": "Probe success %"
-            }
-          ]
+          [{"expression": "IF(v > 0, 100 * g / v)", "label": "Good %", "id": "e1"}],
+          ["AromaPacifico/Lookup", "LookupGood", {"id": "g", "visible": false}],
+          ["AromaPacifico/Lookup", "LookupValid", {"id": "v", "visible": false}],
+          ["CloudWatchSynthetics", "SuccessPercent", "CanaryName", "${prefix}-${env}-canary-lookup", {"stat": "Average", "label": "Probe success %"}]
         ],
         "start": "-P7D",
         "end": "P0D",
-        "annotations": {
-          "horizontal": [
-            {
-              "label": "Objective",
-              "value": 99.5
-            }
-          ]
-        },
-        "yAxis": {
-          "left": {
-            "min": 90,
-            "max": 100
-          }
-        }
+        "annotations": {"horizontal": [{"label": "Objective", "value": 99.5}]},
+        "yAxis": {"left": {"min": 90, "max": 100}}
       }
     },
     {
@@ -366,16 +205,7 @@
         "sortBy": "stateUpdatedTimestamp"
       }
     },
-    {
-      "type": "text",
-      "x": 0,
-      "y": 16,
-      "width": 24,
-      "height": 1,
-      "properties": {
-        "markdown": "## Ingestion and farms without telemetry"
-      }
-    },
+    {"type": "text", "x": 0, "y": 16, "width": 24, "height": 1, "properties": {"markdown": "## Ingestion and farms without telemetry"}},
     {
       "type": "metric",
       "x": 0,
@@ -388,12 +218,7 @@
         "view": "timeSeries",
         "stat": "Sum",
         "period": 3600,
-        "metrics": [
-          {
-            "expression": "SEARCH('{AromaPacifico/Telemetry,CollectionCenter,Zone} MetricName=\"ReadingsEvaluated\"', 'Sum', 3600)",
-            "id": "e1"
-          }
-        ]
+        "metrics": [{"expression": "SEARCH('{AromaPacifico/Telemetry,CollectionCenter,Zone} MetricName=\"ReadingsEvaluated\"', 'Sum', 3600)", "id": "e1"}]
       }
     },
     {
@@ -409,32 +234,9 @@
         "stat": "Sum",
         "period": 3600,
         "metrics": [
-          [
-            "AromaPacifico/Telemetry",
-            "IngestLagSeconds",
-            {
-              "stat": "p95",
-              "label": "Ingest lag p95 (s)"
-            }
-          ],
-          [
-            "AromaPacifico/Telemetry",
-            "ReadingsDelayed",
-            {
-              "stat": "Sum",
-              "label": "Delayed readings",
-              "yAxis": "right"
-            }
-          ],
-          [
-            "AromaPacifico/Telemetry",
-            "ReadingsEvicted",
-            {
-              "stat": "Sum",
-              "label": "Evicted from buffers",
-              "yAxis": "right"
-            }
-          ]
+          ["AromaPacifico/Telemetry", "IngestLagSeconds", {"stat": "p95", "label": "Ingest lag p95 (s)"}],
+          ["AromaPacifico/Telemetry", "ReadingsDelayed", {"stat": "Sum", "label": "Delayed readings", "yAxis": "right"}],
+          ["AromaPacifico/Telemetry", "ReadingsEvicted", {"stat": "Sum", "label": "Evicted from buffers", "yAxis": "right"}]
         ]
       }
     },
@@ -451,51 +253,16 @@
         "stat": "Sum",
         "period": 300,
         "metrics": [
-          [
-            "AWS/IoT",
-            "Connect.AuthError",
-            {
-              "label": "Connect auth errors"
-            }
-          ],
-          [
-            "AWS/IoT",
-            "PublishIn.AuthError",
-            {
-              "label": "Publish auth errors"
-            }
-          ],
-          [
-            "AWS/IoT",
-            "Failure",
-            "RuleName",
-            "${telemetry_rule_name}",
-            "ActionType",
-            "DynamoDBv2",
-            {
-              "label": "Rule store write failures"
-            }
-          ],
-          [
-            "AWS/IoT",
-            "Failure",
-            "RuleName",
-            "${telemetry_rule_name}",
-            "ActionType",
-            "SQS",
-            {
-              "label": "Rule queue send failures"
-            }
-          ],
+          ["AWS/IoT", "Connect.AuthError", {"label": "Connect auth errors"}],
+          ["AWS/IoT", "PublishIn.AuthError", {"label": "Publish auth errors"}],
+          ["AWS/IoT", "Failure", "RuleName", "${telemetry_rule_name}", "ActionType", "DynamoDBv2", {"label": "Rule store write failures"}],
+          ["AWS/IoT", "Failure", "RuleName", "${telemetry_rule_name}", "ActionType", "SQS", {"label": "Rule queue send failures"}],
           [
             "AWS/SQS",
             "ApproximateNumberOfMessagesVisible",
             "QueueName",
             "${prefix}-${env}-sqs-iotruleerr",
-            {
-              "stat": "Maximum",
-              "label": "Rule error queue depth"
-            }
+            {"stat": "Maximum", "label": "Rule error queue depth"}
           ]
         ]
       }
@@ -539,16 +306,7 @@
         "query": "SOURCE '/aws/lambda/${prefix}-${env}-lambda-obsdetector' | filter detector = \"node_silence\" and silent_hours > 8 | stats latest(silent_hours) as hours_silent, latest(last_received_at) as last_received by farm_id, node_id, zone, department | sort hours_silent desc | limit 200"
       }
     },
-    {
-      "type": "text",
-      "x": 0,
-      "y": 29,
-      "width": 24,
-      "height": 1,
-      "properties": {
-        "markdown": "## Crop alerts to farmers"
-      }
-    },
+    {"type": "text", "x": 0, "y": 29, "width": 24, "height": 1, "properties": {"markdown": "## Crop alerts to farmers"}},
     {
       "type": "metric",
       "x": 0,
@@ -562,34 +320,10 @@
         "stat": "Sum",
         "period": 3600,
         "metrics": [
-          [
-            "AromaPacifico/Alerts",
-            "AlertsPublished",
-            {
-              "label": "Published"
-            }
-          ],
-          [
-            "AromaPacifico/Alerts",
-            "SmsSent",
-            {
-              "label": "SMS sent"
-            }
-          ],
-          [
-            "AromaPacifico/Alerts",
-            "PushSent",
-            {
-              "label": "Push sent"
-            }
-          ],
-          [
-            "AromaPacifico/Alerts",
-            "SmsDeliveryFailed",
-            {
-              "label": "SMS failed"
-            }
-          ]
+          ["AromaPacifico/Alerts", "AlertsPublished", {"label": "Published"}],
+          ["AromaPacifico/Alerts", "SmsSent", {"label": "SMS sent"}],
+          ["AromaPacifico/Alerts", "PushSent", {"label": "Push sent"}],
+          ["AromaPacifico/Alerts", "SmsDeliveryFailed", {"label": "SMS failed"}]
         ]
       }
     },
@@ -637,21 +371,14 @@
             "ApproximateAgeOfOldestMessage",
             "QueueName",
             "${prefix}-${env}-sqs-notify",
-            {
-              "stat": "Maximum",
-              "label": "Oldest message age (s)"
-            }
+            {"stat": "Maximum", "label": "Oldest message age (s)"}
           ],
           [
             "AWS/SQS",
             "ApproximateNumberOfMessagesVisible",
             "QueueName",
             "${prefix}-${env}-sqs-notifydlq",
-            {
-              "stat": "Maximum",
-              "label": "Dead-letter messages",
-              "yAxis": "right"
-            }
+            {"stat": "Maximum", "label": "Dead-letter messages", "yAxis": "right"}
           ],
           [
             "AWS/Lambda",
@@ -660,10 +387,7 @@
             "${prefix}-${env}-lambda-dispatcher",
             "Resource",
             "${prefix}-${env}-lambda-dispatcher:live",
-            {
-              "stat": "p99",
-              "label": "Dispatcher p99 (ms)"
-            }
+            {"stat": "p99", "label": "Dispatcher p99 (ms)"}
           ]
         ]
       }
@@ -681,16 +405,7 @@
         "query": "SOURCE '/aws/lambda/${prefix}-${env}-lambda-obsdetector' | filter detector = \"alert_pending_delivery\" | stats latest(pending_minutes) as minutes_pending, latest(sms_status) as sms, latest(push_status) as push by episode_id, farm_id, department, variable, delayed | sort minutes_pending desc | limit 100"
       }
     },
-    {
-      "type": "text",
-      "x": 0,
-      "y": 41,
-      "width": 24,
-      "height": 1,
-      "properties": {
-        "markdown": "## Drones: flight objects, flights and fumigations"
-      }
-    },
+    {"type": "text", "x": 0, "y": 41, "width": 24, "height": 1, "properties": {"markdown": "## Drones: flight objects, flights and fumigations"}},
     {
       "type": "metric",
       "x": 0,
@@ -704,49 +419,11 @@
         "stat": "Sum",
         "period": 3600,
         "metrics": [
-          [
-            "AromaPacifico/Drone",
-            "ObjectsPersisted",
-            {
-              "label": "Persisted"
-            }
-          ],
-          [
-            "AromaPacifico/Drone",
-            "ObjectsRejected",
-            {
-              "label": "Rejected (checksum)"
-            }
-          ],
-          [
-            "AromaPacifico/Drone",
-            "ObjectsQuarantined",
-            {
-              "label": "Quarantined"
-            }
-          ],
-          [
-            "AWS/S3",
-            "PutRequests",
-            "BucketName",
-            "${prefix}-${env}-s3-droneobjects",
-            "FilterId",
-            "farms",
-            {
-              "label": "S3 PUT requests"
-            }
-          ],
-          [
-            "AWS/S3",
-            "4xxErrors",
-            "BucketName",
-            "${prefix}-${env}-s3-droneobjects",
-            "FilterId",
-            "farms",
-            {
-              "label": "S3 4xx"
-            }
-          ]
+          ["AromaPacifico/Drone", "ObjectsPersisted", {"label": "Persisted"}],
+          ["AromaPacifico/Drone", "ObjectsRejected", {"label": "Rejected (checksum)"}],
+          ["AromaPacifico/Drone", "ObjectsQuarantined", {"label": "Quarantined"}],
+          ["AWS/S3", "PutRequests", "BucketName", "${prefix}-${env}-s3-droneobjects", "FilterId", "farms", {"label": "S3 PUT requests"}],
+          ["AWS/S3", "4xxErrors", "BucketName", "${prefix}-${env}-s3-droneobjects", "FilterId", "farms", {"label": "S3 4xx"}]
         ]
       }
     },
@@ -762,12 +439,7 @@
         "view": "timeSeries",
         "stat": "Maximum",
         "period": 3600,
-        "metrics": [
-          {
-            "expression": "SEARCH('{AromaPacifico/Detector,MissionType,State} MetricName=\"MissionsWithoutRecord\"', 'Maximum', 3600)",
-            "id": "e1"
-          }
-        ]
+        "metrics": [{"expression": "SEARCH('{AromaPacifico/Detector,MissionType,State} MetricName=\"MissionsWithoutRecord\"', 'Maximum', 3600)", "id": "e1"}]
       }
     },
     {
@@ -783,10 +455,7 @@
         "stat": "Maximum",
         "period": 3600,
         "metrics": [
-          {
-            "expression": "SEARCH('{AromaPacifico/Detector,State} MetricName=\"FumigationsOpen\"', 'Maximum', 3600)",
-            "id": "e1"
-          },
+          {"expression": "SEARCH('{AromaPacifico/Detector,State} MetricName=\"FumigationsOpen\"', 'Maximum', 3600)", "id": "e1"},
           {
             "expression": "SEARCH('{AromaPacifico/Detector,CollectionCenter} MetricName=\"OrdersFlagged\"', 'Maximum', 3600)",
             "id": "e2",
@@ -814,9 +483,7 @@
       "y": 53,
       "width": 24,
       "height": 1,
-      "properties": {
-        "markdown": "## Inference functions: failed invocations without state change"
-      }
+      "properties": {"markdown": "## Inference functions: failed invocations without state change"}
     },
     {
       "type": "metric",
@@ -831,51 +498,11 @@
         "stat": "Maximum",
         "period": 60,
         "metrics": [
-          [
-            "AWS/SQS",
-            "ApproximateNumberOfMessagesVisible",
-            "QueueName",
-            "${prefix}-${env}-sqs-thresholddlq",
-            {
-              "label": "Threshold"
-            }
-          ],
-          [
-            "AWS/SQS",
-            "ApproximateNumberOfMessagesVisible",
-            "QueueName",
-            "${prefix}-${env}-sqs-confirmdlq",
-            {
-              "label": "Confirmation"
-            }
-          ],
-          [
-            "AWS/SQS",
-            "ApproximateNumberOfMessagesVisible",
-            "QueueName",
-            "${prefix}-${env}-sqs-verifydlq",
-            {
-              "label": "Verification"
-            }
-          ],
-          [
-            "AWS/SQS",
-            "ApproximateNumberOfMessagesVisible",
-            "QueueName",
-            "${prefix}-${env}-sqs-estimatedlq",
-            {
-              "label": "Estimation"
-            }
-          ],
-          [
-            "AWS/SQS",
-            "ApproximateNumberOfMessagesVisible",
-            "QueueName",
-            "${prefix}-${env}-sqs-routedlq",
-            {
-              "label": "Routing"
-            }
-          ]
+          ["AWS/SQS", "ApproximateNumberOfMessagesVisible", "QueueName", "${prefix}-${env}-sqs-thresholddlq", {"label": "Threshold"}],
+          ["AWS/SQS", "ApproximateNumberOfMessagesVisible", "QueueName", "${prefix}-${env}-sqs-confirmdlq", {"label": "Confirmation"}],
+          ["AWS/SQS", "ApproximateNumberOfMessagesVisible", "QueueName", "${prefix}-${env}-sqs-verifydlq", {"label": "Verification"}],
+          ["AWS/SQS", "ApproximateNumberOfMessagesVisible", "QueueName", "${prefix}-${env}-sqs-estimatedlq", {"label": "Estimation"}],
+          ["AWS/SQS", "ApproximateNumberOfMessagesVisible", "QueueName", "${prefix}-${env}-sqs-routedlq", {"label": "Routing"}]
         ]
       }
     },
@@ -892,55 +519,12 @@
         "stat": "Maximum",
         "period": 60,
         "metrics": [
-          [
-            "AWS/SQS",
-            "ApproximateAgeOfOldestMessage",
-            "QueueName",
-            "${prefix}-${env}-sqs-threshold",
-            {
-              "label": "Threshold"
-            }
-          ],
-          [
-            "AWS/SQS",
-            "ApproximateAgeOfOldestMessage",
-            "QueueName",
-            "${prefix}-${env}-sqs-confirm",
-            {
-              "label": "Confirmation"
-            }
-          ],
-          [
-            "AWS/SQS",
-            "ApproximateAgeOfOldestMessage",
-            "QueueName",
-            "${prefix}-${env}-sqs-verify",
-            {
-              "label": "Verification"
-            }
-          ],
-          [
-            "AWS/SQS",
-            "ApproximateAgeOfOldestMessage",
-            "QueueName",
-            "${prefix}-${env}-sqs-estimate",
-            {
-              "label": "Estimation"
-            }
-          ]
+          ["AWS/SQS", "ApproximateAgeOfOldestMessage", "QueueName", "${prefix}-${env}-sqs-threshold", {"label": "Threshold"}],
+          ["AWS/SQS", "ApproximateAgeOfOldestMessage", "QueueName", "${prefix}-${env}-sqs-confirm", {"label": "Confirmation"}],
+          ["AWS/SQS", "ApproximateAgeOfOldestMessage", "QueueName", "${prefix}-${env}-sqs-verify", {"label": "Verification"}],
+          ["AWS/SQS", "ApproximateAgeOfOldestMessage", "QueueName", "${prefix}-${env}-sqs-estimate", {"label": "Estimation"}]
         ],
-        "annotations": {
-          "horizontal": [
-            {
-              "label": "Threshold page",
-              "value": 120
-            },
-            {
-              "label": "Drone ticket",
-              "value": 2700
-            }
-          ]
-        }
+        "annotations": {"horizontal": [{"label": "Threshold page", "value": 120}, {"label": "Drone ticket", "value": 2700}]}
       }
     },
     {
@@ -956,20 +540,8 @@
         "stat": "Sum",
         "period": 900,
         "metrics": [
-          {
-            "expression": "SEARCH('{AromaPacifico/Inference,function} MetricName=\"InferenceFailed\"', 'Sum', 900)",
-            "id": "e1",
-            "label": "Failed"
-          },
-          [
-            "AromaPacifico/Detector",
-            "MissionsAwaitingResult",
-            {
-              "stat": "Maximum",
-              "label": "Missions awaiting a result",
-              "yAxis": "right"
-            }
-          ],
+          {"expression": "SEARCH('{AromaPacifico/Inference,function} MetricName=\"InferenceFailed\"', 'Sum', 900)", "id": "e1", "label": "Failed"},
+          ["AromaPacifico/Detector", "MissionsAwaitingResult", {"stat": "Maximum", "label": "Missions awaiting a result", "yAxis": "right"}],
           {
             "expression": "SEARCH('{AromaPacifico/Inference,function,reason} MetricName=\"GuardSkipped\"', 'Sum', 900)",
             "id": "e2",
@@ -991,36 +563,10 @@
         "stat": "Sum",
         "period": 3600,
         "metrics": [
-          [
-            "AromaPacifico/Inference",
-            "InputTokens",
-            {
-              "label": "Input tokens"
-            }
-          ],
-          [
-            "AromaPacifico/Inference",
-            "OutputTokens",
-            {
-              "label": "Output tokens"
-            }
-          ],
-          [
-            "AromaPacifico/Inference",
-            "ImagesSent",
-            {
-              "label": "Images sent",
-              "yAxis": "right"
-            }
-          ],
-          [
-            "AromaPacifico/Inference",
-            "InferenceThrottled",
-            {
-              "label": "Throttled",
-              "yAxis": "right"
-            }
-          ]
+          ["AromaPacifico/Inference", "InputTokens", {"label": "Input tokens"}],
+          ["AromaPacifico/Inference", "OutputTokens", {"label": "Output tokens"}],
+          ["AromaPacifico/Inference", "ImagesSent", {"label": "Images sent", "yAxis": "right"}],
+          ["AromaPacifico/Inference", "InferenceThrottled", {"label": "Throttled", "yAxis": "right"}]
         ]
       }
     },
@@ -1037,40 +583,13 @@
         "stat": "Sum",
         "period": 3600,
         "metrics": [
-          [
-            "AromaPacifico/Inference",
-            "PersonExcluded",
-            {
-              "label": "Excluded by the screen"
-            }
-          ],
-          [
-            "AromaPacifico/Inference",
-            "NotScreenedExcluded",
-            {
-              "label": "Not screened"
-            }
-          ],
-          [
-            "AromaPacifico/Inference",
-            "ModelPersonDetected",
-            {
-              "label": "Detected by the model (incident)"
-            }
-          ]
+          ["AromaPacifico/Inference", "PersonExcluded", {"label": "Excluded by the screen"}],
+          ["AromaPacifico/Inference", "NotScreenedExcluded", {"label": "Not screened"}],
+          ["AromaPacifico/Inference", "ModelPersonDetected", {"label": "Detected by the model (incident)"}]
         ]
       }
     },
-    {
-      "type": "text",
-      "x": 0,
-      "y": 66,
-      "width": 24,
-      "height": 1,
-      "properties": {
-        "markdown": "## Sack events, API and public lookup"
-      }
-    },
+    {"type": "text", "x": 0, "y": 66, "width": 24, "height": 1, "properties": {"markdown": "## Sack events, API and public lookup"}},
     {
       "type": "metric",
       "x": 0,
@@ -1089,39 +608,10 @@
             "id": "e1",
             "label": "Accepted"
           },
-          [
-            "AromaPacifico/Sack",
-            "SackEventsRefused",
-            {
-              "label": "Refused",
-              "yAxis": "right"
-            }
-          ],
-          [
-            "AromaPacifico/Sack",
-            "SackEventsPending",
-            {
-              "stat": "Maximum",
-              "label": "Pending",
-              "yAxis": "right"
-            }
-          ],
-          [
-            "AromaPacifico/Sack",
-            "SackEventsAnomaly",
-            {
-              "label": "Anomaly",
-              "yAxis": "right"
-            }
-          ],
-          [
-            "AromaPacifico/Sack",
-            "SackEventsClockSkewed",
-            {
-              "label": "Clock skewed",
-              "yAxis": "right"
-            }
-          ]
+          ["AromaPacifico/Sack", "SackEventsRefused", {"label": "Refused", "yAxis": "right"}],
+          ["AromaPacifico/Sack", "SackEventsPending", {"stat": "Maximum", "label": "Pending", "yAxis": "right"}],
+          ["AromaPacifico/Sack", "SackEventsAnomaly", {"label": "Anomaly", "yAxis": "right"}],
+          ["AromaPacifico/Sack", "SackEventsClockSkewed", {"label": "Clock skewed", "yAxis": "right"}]
         ]
       }
     },
@@ -1143,52 +633,31 @@
             "IteratorAge",
             "FunctionName",
             "${prefix}-${env}-lambda-sackapplier",
-            {
-              "stat": "Maximum",
-              "label": "Applier iterator age (ms)"
-            }
+            {"stat": "Maximum", "label": "Applier iterator age (ms)"}
           ],
           [
             "AWS/Lambda",
             "IteratorAge",
             "FunctionName",
             "${prefix}-${env}-lambda-sackexporter",
-            {
-              "stat": "Maximum",
-              "label": "Exporter iterator age (ms)"
-            }
+            {"stat": "Maximum", "label": "Exporter iterator age (ms)"}
           ],
           [
             "AWS/SQS",
             "ApproximateNumberOfMessagesVisible",
             "QueueName",
             "${prefix}-${env}-sqs-sackapplierdlq",
-            {
-              "stat": "Maximum",
-              "label": "Applier DLQ",
-              "yAxis": "right"
-            }
+            {"stat": "Maximum", "label": "Applier DLQ", "yAxis": "right"}
           ],
           [
             "AWS/SQS",
             "ApproximateNumberOfMessagesVisible",
             "QueueName",
             "${prefix}-${env}-sqs-sackexporterdlq",
-            {
-              "stat": "Maximum",
-              "label": "Exporter DLQ",
-              "yAxis": "right"
-            }
+            {"stat": "Maximum", "label": "Exporter DLQ", "yAxis": "right"}
           ]
         ],
-        "annotations": {
-          "horizontal": [
-            {
-              "label": "Alarm 300 s",
-              "value": 300000
-            }
-          ]
-        }
+        "annotations": {"horizontal": [{"label": "Alarm 300 s", "value": 300000}]}
       }
     },
     {
@@ -1204,52 +673,10 @@
         "stat": "Sum",
         "period": 300,
         "metrics": [
-          [
-            "AWS/ApiGateway",
-            "Count",
-            "ApiName",
-            "${api_name}",
-            "Stage",
-            "${env}",
-            {
-              "label": "Requests"
-            }
-          ],
-          [
-            "AWS/ApiGateway",
-            "5XXError",
-            "ApiName",
-            "${api_name}",
-            "Stage",
-            "${env}",
-            {
-              "label": "5XX"
-            }
-          ],
-          [
-            "AWS/ApiGateway",
-            "4XXError",
-            "ApiName",
-            "${api_name}",
-            "Stage",
-            "${env}",
-            {
-              "label": "4XX"
-            }
-          ],
-          [
-            "AWS/ApiGateway",
-            "Latency",
-            "ApiName",
-            "${api_name}",
-            "Stage",
-            "${env}",
-            {
-              "stat": "p95",
-              "label": "Latency p95 (ms)",
-              "yAxis": "right"
-            }
-          ]
+          ["AWS/ApiGateway", "Count", "ApiName", "${api_name}", "Stage", "${env}", {"label": "Requests"}],
+          ["AWS/ApiGateway", "5XXError", "ApiName", "${api_name}", "Stage", "${env}", {"label": "5XX"}],
+          ["AWS/ApiGateway", "4XXError", "ApiName", "${api_name}", "Stage", "${env}", {"label": "4XX"}],
+          ["AWS/ApiGateway", "Latency", "ApiName", "${api_name}", "Stage", "${env}", {"stat": "p95", "label": "Latency p95 (ms)", "yAxis": "right"}]
         ]
       }
     },
@@ -1266,20 +693,8 @@
         "stat": "Sum",
         "period": 300,
         "metrics": [
-          [
-            "AromaPacifico/Lookup",
-            "LookupFound",
-            {
-              "label": "Found"
-            }
-          ],
-          [
-            "AromaPacifico/Lookup",
-            "LookupNotFound",
-            {
-              "label": "Not found"
-            }
-          ],
+          ["AromaPacifico/Lookup", "LookupFound", {"label": "Found"}],
+          ["AromaPacifico/Lookup", "LookupNotFound", {"label": "Not found"}],
           [
             "AWS/WAFV2",
             "BlockedRequests",
@@ -1287,10 +702,7 @@
             "${prefix}-${env}-waf-lookup",
             "Rule",
             "ALL",
-            {
-              "label": "WAF blocked (all rules)",
-              "yAxis": "right"
-            }
+            {"label": "WAF blocked (all rules)", "yAxis": "right"}
           ],
           [
             "AWS/WAFV2",
@@ -1299,10 +711,7 @@
             "${prefix}-${env}-waf-lookup",
             "Rule",
             "ratelimitlookup",
-            {
-              "label": "WAF rate-based blocks",
-              "yAxis": "right"
-            }
+            {"label": "WAF rate-based blocks", "yAxis": "right"}
           ]
         ]
       }
@@ -1327,10 +736,7 @@
             "${lookup_distribution_id}",
             "Region",
             "Global",
-            {
-              "stat": "Average",
-              "label": "Edge 5xx rate %"
-            }
+            {"stat": "Average", "label": "Edge 5xx rate %"}
           ],
           [
             "AWS/CloudFront",
@@ -1339,43 +745,14 @@
             "${lookup_distribution_id}",
             "Region",
             "Global",
-            {
-              "stat": "p95",
-              "label": "Origin latency p95 (ms)",
-              "yAxis": "right"
-            }
+            {"stat": "p95", "label": "Origin latency p95 (ms)", "yAxis": "right"}
           ],
-          [
-            "AWS/Lambda",
-            "Throttles",
-            "FunctionName",
-            "${prefix}-${env}-lambda-lookup",
-            {
-              "label": "Lookup throttles"
-            }
-          ],
-          [
-            "AWS/Lambda",
-            "Errors",
-            "FunctionName",
-            "${prefix}-${env}-lambda-lookup",
-            {
-              "label": "Lookup errors"
-            }
-          ]
+          ["AWS/Lambda", "Throttles", "FunctionName", "${prefix}-${env}-lambda-lookup", {"label": "Lookup throttles"}],
+          ["AWS/Lambda", "Errors", "FunctionName", "${prefix}-${env}-lambda-lookup", {"label": "Lookup errors"}]
         ]
       }
     },
-    {
-      "type": "text",
-      "x": 0,
-      "y": 79,
-      "width": 24,
-      "height": 1,
-      "properties": {
-        "markdown": "## Databases"
-      }
-    },
+    {"type": "text", "x": 0, "y": 79, "width": 24, "height": 1, "properties": {"markdown": "## Databases"}},
     {
       "type": "metric",
       "x": 0,
@@ -1389,18 +766,9 @@
         "stat": "Sum",
         "period": 300,
         "metrics": [
-          {
-            "expression": "SEARCH('{AWS/DynamoDB,TableName} MetricName=\"WriteThrottleEvents\"', 'Sum', 300)",
-            "id": "e1"
-          },
-          {
-            "expression": "SEARCH('{AWS/DynamoDB,TableName} MetricName=\"ReadThrottleEvents\"', 'Sum', 300)",
-            "id": "e2"
-          },
-          {
-            "expression": "SEARCH('{AWS/DynamoDB,TableName,Operation} MetricName=\"SystemErrors\"', 'Sum', 300)",
-            "id": "e3"
-          }
+          {"expression": "SEARCH('{AWS/DynamoDB,TableName} MetricName=\"WriteThrottleEvents\"', 'Sum', 300)", "id": "e1"},
+          {"expression": "SEARCH('{AWS/DynamoDB,TableName} MetricName=\"ReadThrottleEvents\"', 'Sum', 300)", "id": "e2"},
+          {"expression": "SEARCH('{AWS/DynamoDB,TableName,Operation} MetricName=\"SystemErrors\"', 'Sum', 300)", "id": "e3"}
         ]
       }
     },
@@ -1417,27 +785,12 @@
         "stat": "Sum",
         "period": 3600,
         "metrics": [
-          {
-            "expression": "SEARCH('{AWS/DynamoDB,TableName} MetricName=\"ConsumedWriteCapacityUnits\"', 'Sum', 3600)",
-            "id": "e1"
-          },
-          {
-            "expression": "SEARCH('{AWS/DynamoDB,TableName} MetricName=\"ConsumedReadCapacityUnits\"', 'Sum', 3600)",
-            "id": "e2"
-          }
+          {"expression": "SEARCH('{AWS/DynamoDB,TableName} MetricName=\"ConsumedWriteCapacityUnits\"', 'Sum', 3600)", "id": "e1"},
+          {"expression": "SEARCH('{AWS/DynamoDB,TableName} MetricName=\"ConsumedReadCapacityUnits\"', 'Sum', 3600)", "id": "e2"}
         ]
       }
     },
-    {
-      "type": "text",
-      "x": 0,
-      "y": 86,
-      "width": 24,
-      "height": 1,
-      "properties": {
-        "markdown": "## The three collection-center WAN links"
-      }
-    },
+    {"type": "text", "x": 0, "y": 86, "width": 24, "height": 1, "properties": {"markdown": "## The three collection-center WAN links"}},
     {
       "type": "metric",
       "x": 0,
@@ -1451,46 +804,11 @@
         "stat": "Maximum",
         "period": 60,
         "metrics": [
-          [
-            "AWS/VPN",
-            "TunnelState",
-            "VpnId",
-            "${vpn_id_cauca}",
-            {
-              "stat": "Maximum",
-              "label": "cauca",
-              "accountId": "${network_account_id}"
-            }
-          ],
-          [
-            "AWS/VPN",
-            "TunnelState",
-            "VpnId",
-            "${vpn_id_huila}",
-            {
-              "stat": "Maximum",
-              "label": "huila",
-              "accountId": "${network_account_id}"
-            }
-          ],
-          [
-            "AWS/VPN",
-            "TunnelState",
-            "VpnId",
-            "${vpn_id_tolima}",
-            {
-              "stat": "Maximum",
-              "label": "tolima",
-              "accountId": "${network_account_id}"
-            }
-          ]
+          ["AWS/VPN", "TunnelState", "VpnId", "${vpn_id_cauca}", {"stat": "Maximum", "label": "cauca", "accountId": "${network_account_id}"}],
+          ["AWS/VPN", "TunnelState", "VpnId", "${vpn_id_huila}", {"stat": "Maximum", "label": "huila", "accountId": "${network_account_id}"}],
+          ["AWS/VPN", "TunnelState", "VpnId", "${vpn_id_tolima}", {"stat": "Maximum", "label": "tolima", "accountId": "${network_account_id}"}]
         ],
-        "yAxis": {
-          "left": {
-            "min": 0,
-            "max": 1
-          }
-        }
+        "yAxis": {"left": {"min": 0, "max": 1}}
       }
     },
     {
@@ -1506,66 +824,12 @@
         "stat": "Sum",
         "period": 300,
         "metrics": [
-          [
-            "AWS/VPN",
-            "TunnelDataIn",
-            "VpnId",
-            "${vpn_id_cauca}",
-            {
-              "label": "cauca in",
-              "accountId": "${network_account_id}"
-            }
-          ],
-          [
-            "AWS/VPN",
-            "TunnelDataOut",
-            "VpnId",
-            "${vpn_id_cauca}",
-            {
-              "label": "cauca out",
-              "accountId": "${network_account_id}"
-            }
-          ],
-          [
-            "AWS/VPN",
-            "TunnelDataIn",
-            "VpnId",
-            "${vpn_id_huila}",
-            {
-              "label": "huila in",
-              "accountId": "${network_account_id}"
-            }
-          ],
-          [
-            "AWS/VPN",
-            "TunnelDataOut",
-            "VpnId",
-            "${vpn_id_huila}",
-            {
-              "label": "huila out",
-              "accountId": "${network_account_id}"
-            }
-          ],
-          [
-            "AWS/VPN",
-            "TunnelDataIn",
-            "VpnId",
-            "${vpn_id_tolima}",
-            {
-              "label": "tolima in",
-              "accountId": "${network_account_id}"
-            }
-          ],
-          [
-            "AWS/VPN",
-            "TunnelDataOut",
-            "VpnId",
-            "${vpn_id_tolima}",
-            {
-              "label": "tolima out",
-              "accountId": "${network_account_id}"
-            }
-          ]
+          ["AWS/VPN", "TunnelDataIn", "VpnId", "${vpn_id_cauca}", {"label": "cauca in", "accountId": "${network_account_id}"}],
+          ["AWS/VPN", "TunnelDataOut", "VpnId", "${vpn_id_cauca}", {"label": "cauca out", "accountId": "${network_account_id}"}],
+          ["AWS/VPN", "TunnelDataIn", "VpnId", "${vpn_id_huila}", {"label": "huila in", "accountId": "${network_account_id}"}],
+          ["AWS/VPN", "TunnelDataOut", "VpnId", "${vpn_id_huila}", {"label": "huila out", "accountId": "${network_account_id}"}],
+          ["AWS/VPN", "TunnelDataIn", "VpnId", "${vpn_id_tolima}", {"label": "tolima in", "accountId": "${network_account_id}"}],
+          ["AWS/VPN", "TunnelDataOut", "VpnId", "${vpn_id_tolima}", {"label": "tolima out", "accountId": "${network_account_id}"}]
         ]
       }
     },
@@ -1613,14 +877,7 @@
             "id": "e1"
           }
         ],
-        "annotations": {
-          "horizontal": [
-            {
-              "label": "80 % of the 90 Mbps plan",
-              "value": 72000000
-            }
-          ]
-        }
+        "annotations": {"horizontal": [{"label": "80 % of the 90 Mbps plan", "value": 72000000}]}
       }
     },
     {
@@ -1643,16 +900,7 @@
         ]
       }
     },
-    {
-      "type": "text",
-      "x": 0,
-      "y": 99,
-      "width": 24,
-      "height": 1,
-      "properties": {
-        "markdown": "## Deployments"
-      }
-    },
+    {"type": "text", "x": 0, "y": 99, "width": 24, "height": 1, "properties": {"markdown": "## Deployments"}},
     {
       "type": "log",
       "x": 0,
