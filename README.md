@@ -24,6 +24,7 @@ The [case statement](docs/case/case-statement.pdf) is the only source of require
 | [`docs/connectivity.md`](docs/connectivity.md) | End-to-end connectivity of farm, wet mill, drone, transporter, collection center and port, including no-signal behavior. |
 | [`docs/collection-center-network.md`](docs/collection-center-network.md) | Collection center LAN and Wi-Fi pattern: zones, VLANs, SSIDs, inter-zone policy intent, capacity and non-operational traffic control. |
 | [`docs/security-and-identity.md`](docs/security-and-identity.md) | Security and identity: roles and least-privilege matrix, MFA, Cognito directory, device identities, encryption, sack code and buyer view, personal data retention and revocation. |
+| [`docs/firewall-policy.md`](docs/firewall-policy.md) | Perimeter firewall of each collection center and cloud firewall policy: rules by group, permanent or temporary validity, and the rules to audit before production. |
 
 ```text
 aroma-pacifico-architecture/
@@ -46,6 +47,7 @@ aroma-pacifico-architecture/
 |   |-- collection-center-network.md
 |   |-- connectivity.md
 |   |-- decision-log.md
+|   |-- firewall-policy.md
 |   |-- landing-zone.md
 |   |-- legacy-2020.md
 |   `-- security-and-identity.md
