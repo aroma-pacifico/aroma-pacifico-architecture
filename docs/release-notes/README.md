@@ -115,7 +115,7 @@ PD-174 asked that the templates take from the pipeline the commit, digests, wind
 | ASM-183 | Who declares an incident, what qualifies, the reference format and the 5-business-day retrospective. |
 | ASM-184 | Hub and center firewall changes are production changes; center rules are applied by the platform operator with backups and restored from them. |
 | ASM-185 | Readers ignore unknown attributes, so an additive attribute is safe in both directions of a rollback. |
-| PD-180 | Diagram box catalog D01 to D13, to fill `diagram_boxes` in the examples. |
+| PD-180 | Diagram box catalog D01 to D13, to fill `diagram_boxes` in the examples; closed by [architecture](../architecture.md) section 14. |
 | PD-181 | B01 reserves `release-notes/` in the infrastructure repository; whether the note check is coded is recorded with PD-175. |
 | PD-174 | Closed by this directory. |
 

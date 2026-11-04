@@ -108,7 +108,8 @@ Actions: **R** read, **C** create, **U** update, **A** authorize or reject, **-*
 | Farm record, zones, plots, polygons, no-fly zones | R (own farms) | R pickup point only (own trips) | R farm name and municipality (farms delivering to own center) | - | R polygon and no-fly zones (assigned missions) | R; C and U plots and preliminary no-fly zones (department, ASM-027) | C and U farm record at enrollment | Delimitation flight results |
 | Farm node registry | R status (own farms) | - | - | - | - | R (department) | C, U, revoke | - |
 | Crop and drying telemetry | R (own farms) | - | - | - | - | R (department) | R operational metadata only: counts, last seen | Farm nodes, through the IoT topic rule |
-| Alerts and drying closure notices | R (own farms) | - | - | - | - | R (department) | R operational metadata only | Threshold function |
+| Alerts and drying closure notices | R (own farms) | - | - | - | - | R (department) | R operational metadata only | Threshold function; the notification dispatcher reads the alert and, for the farmer of the farm, only the registered phone number and the app push endpoint ([farm monitoring](farm-monitoring.md#73-path) section 7.3) |
+| Soil analysis (pH, sampling date, laboratory reference) | R (own farms) | - | - | - | - | C, R (department, ASM-132) | R operational metadata only | Threshold function evaluates it when recorded |
 | Thresholds (alert ranges) | R ranges applied to own farms | - | - | - | - | R | U, with step-up (ASM-099) | - |
 | Sack registration (code, weight, farm) | C, R (own farms) | R code and weight (own trips) | R (own center); C code binding for a sack that arrives without code | - | - | - | - | - |
 | Sack custody events (full trace) | R own sacks, without transporter positions or personal data | C, R (own trips), including port delivery (ASM-057) | C reception accepted or rejected and departure; R (own center) | - | - | - | - | - |
@@ -120,9 +121,12 @@ Actions: **R** read, **C** create, **U** update, **A** authorize or reject, **-*
 | Fumigation order | R window and status (own farms) | - | - | - | R (assigned missions) | A authorize or reject, sets window and pilot (department) | - | Order state changes from flight records |
 | Mission package | - | - | - | - | R (assigned missions) | R (department) | - | - |
 | Flight record and drone objects | - | - | - | - | C through upload grants (assigned missions) | R (department) | - | Reception and inference functions |
+| Drone objects that contain a person (`restricted/person/`) | - | - | - | - | - | R that the object exists and why it was excluded, never its content | R only for a recorded incident or a request of the person concerned, with the reason audited | Reception function moves the object; no inference function reads it ([inference functions](inference-functions.md#103-treatment-of-the-file) section 10.3, ASM-165) |
 | Personal profile (name, cédula, phone, plate) | R own | R own | R display name and plate of transporters of trips to own center | R and U own (buyer) | R own | R own | C, U, R for enrollment and support | - |
 | Application identities and assignments | - | - | - | - | - | C and U pilot assignment on an order | C, U, disable, sign out, group and scope assignment | - |
 | Application audit records | - | - | - | - | - | - | R log groups (A08 section 7.3) | Every audited service |
+
+The service roles of the four inference functions, with their read, write and inference permissions and what each is denied, are listed in [inference functions](inference-functions.md#11-epic-6-function-pattern) section 11; none holds the `personal` or `restricted` key.
 
 Nobody reads another person's cédula except the platform operator during enrollment and support; it is not shown to the collection center, the transporter, the agronomist, the drone operator or the buyer. Deletion is not an action of any human role in the matrix: data leaves only through the retention process of section 9.
 
@@ -199,7 +203,7 @@ Every flow uses TLS 1.2 or later from the device or app to the AWS endpoint, and
 | Endpoint | Used by | Mechanism |
 |---|---|---|
 | AWS IoT Core data endpoint | Farm nodes, drone kits | MQTT over TLS with mutual X.509 authentication; the domain configuration uses a TLS security policy with TLS 1.2 as minimum, for example `IoTSecurityPolicy_TLS13_1_2_2022_10` (PD-100). |
-| Application API and public lookup front door | Apps, reports web, public lookup | HTTPS only; minimum TLS 1.2 policy on the front door chosen by A16 (PD-051), for example the `TLS_1_2` security policy of an Amazon API Gateway custom domain or `TLSv1.2_2021` on Amazon CloudFront. HTTP is redirected or refused. |
+| Application API and public lookup front door | Apps, reports web, public lookup | HTTPS only; minimum TLS 1.2 policy on each front door: the `TLS_1_2` security policy of the Amazon API Gateway custom domain of the application API, and `TLSv1.2_2021` on the Amazon CloudFront distribution of the public lookup chosen by A16 ([sack and trip](sack-and-trip.md#72-front-door-cloudfront-no-load-balancer-closes-pd-051) section 7.2, PD-051 closed). HTTP is redirected or refused. |
 | Amazon S3 (drone objects, exports, audit archive) | Drone ground stations, functions | Bucket policies deny any request with `aws:SecureTransport` false and with `s3:TlsVersion` below 1.2; uploads carry per-part checksums (A10 section 6). |
 | Amazon Cognito endpoints | Apps, reports web | AWS-managed HTTPS endpoints, TLS 1.2 or later. |
 | Collection-center WAN | Logistics posts, ground stations at a center | IPsec site-to-site VPN to the network-account hub (ASM-078), carrying traffic that is itself TLS to interface endpoints. |
@@ -221,6 +225,8 @@ Every store uses an AWS KMS customer-managed key of its own data class, so that 
 | Personal-data table (DynamoDB) | Name, cédula, phone, vehicle plate, linked by a pseudonymous `subject_id` | DynamoDB encryption with a customer-managed key | `personal` |
 | Cognito user pools | `sub`, phone or email, group, MFA secret | Encrypted at rest by Amazon Cognito with AWS-managed keys; customer-managed keys are not offered, so only sign-in data is stored there (section 3.2) | AWS managed |
 | CloudWatch Logs groups | Application audit, function logs, `AWSIotLogsV2` | Log group encryption with a customer-managed key | `logs` |
+| Buyer-view projection (`buyer_view`, DynamoDB) | Only the fields of section 8.2 | DynamoDB encryption with a customer-managed key, so the lookup role holds no grant on `records`, `personal` or `telemetry` ([sack and trip](sack-and-trip.md#10-stores) section 10, ASM-154) | `public_view` |
+| Restricted prefix of the drone object bucket | Objects that contain a person | SSE-KMS with a key on which no function or human role holds a grant, and an explicit bucket-policy Deny for every function role (ASM-165) | `restricted` |
 | Terraform state bucket | State per environment | SSE-KMS (ADR-003) | `state` |
 | Audit archive (security account) | Trail and application audit records | SSE-KMS, Object Lock (A08 section 7.1) | `audit` (A08) |
 
@@ -230,7 +236,7 @@ A pre-signed URL uploads with the permissions of the role that signed it, so the
 
 | Account | Keys | Administered by | Used by |
 |---|---|---|---|
-| Production, test, development (one set each) | `telemetry`, `objects`, `records`, `personal`, `logs`, `state` | The security stack apply role of that environment (ADR-003, B06) and `BreakGlass` | Named service roles of that environment only; no key is shared across environments, so a test role can never decrypt production data |
+| Production, test, development (one set each) | `telemetry`, `objects`, `records`, `personal`, `logs`, `state` (ASM-097), `public_view` (ASM-154) and `restricted` (ASM-165) | The security stack apply role of that environment (ADR-003, B06) and `BreakGlass` | Named service roles of that environment only; no key is shared across environments, so a test role can never decrypt production data |
 | Security | `audit` | Security account administration (A08) | CloudTrail, Firehose delivery, `Auditor` read |
 | Management | Budget notification topic key | Management account (A08 section 6) | AWS Budgets, SNS |
 | Network | None; it holds no workload data (A08) | - | - |
@@ -305,7 +311,7 @@ The case statement fixes 5 years for personal data of farmers and transporters a
 | Audit records with source IP | Deleted when Object Lock retention ends. | S3 lifecycle on the audit archive (A08 section 7.3). |
 | Backups | Overwritten. | DynamoDB point-in-time recovery keeps at most 35 days, so a deletion is complete in every copy within 35 days. |
 
-A drone object that contains a person is not sent to inference; its treatment is designed by A17 under PD-015.
+A drone object that contains a person is not sent to inference; its treatment is designed in [inference functions](inference-functions.md#10-objects-that-contain-a-person-closes-pd-015) section 10 (PD-015 closed): restricted prefix under the `restricted` key, 5 years from capture, then deleted.
 
 ## 10. Revocation
 

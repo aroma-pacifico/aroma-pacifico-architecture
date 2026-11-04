@@ -47,4 +47,5 @@ Each row cites the page and section of the case statement it comes from. The fou
 |---|---|
 | [`docs/adr/adr-001-primary-and-second-cloud.md`](adr/adr-001-primary-and-second-cloud.md) | Chooses the 2026 clouds (row L-16) and references this record. |
 | [`docs/adr/adr-002-drone-flight-mode-and-governance.md`](adr/adr-002-drone-flight-mode-and-governance.md) | Decides the drone flight mode and governance (row L-07). |
-| [`docs/decision-log.md`](decision-log.md) | PD-004 is closed by this record; PD-007 is closed by ADR-001; PD-006 (complete diagram) and PD-008 (architecture document) stay open for [roadmap#19](https://github.com/aroma-pacifico/aroma-pacifico-roadmap/issues/19). ASM-040 and ASM-041 are the assumptions this record makes. |
+| [`docs/architecture.md`](architecture.md#13-the-2020-pilot-what-is-kept-changed-and-retired) | The architecture document links this record and states, in its section 13, which 2020 requirements are kept and which components are retired (PD-008). |
+| [`docs/decision-log.md`](decision-log.md) | PD-004 is closed by this record; PD-007 is closed by ADR-001; PD-008 is closed by the architecture document; PD-006 (complete diagram) stays open for [roadmap#19](https://github.com/aroma-pacifico/aroma-pacifico-roadmap/issues/19). ASM-040 and ASM-041 are the assumptions this record makes. |

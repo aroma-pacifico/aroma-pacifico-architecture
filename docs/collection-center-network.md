@@ -90,7 +90,7 @@ The zone has no dynamic pool, so a device plugged into a VLAN 110 port that is n
 
 ### 4.1 Drone ground station
 
-A10 left the zone of the drone ground station to this task (connectivity section 6). The ground station belongs to the contracted drone operator (ADR-002, ASM-023), so it is not a logistics post and must not sit next to the sack reception posts; it needs the private path through the tunnel to `application` (mission download), `drone_object_ingress` and the S3 interface endpoint in `object_storage` (connectivity section 6), so it cannot sit in Visitantes or Transporte, whose traffic never enters the tunnel; and it is not printing or network control, so it does not belong in Servidores locales.
+A10 left the zone of the drone ground station to this task (connectivity section 6). The ground station belongs to the contracted drone operator (ADR-002, ASM-023), so it is not a logistics post and must not sit next to the sack reception posts; it needs the private path through the tunnel to `application` (mission download, sign-in) and the S3 interface endpoint in `object_storage` (connectivity section 6; the `drone_object_ingress` tier holds no endpoint in the pilot, [drone service](drone-service.md#9-ingress-endpoints-of-the-ground-station-pd-121) section 9, ASM-140), so it cannot sit in Visitantes or Transporte, whose traffic never enters the tunnel; and it is not printing or network control, so it does not belong in Servidores locales.
 
 It connects in **Soporte (VLAN 102)**, on `cc-support` or on a wired Soporte port, with a fixed DHCP reservation at **10.4x.2.10** (ASM-082). The pattern reads Soporte as the zone of the center's support functions, which include support to the field operation; it is not the network administration zone, which is Servidores locales. The ground station is enrolled as a device of the drone operator company and receives a network certificate whose RADIUS policy places it in VLAN 102 (PD-090). Its fixed address lets A12 write its rules to its /32 only, so the rest of Soporte gains no path to the drone tiers, and lets the traffic control of section 8 guarantee the drone uploads by source and destination. Adding a separate drone zone was considered and rejected: one visiting device does not justify a new VLAN, SSID and set of rules in every center, and the /32 gives the same isolation.
 
@@ -115,7 +115,7 @@ The matrix gives, for each source zone (rows) and destination (columns), whether
 | Source \ Destination | Gerencia | Soporte | Logística | Transporte | Visitantes | Servidores locales | Cloud via tunnel | Internet, local breakout |
 |---|---|---|---|---|---|---|---|---|
 | Gerencia | Allow | Deny | Deny | Deny | Deny | Allow printing only | Allow `application` (reports web and center application) | Allow, staff class |
-| Soporte | Deny | Allow | Deny | Deny | Deny | Allow printing only | Allow `application`; ground station 10.4x.2.10 only: also `drone_object_ingress` and `object_storage` | Allow, staff class |
+| Soporte | Deny | Allow | Deny | Deny | Deny | Allow printing only | Allow `application`; ground station 10.4x.2.10 only: also `object_storage` (the reserved `drone_object_ingress` tier is denied, ASM-140, CC-DRN-02) | Allow, staff class |
 | Logística | Deny | Deny | Allow | Deny | Deny | Allow printing only | Allow `application` | Deny, except the named time and update services A12 lists |
 | Transporte | Deny | Deny | Deny | Deny (client isolation) | Deny | Deny | Deny: the transporter app uses the public API (connectivity section 7) | Allow; platform public API in the transport application class, the rest non-operational |
 | Visitantes | Deny | Deny | Deny | Deny | Deny (client isolation) | Deny | Deny | Allow, non-operational class |
@@ -164,7 +164,7 @@ The firewall classifies every flow by source zone, and for the ground station an
 |---|---|---|---|---|
 | Network control | Firewall tunnels and management, device logs and metrics from Servidores locales, RADIUS, DNS, time | 1 | 2 / 2 Mbps | None |
 | Logistics | All Logística traffic (reception, code sheets, sack reads) | 2 | 44 / 11 Mbps, the full reference of its 22 clients | None |
-| Drone | Ground station 10.4x.2.10 to `application`, `drone_object_ingress` and `object_storage` | 3 | 5 / 20 Mbps | None |
+| Drone | Ground station 10.4x.2.10 to `application` and `object_storage`, and to the public AWS IoT Core endpoint (ASM-126) | 3 | 5 / 20 Mbps | None |
 | Staff | All Gerencia and Soporte traffic except the ground station | 4 | 28 / 7 Mbps, the full reference of their 14 clients | None |
 | Transport application | Transporte to the platform's public API endpoints | 4 | 2 / 1 Mbps | None |
 | Non-operational | Transporte except the platform API, and all Visitantes | 5, lowest | None | Transporte 20 / 5 Mbps, Visitantes 10 / 2.5 Mbps; 2 / 0.5 Mbps per client |
