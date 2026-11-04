@@ -19,6 +19,9 @@ The [case statement](docs/case/case-statement.pdf) is the only source of require
 | [`docs/adr/adr-002-drone-flight-mode-and-governance.md`](docs/adr/adr-002-drone-flight-mode-and-governance.md) | ADR-002: drone flight mode and operational governance. |
 | [`docs/adr/adr-003-iac-tool-remote-state-and-pattern-module.md`](docs/adr/adr-003-iac-tool-remote-state-and-pattern-module.md) | ADR-003: Terraform, remote state per environment and the telemetry ingestion pattern module. |
 | [`docs/legacy-2020.md`](docs/legacy-2020.md) | 2020 legacy: which 2020 requirement is kept, retired or replaced, and which task designs the replacement. |
+| [`docs/landing-zone.md`](docs/landing-zone.md) | Landing zone: accounts, root controls, tagging scheme, budgets and audit of the four mandatory events. |
+| [`docs/clarification-questions.md`](docs/clarification-questions.md) | Prioritized questions for the 30-minute Q&A session, with impact and fallback assumptions. |
+| [`docs/connectivity.md`](docs/connectivity.md) | End-to-end connectivity of farm, wet mill, drone, transporter, collection center and port, including no-signal behavior. |
 
 ```text
 aroma-pacifico-architecture/
@@ -37,7 +40,10 @@ aroma-pacifico-architecture/
 |   |-- addressing-plan.md
 |   |-- case/
 |   |   `-- case-statement.pdf
+|   |-- clarification-questions.md
+|   |-- connectivity.md
 |   |-- decision-log.md
+|   |-- landing-zone.md
 |   `-- legacy-2020.md
 `-- standards/
     `-- iac-rules/
