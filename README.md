@@ -26,6 +26,7 @@ The [case statement](docs/case/case-statement.pdf) is the only source of require
 | [`docs/security-and-identity.md`](docs/security-and-identity.md) | Security and identity: roles and least-privilege matrix, MFA, Cognito directory, device identities, encryption, sack code and buyer view, personal data retention and revocation. |
 | [`docs/firewall-policy.md`](docs/firewall-policy.md) | Perimeter firewall of each collection center and cloud firewall policy: rules by group, permanent or temporary validity, and the rules to audit before production. |
 | [`docs/drone-service.md`](docs/drone-service.md) | Drone service and fumigation order: the five services as missions, case, order and mission state machines, mission package, flight record, S3 prefixes, inference triggers, ground station endpoints and campaign cadence. |
+| [`docs/farm-monitoring.md`](docs/farm-monitoring.md) | Farm monitoring and pilot alerts: crop and drying load, Federation-configured thresholds and their audit, alert deduplication, push and SMS farmer channel, history and pilot report. |
 
 ```text
 aroma-pacifico-architecture/
@@ -49,6 +50,7 @@ aroma-pacifico-architecture/
 |   |-- connectivity.md
 |   |-- decision-log.md
 |   |-- drone-service.md
+|   |-- farm-monitoring.md
 |   |-- firewall-policy.md
 |   |-- landing-zone.md
 |   |-- legacy-2020.md
