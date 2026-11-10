@@ -122,6 +122,7 @@ No static key exists anywhere: CI uses OIDC, device keys are generated on the de
 | Release model, gates, function deployment, promotion and window | [Automation and pipelines](automation-and-pipelines.md#4-common-release-model) section 4 |
 | Platform, ingestion and flight object reception pipelines | [Automation and pipelines](automation-and-pipelines.md#5-platform-pipeline) sections 5 to 7 |
 | Approval, notice, rollback, secrets, hooks for alarms and release notes | [Automation and pipelines](automation-and-pipelines.md#8-approval) sections 8 to 12 |
+| 100-hour plan of Epic 6: owners, order, dependencies, boxes, schedule and risks | [100-hour plan](iac-plan-100h.md#4-tasks) (A20, aroma-pacifico/aroma-pacifico-roadmap#20) |
 
 ## 7. Point 5: Workloads
 

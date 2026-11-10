@@ -29,6 +29,7 @@ The [case statement](docs/case/case-statement.pdf) is the only source of require
 | [`docs/drone-service.md`](docs/drone-service.md) | Drone service and fumigation order: the five services as missions, case, order and mission state machines, mission package, flight record, S3 prefixes, inference triggers, ground station endpoints and campaign cadence. |
 | [`docs/farm-monitoring.md`](docs/farm-monitoring.md) | Farm monitoring and pilot alerts: crop and drying load, Federation-configured thresholds and their audit, alert deduplication, push and SMS farmer channel, history and pilot report. |
 | [`docs/sack-and-trip.md`](docs/sack-and-trip.md) | Sack, trip and public lookup: registration, states and transitions, events with date, time and responsible, code sheet, lookup front door, peak arithmetic, stores, RPO and RTO. |
+| [`docs/iac-plan-100h.md`](docs/iac-plan-100h.md) | 100-hour plan of Epic 6: tasks B01 to B13 with owners, hours, order, dependencies and diagram boxes, day-by-day schedule, critical path, per-person load and slack, and the risks to the 100 hours. |
 | [`docs/inference-functions.md`](docs/inference-functions.md) | Event-driven inference functions: the four triggers, managed inference in `us-east-1`, result record, retries, dead-letter queues and observation point, objects that leave Colombia, cost per thousand invocations and objects that contain a person. |
 | [`docs/automation-and-pipelines.md`](docs/automation-and-pipelines.md) | Platform, ingestion and flight object reception pipelines: repositories and paths, artifacts, gates, promotion from `dev` to `qa` to `pdn`, approval, notice to the Federation, rollback and secrets. |
 | [`docs/release-notes/README.md`](docs/release-notes/README.md) | Release notes: what the two templates are for, who fills them, where a filled note is stored and when it is sent, and the harvest-week restriction with its incident path. |
@@ -63,6 +64,7 @@ aroma-pacifico-architecture/
 |   |-- drone-service.md
 |   |-- farm-monitoring.md
 |   |-- firewall-policy.md
+|   |-- iac-plan-100h.md
 |   |-- inference-functions.md
 |   |-- landing-zone.md
 |   |-- legacy-2020.md
