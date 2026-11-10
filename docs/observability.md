@@ -362,7 +362,7 @@ Every widget of both dashboards, and the question it answers, is described in [`
 
 ## 12. Plan-only boundary
 
-Nothing in this document is deployed. The alarms, composite alarms, metric filters, schedules, canary, topics, the cross-account link and the two dashboard bodies are definitions that the IaC would apply in `aroma-pacifico-infrastructure`; the detector and cost export functions are code of the platform repository (ASM-170), which the pilot does not write. Whether the D10 function pattern of Epic 6 codes its own alarm set (errors, throttles, dead-letter queue) is decided by the 100-hour plan (PD-223). No figure in this document is a measurement, and no SLO attainment is reported: the first attainment is read after 28 days of production traffic.
+Nothing in this document is deployed. The alarms, composite alarms, metric filters, schedules, canary, topics, the cross-account link and the two dashboard bodies are definitions that the IaC would apply in `aroma-pacifico-infrastructure`; the detector and cost export functions are code of the platform repository (ASM-170), which the pilot does not write. Whether the D10 function pattern of Epic 6 codes its own operational alarm set (errors, throttles, dead-letter queue) is decided during B10 ([roadmap#30](https://github.com/aroma-pacifico/aroma-pacifico-roadmap/issues/30), PD-223); ASM-214 leaves CodeDeploy to architecture. No figure in this document is a measurement, and no SLO attainment is reported: the first attainment is read after 28 days of production traffic.
 
 ## 13. Decisions closed and what remains
 
@@ -376,7 +376,7 @@ Nothing in this document is deployed. The alarms, composite alarms, metric filte
 | PD-151 | Closed | Sections 6.5 and 9: SLI on the lookup path measured at the edge, 99.5 % over 28 days, and every proposed signal alarmed. |
 | PD-162 | Closed | Section 5.5: every A17 alarm with threshold and window, and the 1-hour age for missions awaiting a result. |
 | PD-173 | Closed | Section 10: rollback alarm set, thresholds, 1-minute windows inside the 5-minute canary, and the deployment view. |
-| Remaining | Open | PD-220: the AWS features relied on here are re-checked against live documentation. PD-221: pre-traffic hooks for rarely invoked functions. PD-222: A23 prices observability itself. PD-223: the 100-hour plan decides whether D10 codes its alarm set. The objectives of ASM-224 and ASM-225 are assumptions to be confirmed with the Federation. |
+| Remaining | Open | PD-220: the AWS features relied on here are re-checked against live documentation. PD-221: pre-traffic hooks for rarely invoked functions. PD-222: A23 prices observability itself. PD-223: B10 decides whether the D10 pattern codes its operational alarm set. The objectives of ASM-224 and ASM-225 are assumptions to be confirmed with the Federation. |
 
 ## 14. Compliance with the issue
 
