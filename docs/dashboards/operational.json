@@ -1,0 +1,918 @@
+{
+  "start": "-PT24H",
+  "periodOverride": "inherit",
+  "widgets": [
+    {
+      "type": "text",
+      "x": 0,
+      "y": 0,
+      "width": 24,
+      "height": 2,
+      "properties": {
+        "markdown": "# OP-00 Aroma Pacifico operations (${env})\nPoint 6 of the case statement. Every threshold is a design value from `docs/observability.md`; nothing here is a measurement. Collection centers split by the `CollectionCenter` dimension, farms by the Logs Insights tables, drones by the drone and inference rows, testing by the `dev` and `qa` copies of this dashboard."
+      }
+    },
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 2,
+      "width": 4,
+      "height": 4,
+      "properties": {
+        "title": "OP-01 SLO 1 crop alert delivery, 28 days (objective 95 %)",
+        "region": "us-east-1",
+        "view": "singleValue",
+        "stat": "Sum",
+        "period": 86400,
+        "metrics": [
+          [{"expression": "100 * g / v", "label": "Attainment %", "id": "e1"}],
+          ["AromaPacifico/Alerts", "AlertDeliveryGood", {"id": "g", "visible": false}],
+          ["AromaPacifico/Alerts", "AlertDeliveryValid", {"id": "v", "visible": false}]
+        ],
+        "setPeriodToTimeRange": true,
+        "start": "-P28D",
+        "end": "P0D"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 4,
+      "y": 2,
+      "width": 4,
+      "height": 4,
+      "properties": {
+        "title": "OP-02 SLO 1 error budget remaining, 28 days",
+        "region": "us-east-1",
+        "view": "singleValue",
+        "stat": "Sum",
+        "period": 86400,
+        "metrics": [
+          [{"expression": "100 * (1 - ((v - g) / v) / 0.05)", "label": "Budget remaining %", "id": "e1"}],
+          ["AromaPacifico/Alerts", "AlertDeliveryGood", {"id": "g", "visible": false}],
+          ["AromaPacifico/Alerts", "AlertDeliveryValid", {"id": "v", "visible": false}]
+        ],
+        "setPeriodToTimeRange": true,
+        "start": "-P28D",
+        "end": "P0D"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 8,
+      "y": 2,
+      "width": 4,
+      "height": 4,
+      "properties": {
+        "title": "OP-03 SLO 2 sack lookup availability, 28 days (objective 99.5 %)",
+        "region": "us-east-1",
+        "view": "singleValue",
+        "stat": "Sum",
+        "period": 86400,
+        "metrics": [
+          [{"expression": "100 * g / v", "label": "Attainment %", "id": "e1"}],
+          ["AromaPacifico/Lookup", "LookupGood", {"id": "g", "visible": false}],
+          ["AromaPacifico/Lookup", "LookupValid", {"id": "v", "visible": false}]
+        ],
+        "setPeriodToTimeRange": true,
+        "start": "-P28D",
+        "end": "P0D"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 12,
+      "y": 2,
+      "width": 4,
+      "height": 4,
+      "properties": {
+        "title": "OP-04 SLO 2 error budget remaining, 28 days",
+        "region": "us-east-1",
+        "view": "singleValue",
+        "stat": "Sum",
+        "period": 86400,
+        "metrics": [
+          [{"expression": "100 * (1 - ((v - g) / v) / 0.005)", "label": "Budget remaining %", "id": "e1"}],
+          ["AromaPacifico/Lookup", "LookupGood", {"id": "g", "visible": false}],
+          ["AromaPacifico/Lookup", "LookupValid", {"id": "v", "visible": false}]
+        ],
+        "setPeriodToTimeRange": true,
+        "start": "-P28D",
+        "end": "P0D"
+      }
+    },
+    {
+      "type": "alarm",
+      "x": 16,
+      "y": 2,
+      "width": 8,
+      "height": 4,
+      "properties": {
+        "title": "OP-05 Burn-rate alerts of both SLOs",
+        "alarms": [
+          "arn:aws:cloudwatch:us-east-1:${account_id}:alarm:${prefix}-${env}-alarm-sloalertfast",
+          "arn:aws:cloudwatch:us-east-1:${account_id}:alarm:${prefix}-${env}-alarm-sloalertslow",
+          "arn:aws:cloudwatch:us-east-1:${account_id}:alarm:${prefix}-${env}-alarm-sloalertticket",
+          "arn:aws:cloudwatch:us-east-1:${account_id}:alarm:${prefix}-${env}-alarm-slolookupfast",
+          "arn:aws:cloudwatch:us-east-1:${account_id}:alarm:${prefix}-${env}-alarm-slolookupslow",
+          "arn:aws:cloudwatch:us-east-1:${account_id}:alarm:${prefix}-${env}-alarm-slolookupticket",
+          "arn:aws:cloudwatch:us-east-1:${account_id}:alarm:${prefix}-${env}-alarm-lookupprobe"
+        ],
+        "sortBy": "stateUpdatedTimestamp"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 6,
+      "width": 8,
+      "height": 6,
+      "properties": {
+        "title": "OP-06 SLO 1 hourly good ratio and excluded openings, 7 days",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Sum",
+        "period": 3600,
+        "metrics": [
+          [{"expression": "IF(v > 0, 100 * g / v)", "label": "Good %", "id": "e1"}],
+          ["AromaPacifico/Alerts", "AlertDeliveryGood", {"id": "g", "visible": false}],
+          ["AromaPacifico/Alerts", "AlertDeliveryValid", {"id": "v", "visible": false}],
+          ["AromaPacifico/Alerts", "AlertDeliveryExcluded", {"id": "x", "label": "Excluded (handset unreachable)", "yAxis": "right"}]
+        ],
+        "start": "-P7D",
+        "end": "P0D",
+        "annotations": {"horizontal": [{"label": "Objective", "value": 95}]},
+        "yAxis": {"left": {"min": 0, "max": 100}}
+      }
+    },
+    {
+      "type": "log",
+      "x": 8,
+      "y": 6,
+      "width": 8,
+      "height": 6,
+      "properties": {
+        "title": "OP-07 SLO 1 bad events by breach hop, 7 days",
+        "region": "us-east-1",
+        "view": "table",
+        "query": "SOURCE '/aws/lambda/${prefix}-${env}-lambda-obsdetector' | filter detector = \"slo_alert_judgement\" and good = 0 and excluded = 0 | stats count(*) as bad_events by breach_hop, department | sort bad_events desc"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 16,
+      "y": 6,
+      "width": 8,
+      "height": 6,
+      "properties": {
+        "title": "OP-08 SLO 2 hourly good ratio and probe success, 7 days",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Sum",
+        "period": 3600,
+        "metrics": [
+          [{"expression": "IF(v > 0, 100 * g / v)", "label": "Good %", "id": "e1"}],
+          ["AromaPacifico/Lookup", "LookupGood", {"id": "g", "visible": false}],
+          ["AromaPacifico/Lookup", "LookupValid", {"id": "v", "visible": false}],
+          ["CloudWatchSynthetics", "SuccessPercent", "CanaryName", "${prefix}-${env}-canary-lookup", {"stat": "Average", "label": "Probe success %"}]
+        ],
+        "start": "-P7D",
+        "end": "P0D",
+        "annotations": {"horizontal": [{"label": "Objective", "value": 99.5}]},
+        "yAxis": {"left": {"min": 90, "max": 100}}
+      }
+    },
+    {
+      "type": "alarm",
+      "x": 0,
+      "y": 12,
+      "width": 24,
+      "height": 4,
+      "properties": {
+        "title": "OP-09 Page-level alarms",
+        "alarms": [
+          "arn:aws:cloudwatch:us-east-1:${account_id}:alarm:${prefix}-${env}-alarm-infthresholddlq",
+          "arn:aws:cloudwatch:us-east-1:${account_id}:alarm:${prefix}-${env}-alarm-infthresholdage",
+          "arn:aws:cloudwatch:us-east-1:${account_id}:alarm:${prefix}-${env}-alarm-infthresholdstore",
+          "arn:aws:cloudwatch:us-east-1:${account_id}:alarm:${prefix}-${env}-alarm-infperson",
+          "arn:aws:cloudwatch:us-east-1:${account_id}:alarm:${prefix}-${env}-alarm-iotrulefail",
+          "arn:aws:cloudwatch:us-east-1:${account_id}:alarm:${prefix}-${env}-alarm-notifydlq",
+          "arn:aws:cloudwatch:us-east-1:${account_id}:alarm:${prefix}-${env}-alarm-nodesilentmass",
+          "arn:aws:cloudwatch:us-east-1:${account_id}:alarm:${prefix}-${env}-alarm-api5xxrate",
+          "arn:aws:cloudwatch:us-east-1:${account_id}:alarm:${prefix}-${env}-alarm-sackiterage",
+          "arn:aws:cloudwatch:us-east-1:${account_id}:alarm:${prefix}-${env}-alarm-sackdlq",
+          "arn:aws:cloudwatch:us-east-1:${account_id}:alarm:${prefix}-${env}-alarm-lookupprobe"
+        ],
+        "sortBy": "stateUpdatedTimestamp"
+      }
+    },
+    {"type": "text", "x": 0, "y": 16, "width": 24, "height": 1, "properties": {"markdown": "## Ingestion and farms without telemetry"}},
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 17,
+      "width": 8,
+      "height": 6,
+      "properties": {
+        "title": "OP-10 Readings evaluated by department and zone",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Sum",
+        "period": 3600,
+        "metrics": [{"expression": "SEARCH('{AromaPacifico/Telemetry,CollectionCenter,Zone} MetricName=\"ReadingsEvaluated\"', 'Sum', 3600)", "id": "e1"}]
+      }
+    },
+    {
+      "type": "metric",
+      "x": 8,
+      "y": 17,
+      "width": 8,
+      "height": 6,
+      "properties": {
+        "title": "OP-11 Ingest lag p95 and delayed readings",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Sum",
+        "period": 3600,
+        "metrics": [
+          ["AromaPacifico/Telemetry", "IngestLagSeconds", {"stat": "p95", "label": "Ingest lag p95 (s)"}],
+          ["AromaPacifico/Telemetry", "ReadingsDelayed", {"stat": "Sum", "label": "Delayed readings", "yAxis": "right"}],
+          ["AromaPacifico/Telemetry", "ReadingsEvicted", {"stat": "Sum", "label": "Evicted from buffers", "yAxis": "right"}]
+        ]
+      }
+    },
+    {
+      "type": "metric",
+      "x": 16,
+      "y": 17,
+      "width": 8,
+      "height": 6,
+      "properties": {
+        "title": "OP-12 IoT Core authentication errors and rule failures",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Sum",
+        "period": 300,
+        "metrics": [
+          ["AWS/IoT", "Connect.AuthError", {"label": "Connect auth errors"}],
+          ["AWS/IoT", "PublishIn.AuthError", {"label": "Publish auth errors"}],
+          ["AWS/IoT", "Failure", "RuleName", "${telemetry_rule_name}", "ActionType", "DynamoDBv2", {"label": "Rule store write failures"}],
+          ["AWS/IoT", "Failure", "RuleName", "${telemetry_rule_name}", "ActionType", "SQS", {"label": "Rule queue send failures"}],
+          [
+            "AWS/SQS",
+            "ApproximateNumberOfMessagesVisible",
+            "QueueName",
+            "${prefix}-${env}-sqs-iotruleerr",
+            {"stat": "Maximum", "label": "Rule error queue depth"}
+          ]
+        ]
+      }
+    },
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 23,
+      "width": 8,
+      "height": 6,
+      "properties": {
+        "title": "OP-13 Nodes and farms silent for more than 24 hours, by department",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Maximum",
+        "period": 3600,
+        "metrics": [
+          {
+            "expression": "SEARCH('{AromaPacifico/Detector,CollectionCenter} MetricName=\"NodesSilent24h\"', 'Maximum', 3600)",
+            "id": "e1",
+            "label": "Nodes"
+          },
+          {
+            "expression": "SEARCH('{AromaPacifico/Detector,CollectionCenter} MetricName=\"FarmsSilent24h\"', 'Maximum', 3600)",
+            "id": "e2",
+            "label": "Farms"
+          }
+        ]
+      }
+    },
+    {
+      "type": "log",
+      "x": 8,
+      "y": 23,
+      "width": 16,
+      "height": 6,
+      "properties": {
+        "title": "OP-14 Silent nodes by farm (last detector run)",
+        "region": "us-east-1",
+        "view": "table",
+        "query": "SOURCE '/aws/lambda/${prefix}-${env}-lambda-obsdetector' | filter detector = \"node_silence\" and silent_hours > 8 | stats latest(silent_hours) as hours_silent, latest(last_received_at) as last_received by farm_id, node_id, zone, department | sort hours_silent desc | limit 200"
+      }
+    },
+    {"type": "text", "x": 0, "y": 29, "width": 24, "height": 1, "properties": {"markdown": "## Crop alerts to farmers"}},
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 30,
+      "width": 8,
+      "height": 6,
+      "properties": {
+        "title": "OP-15 Alerts published and sent by channel",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Sum",
+        "period": 3600,
+        "metrics": [
+          ["AromaPacifico/Alerts", "AlertsPublished", {"label": "Published"}],
+          ["AromaPacifico/Alerts", "SmsSent", {"label": "SMS sent"}],
+          ["AromaPacifico/Alerts", "PushSent", {"label": "Push sent"}],
+          ["AromaPacifico/Alerts", "SmsDeliveryFailed", {"label": "SMS failed"}]
+        ]
+      }
+    },
+    {
+      "type": "metric",
+      "x": 8,
+      "y": 30,
+      "width": 8,
+      "height": 6,
+      "properties": {
+        "title": "OP-16 Alerts pending delivery and undelivered, by department",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Maximum",
+        "period": 300,
+        "metrics": [
+          {
+            "expression": "SEARCH('{AromaPacifico/Alerts,CollectionCenter} MetricName=\"AlertsPendingDelivery\"', 'Maximum', 300)",
+            "id": "e1",
+            "label": "Pending"
+          },
+          {
+            "expression": "SEARCH('{AromaPacifico/Alerts,CollectionCenter} MetricName=\"AlertsUndelivered\"', 'Maximum', 300)",
+            "id": "e2",
+            "label": "Undelivered"
+          }
+        ]
+      }
+    },
+    {
+      "type": "metric",
+      "x": 16,
+      "y": 30,
+      "width": 8,
+      "height": 6,
+      "properties": {
+        "title": "OP-17 Notification queue age and dead-letter queue",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Maximum",
+        "period": 60,
+        "metrics": [
+          [
+            "AWS/SQS",
+            "ApproximateAgeOfOldestMessage",
+            "QueueName",
+            "${prefix}-${env}-sqs-notify",
+            {"stat": "Maximum", "label": "Oldest message age (s)"}
+          ],
+          [
+            "AWS/SQS",
+            "ApproximateNumberOfMessagesVisible",
+            "QueueName",
+            "${prefix}-${env}-sqs-notifydlq",
+            {"stat": "Maximum", "label": "Dead-letter messages", "yAxis": "right"}
+          ],
+          [
+            "AWS/Lambda",
+            "Duration",
+            "FunctionName",
+            "${prefix}-${env}-lambda-dispatcher",
+            "Resource",
+            "${prefix}-${env}-lambda-dispatcher:live",
+            {"stat": "p99", "label": "Dispatcher p99 (ms)"}
+          ]
+        ]
+      }
+    },
+    {
+      "type": "log",
+      "x": 0,
+      "y": 36,
+      "width": 24,
+      "height": 5,
+      "properties": {
+        "title": "OP-18 Alerts without a receipt",
+        "region": "us-east-1",
+        "view": "table",
+        "query": "SOURCE '/aws/lambda/${prefix}-${env}-lambda-obsdetector' | filter detector = \"alert_pending_delivery\" | stats latest(pending_minutes) as minutes_pending, latest(sms_status) as sms, latest(push_status) as push by episode_id, farm_id, department, variable, delayed | sort minutes_pending desc | limit 100"
+      }
+    },
+    {"type": "text", "x": 0, "y": 41, "width": 24, "height": 1, "properties": {"markdown": "## Drones: flight objects, flights and fumigations"}},
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 42,
+      "width": 8,
+      "height": 6,
+      "properties": {
+        "title": "OP-19 Arrival of flight objects",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Sum",
+        "period": 3600,
+        "metrics": [
+          ["AromaPacifico/Drone", "ObjectsPersisted", {"label": "Persisted"}],
+          ["AromaPacifico/Drone", "ObjectsRejected", {"label": "Rejected (checksum)"}],
+          ["AromaPacifico/Drone", "ObjectsQuarantined", {"label": "Quarantined"}],
+          ["AWS/S3", "PutRequests", "BucketName", "${prefix}-${env}-s3-droneobjects", "FilterId", "farms", {"label": "S3 PUT requests"}],
+          ["AWS/S3", "4xxErrors", "BucketName", "${prefix}-${env}-s3-droneobjects", "FilterId", "farms", {"label": "S3 4xx"}]
+        ]
+      }
+    },
+    {
+      "type": "metric",
+      "x": 8,
+      "y": 42,
+      "width": 8,
+      "height": 6,
+      "properties": {
+        "title": "OP-20 Missions without a persisted record, by state",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Maximum",
+        "period": 3600,
+        "metrics": [{"expression": "SEARCH('{AromaPacifico/Detector,MissionType,State} MetricName=\"MissionsWithoutRecord\"', 'Maximum', 3600)", "id": "e1"}]
+      }
+    },
+    {
+      "type": "metric",
+      "x": 16,
+      "y": 42,
+      "width": 8,
+      "height": 6,
+      "properties": {
+        "title": "OP-21 Fumigations open by order state, and flagged orders",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Maximum",
+        "period": 3600,
+        "metrics": [
+          {"expression": "SEARCH('{AromaPacifico/Detector,State} MetricName=\"FumigationsOpen\"', 'Maximum', 3600)", "id": "e1"},
+          {
+            "expression": "SEARCH('{AromaPacifico/Detector,CollectionCenter} MetricName=\"OrdersFlagged\"', 'Maximum', 3600)",
+            "id": "e2",
+            "label": "Flagged"
+          }
+        ]
+      }
+    },
+    {
+      "type": "log",
+      "x": 0,
+      "y": 48,
+      "width": 24,
+      "height": 5,
+      "properties": {
+        "title": "OP-22 Stuck missions and fumigation orders",
+        "region": "us-east-1",
+        "view": "table",
+        "query": "SOURCE '/aws/lambda/${prefix}-${env}-lambda-obsdetector' | filter detector in [\"mission_without_record\", \"fumigation_open\"] and overdue = 1 | stats latest(state) as current_state, latest(age_hours) as hours by detector, farm_id, department, mission_id, order_id | sort hours desc | limit 100"
+      }
+    },
+    {
+      "type": "text",
+      "x": 0,
+      "y": 53,
+      "width": 24,
+      "height": 1,
+      "properties": {"markdown": "## Inference functions: failed invocations without state change"}
+    },
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 54,
+      "width": 8,
+      "height": 6,
+      "properties": {
+        "title": "OP-23 Dead-letter queues of the functions",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Maximum",
+        "period": 60,
+        "metrics": [
+          ["AWS/SQS", "ApproximateNumberOfMessagesVisible", "QueueName", "${prefix}-${env}-sqs-thresholddlq", {"label": "Threshold"}],
+          ["AWS/SQS", "ApproximateNumberOfMessagesVisible", "QueueName", "${prefix}-${env}-sqs-confirmdlq", {"label": "Confirmation"}],
+          ["AWS/SQS", "ApproximateNumberOfMessagesVisible", "QueueName", "${prefix}-${env}-sqs-verifydlq", {"label": "Verification"}],
+          ["AWS/SQS", "ApproximateNumberOfMessagesVisible", "QueueName", "${prefix}-${env}-sqs-estimatedlq", {"label": "Estimation"}],
+          ["AWS/SQS", "ApproximateNumberOfMessagesVisible", "QueueName", "${prefix}-${env}-sqs-routedlq", {"label": "Routing"}]
+        ]
+      }
+    },
+    {
+      "type": "metric",
+      "x": 8,
+      "y": 54,
+      "width": 8,
+      "height": 6,
+      "properties": {
+        "title": "OP-24 Oldest message age of the function queues (s)",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Maximum",
+        "period": 60,
+        "metrics": [
+          ["AWS/SQS", "ApproximateAgeOfOldestMessage", "QueueName", "${prefix}-${env}-sqs-threshold", {"label": "Threshold"}],
+          ["AWS/SQS", "ApproximateAgeOfOldestMessage", "QueueName", "${prefix}-${env}-sqs-confirm", {"label": "Confirmation"}],
+          ["AWS/SQS", "ApproximateAgeOfOldestMessage", "QueueName", "${prefix}-${env}-sqs-verify", {"label": "Verification"}],
+          ["AWS/SQS", "ApproximateAgeOfOldestMessage", "QueueName", "${prefix}-${env}-sqs-estimate", {"label": "Estimation"}]
+        ],
+        "annotations": {"horizontal": [{"label": "Threshold page", "value": 120}, {"label": "Drone ticket", "value": 2700}]}
+      }
+    },
+    {
+      "type": "metric",
+      "x": 16,
+      "y": 54,
+      "width": 8,
+      "height": 6,
+      "properties": {
+        "title": "OP-25 Failed invocations, missions awaiting a result, guard skips",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Sum",
+        "period": 900,
+        "metrics": [
+          {"expression": "SEARCH('{AromaPacifico/Inference,function} MetricName=\"InferenceFailed\"', 'Sum', 900)", "id": "e1", "label": "Failed"},
+          ["AromaPacifico/Detector", "MissionsAwaitingResult", {"stat": "Maximum", "label": "Missions awaiting a result", "yAxis": "right"}],
+          {
+            "expression": "SEARCH('{AromaPacifico/Inference,function,reason} MetricName=\"GuardSkipped\"', 'Sum', 900)",
+            "id": "e2",
+            "label": "Guard skipped"
+          }
+        ]
+      }
+    },
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 60,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "title": "OP-26 Bedrock tokens, images and throttles",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Sum",
+        "period": 3600,
+        "metrics": [
+          ["AromaPacifico/Inference", "InputTokens", {"label": "Input tokens"}],
+          ["AromaPacifico/Inference", "OutputTokens", {"label": "Output tokens"}],
+          ["AromaPacifico/Inference", "ImagesSent", {"label": "Images sent", "yAxis": "right"}],
+          ["AromaPacifico/Inference", "InferenceThrottled", {"label": "Throttled", "yAxis": "right"}]
+        ]
+      }
+    },
+    {
+      "type": "metric",
+      "x": 12,
+      "y": 60,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "title": "OP-27 Objects excluded for a person",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Sum",
+        "period": 3600,
+        "metrics": [
+          ["AromaPacifico/Inference", "PersonExcluded", {"label": "Excluded by the screen"}],
+          ["AromaPacifico/Inference", "NotScreenedExcluded", {"label": "Not screened"}],
+          ["AromaPacifico/Inference", "ModelPersonDetected", {"label": "Detected by the model (incident)"}]
+        ]
+      }
+    },
+    {"type": "text", "x": 0, "y": 66, "width": 24, "height": 1, "properties": {"markdown": "## Sack events, API and public lookup"}},
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 67,
+      "width": 8,
+      "height": 6,
+      "properties": {
+        "title": "OP-28 Sack events accepted, refused, pending, anomalous, clock-skewed",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Sum",
+        "period": 3600,
+        "metrics": [
+          {
+            "expression": "SEARCH('{AromaPacifico/Sack,CollectionCenter} MetricName=\"SackEventsAccepted\"', 'Sum', 3600)",
+            "id": "e1",
+            "label": "Accepted"
+          },
+          ["AromaPacifico/Sack", "SackEventsRefused", {"label": "Refused", "yAxis": "right"}],
+          ["AromaPacifico/Sack", "SackEventsPending", {"stat": "Maximum", "label": "Pending", "yAxis": "right"}],
+          ["AromaPacifico/Sack", "SackEventsAnomaly", {"label": "Anomaly", "yAxis": "right"}],
+          ["AromaPacifico/Sack", "SackEventsClockSkewed", {"label": "Clock skewed", "yAxis": "right"}]
+        ]
+      }
+    },
+    {
+      "type": "metric",
+      "x": 8,
+      "y": 67,
+      "width": 8,
+      "height": 6,
+      "properties": {
+        "title": "OP-29 Sack stream iterator age and dead-letter queues",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Maximum",
+        "period": 60,
+        "metrics": [
+          [
+            "AWS/Lambda",
+            "IteratorAge",
+            "FunctionName",
+            "${prefix}-${env}-lambda-sackapplier",
+            {"stat": "Maximum", "label": "Applier iterator age (ms)"}
+          ],
+          [
+            "AWS/Lambda",
+            "IteratorAge",
+            "FunctionName",
+            "${prefix}-${env}-lambda-sackexporter",
+            {"stat": "Maximum", "label": "Exporter iterator age (ms)"}
+          ],
+          [
+            "AWS/SQS",
+            "ApproximateNumberOfMessagesVisible",
+            "QueueName",
+            "${prefix}-${env}-sqs-sackapplierdlq",
+            {"stat": "Maximum", "label": "Applier DLQ", "yAxis": "right"}
+          ],
+          [
+            "AWS/SQS",
+            "ApproximateNumberOfMessagesVisible",
+            "QueueName",
+            "${prefix}-${env}-sqs-sackexporterdlq",
+            {"stat": "Maximum", "label": "Exporter DLQ", "yAxis": "right"}
+          ]
+        ],
+        "annotations": {"horizontal": [{"label": "Alarm 300 s", "value": 300000}]}
+      }
+    },
+    {
+      "type": "metric",
+      "x": 16,
+      "y": 67,
+      "width": 8,
+      "height": 6,
+      "properties": {
+        "title": "OP-30 Application API requests, 5XX and latency",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Sum",
+        "period": 300,
+        "metrics": [
+          ["AWS/ApiGateway", "Count", "ApiName", "${api_name}", "Stage", "${env}", {"label": "Requests"}],
+          ["AWS/ApiGateway", "5XXError", "ApiName", "${api_name}", "Stage", "${env}", {"label": "5XX"}],
+          ["AWS/ApiGateway", "4XXError", "ApiName", "${api_name}", "Stage", "${env}", {"label": "4XX"}],
+          ["AWS/ApiGateway", "Latency", "ApiName", "${api_name}", "Stage", "${env}", {"stat": "p95", "label": "Latency p95 (ms)", "yAxis": "right"}]
+        ]
+      }
+    },
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 73,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "title": "OP-31 Lookups found and not found, WAF blocks",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Sum",
+        "period": 300,
+        "metrics": [
+          ["AromaPacifico/Lookup", "LookupFound", {"label": "Found"}],
+          ["AromaPacifico/Lookup", "LookupNotFound", {"label": "Not found"}],
+          [
+            "AWS/WAFV2",
+            "BlockedRequests",
+            "WebACL",
+            "${prefix}-${env}-waf-lookup",
+            "Rule",
+            "ALL",
+            {"label": "WAF blocked (all rules)", "yAxis": "right"}
+          ],
+          [
+            "AWS/WAFV2",
+            "BlockedRequests",
+            "WebACL",
+            "${prefix}-${env}-waf-lookup",
+            "Rule",
+            "ratelimitlookup",
+            {"label": "WAF rate-based blocks", "yAxis": "right"}
+          ]
+        ]
+      }
+    },
+    {
+      "type": "metric",
+      "x": 12,
+      "y": 73,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "title": "OP-32 Lookup edge errors, origin latency and throttles",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Sum",
+        "period": 300,
+        "metrics": [
+          [
+            "AWS/CloudFront",
+            "5xxErrorRate",
+            "DistributionId",
+            "${lookup_distribution_id}",
+            "Region",
+            "Global",
+            {"stat": "Average", "label": "Edge 5xx rate %"}
+          ],
+          [
+            "AWS/CloudFront",
+            "OriginLatency",
+            "DistributionId",
+            "${lookup_distribution_id}",
+            "Region",
+            "Global",
+            {"stat": "p95", "label": "Origin latency p95 (ms)", "yAxis": "right"}
+          ],
+          ["AWS/Lambda", "Throttles", "FunctionName", "${prefix}-${env}-lambda-lookup", {"label": "Lookup throttles"}],
+          ["AWS/Lambda", "Errors", "FunctionName", "${prefix}-${env}-lambda-lookup", {"label": "Lookup errors"}]
+        ]
+      }
+    },
+    {"type": "text", "x": 0, "y": 79, "width": 24, "height": 1, "properties": {"markdown": "## Databases"}},
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 80,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "title": "OP-33 DynamoDB throttles and system errors, every table",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Sum",
+        "period": 300,
+        "metrics": [
+          {"expression": "SEARCH('{AWS/DynamoDB,TableName} MetricName=\"WriteThrottleEvents\"', 'Sum', 300)", "id": "e1"},
+          {"expression": "SEARCH('{AWS/DynamoDB,TableName} MetricName=\"ReadThrottleEvents\"', 'Sum', 300)", "id": "e2"},
+          {"expression": "SEARCH('{AWS/DynamoDB,TableName,Operation} MetricName=\"SystemErrors\"', 'Sum', 300)", "id": "e3"}
+        ]
+      }
+    },
+    {
+      "type": "metric",
+      "x": 12,
+      "y": 80,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "title": "OP-34 DynamoDB consumed capacity, every table",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Sum",
+        "period": 3600,
+        "metrics": [
+          {"expression": "SEARCH('{AWS/DynamoDB,TableName} MetricName=\"ConsumedWriteCapacityUnits\"', 'Sum', 3600)", "id": "e1"},
+          {"expression": "SEARCH('{AWS/DynamoDB,TableName} MetricName=\"ConsumedReadCapacityUnits\"', 'Sum', 3600)", "id": "e2"}
+        ]
+      }
+    },
+    {"type": "text", "x": 0, "y": 86, "width": 24, "height": 1, "properties": {"markdown": "## The three collection-center WAN links"}},
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 87,
+      "width": 8,
+      "height": 6,
+      "properties": {
+        "title": "OP-35 Tunnel state per center (1 = up)",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Maximum",
+        "period": 60,
+        "metrics": [
+          ["AWS/VPN", "TunnelState", "VpnId", "${vpn_id_cauca}", {"stat": "Maximum", "label": "cauca", "accountId": "${network_account_id}"}],
+          ["AWS/VPN", "TunnelState", "VpnId", "${vpn_id_huila}", {"stat": "Maximum", "label": "huila", "accountId": "${network_account_id}"}],
+          ["AWS/VPN", "TunnelState", "VpnId", "${vpn_id_tolima}", {"stat": "Maximum", "label": "tolima", "accountId": "${network_account_id}"}]
+        ],
+        "yAxis": {"left": {"min": 0, "max": 1}}
+      }
+    },
+    {
+      "type": "metric",
+      "x": 8,
+      "y": 87,
+      "width": 8,
+      "height": 6,
+      "properties": {
+        "title": "OP-36 Tunnel bytes per center",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Sum",
+        "period": 300,
+        "metrics": [
+          ["AWS/VPN", "TunnelDataIn", "VpnId", "${vpn_id_cauca}", {"label": "cauca in", "accountId": "${network_account_id}"}],
+          ["AWS/VPN", "TunnelDataOut", "VpnId", "${vpn_id_cauca}", {"label": "cauca out", "accountId": "${network_account_id}"}],
+          ["AWS/VPN", "TunnelDataIn", "VpnId", "${vpn_id_huila}", {"label": "huila in", "accountId": "${network_account_id}"}],
+          ["AWS/VPN", "TunnelDataOut", "VpnId", "${vpn_id_huila}", {"label": "huila out", "accountId": "${network_account_id}"}],
+          ["AWS/VPN", "TunnelDataIn", "VpnId", "${vpn_id_tolima}", {"label": "tolima in", "accountId": "${network_account_id}"}],
+          ["AWS/VPN", "TunnelDataOut", "VpnId", "${vpn_id_tolima}", {"label": "tolima out", "accountId": "${network_account_id}"}]
+        ]
+      }
+    },
+    {
+      "type": "metric",
+      "x": 16,
+      "y": 87,
+      "width": 8,
+      "height": 6,
+      "properties": {
+        "title": "OP-37 Active link (1 = backup) and firewall export heartbeat",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Maximum",
+        "period": 60,
+        "metrics": [
+          {
+            "expression": "SEARCH('{AromaPacifico/CenterNetwork,CollectionCenter} MetricName=\"WanActiveLink\"', 'Maximum', 60)",
+            "id": "e1",
+            "label": "Backup in use"
+          },
+          {
+            "expression": "SEARCH('{AromaPacifico/CenterNetwork,CollectionCenter} MetricName=\"FirewallLogLines\"', 'Sum', 300)",
+            "id": "e2",
+            "label": "Log lines"
+          }
+        ]
+      }
+    },
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 93,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "title": "OP-38 Throughput by center and traffic class",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Average",
+        "period": 300,
+        "metrics": [
+          {
+            "expression": "SEARCH('{AromaPacifico/CenterNetwork,CollectionCenter,TrafficClass,Direction} MetricName=\"ClassThroughputBits\"', 'Average', 300)",
+            "id": "e1"
+          }
+        ],
+        "annotations": {"horizontal": [{"label": "80 % of the 90 Mbps plan", "value": 72000000}]}
+      }
+    },
+    {
+      "type": "metric",
+      "x": 12,
+      "y": 93,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "title": "OP-39 Drops by center and traffic class",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Sum",
+        "period": 300,
+        "metrics": [
+          {
+            "expression": "SEARCH('{AromaPacifico/CenterNetwork,CollectionCenter,TrafficClass,Direction} MetricName=\"ClassDrops\"', 'Sum', 300)",
+            "id": "e1"
+          }
+        ]
+      }
+    },
+    {"type": "text", "x": 0, "y": 99, "width": 24, "height": 1, "properties": {"markdown": "## Deployments"}},
+    {
+      "type": "log",
+      "x": 0,
+      "y": 100,
+      "width": 24,
+      "height": 5,
+      "properties": {
+        "title": "OP-40 CodeDeploy deployments and rollbacks",
+        "region": "us-east-1",
+        "view": "table",
+        "query": "SOURCE '/${prefix}/${env}/deployments' | fields @timestamp, detail.application as application, detail.deploymentGroup as function_group, detail.deploymentId as deployment, detail.state as outcome | filter `detail-type` = \"CodeDeploy Deployment State-change Notification\" | sort @timestamp desc | limit 50"
+      }
+    }
+  ]
+}

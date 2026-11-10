@@ -1,0 +1,481 @@
+{
+  "start": "-P31D",
+  "periodOverride": "inherit",
+  "widgets": [
+    {
+      "type": "text",
+      "x": 0,
+      "y": 0,
+      "width": 24,
+      "height": 2,
+      "properties": {
+        "markdown": "# CO-00 Aroma Pacifico cost\nAmounts are what the bill says; no price is set here (prices and budget amounts are A23, roadmap#36). Cost lines follow the A08 cost category: farms, drones, collection centers, trips, testing, shared and `unallocated`. Daily values come from Cost Explorer through the cost export function and lag up to one day."
+      }
+    },
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 2,
+      "width": 6,
+      "height": 4,
+      "properties": {
+        "title": "CO-01 Estimated charges, month to date (USD)",
+        "region": "us-east-1",
+        "view": "singleValue",
+        "stat": "Maximum",
+        "period": 21600,
+        "metrics": [["AWS/Billing", "EstimatedCharges", "Currency", "USD", {"stat": "Maximum", "label": "All accounts"}]]
+      }
+    },
+    {
+      "type": "metric",
+      "x": 6,
+      "y": 2,
+      "width": 6,
+      "height": 4,
+      "properties": {
+        "title": "CO-02 Unallocated cost, month to date",
+        "region": "us-east-1",
+        "view": "singleValue",
+        "stat": "Maximum",
+        "period": 86400,
+        "metrics": [
+          [{"expression": "100 * u / t", "label": "Unallocated % (alarm above 5)", "id": "e1"}],
+          ["AromaPacifico/Cost", "MonthToDateCost", "CostLine", "unallocated", {"stat": "Maximum", "id": "u", "visible": false}],
+          ["AromaPacifico/Cost", "MonthToDateCost", "CostLine", "total", {"stat": "Maximum", "id": "t", "visible": false}]
+        ]
+      }
+    },
+    {
+      "type": "metric",
+      "x": 12,
+      "y": 2,
+      "width": 6,
+      "height": 4,
+      "properties": {
+        "title": "CO-03 Testing cost line, month to date",
+        "region": "us-east-1",
+        "view": "singleValue",
+        "stat": "Maximum",
+        "period": 86400,
+        "metrics": [["AromaPacifico/Cost", "MonthToDateCost", "CostLine", "testing", {"stat": "Maximum", "label": "Testing (dev and qa accounts)"}]]
+      }
+    },
+    {
+      "type": "alarm",
+      "x": 18,
+      "y": 2,
+      "width": 6,
+      "height": 4,
+      "properties": {
+        "title": "CO-04 Cost alarms",
+        "alarms": [
+          "arn:aws:cloudwatch:us-east-1:${management_account_id}:alarm:${prefix}-shared-alarm-unallocated",
+          "arn:aws:cloudwatch:us-east-1:${management_account_id}:alarm:${prefix}-shared-alarm-natcost"
+        ],
+        "sortBy": "stateUpdatedTimestamp"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 6,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "title": "CO-05 Daily cost by pilot cost line",
+        "region": "us-east-1",
+        "view": "bar",
+        "stat": "Maximum",
+        "period": 86400,
+        "metrics": [{"expression": "SEARCH('{AromaPacifico/Cost,CostLine} MetricName=\"DailyCost\"', 'Maximum', 86400)", "id": "e1"}],
+        "start": "-P35D",
+        "end": "P0D",
+        "stacked": true
+      }
+    },
+    {
+      "type": "metric",
+      "x": 12,
+      "y": 6,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "title": "CO-06 Month to date by pilot cost line",
+        "region": "us-east-1",
+        "view": "bar",
+        "stat": "Maximum",
+        "period": 86400,
+        "metrics": [{"expression": "SEARCH('{AromaPacifico/Cost,CostLine} MetricName=\"MonthToDateCost\"', 'Maximum', 86400)", "id": "e1"}]
+      }
+    },
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 12,
+      "width": 8,
+      "height": 6,
+      "properties": {
+        "title": "CO-07 Month to date by collection center",
+        "region": "us-east-1",
+        "view": "bar",
+        "stat": "Maximum",
+        "period": 86400,
+        "metrics": [
+          ["AromaPacifico/Cost", "MonthToDateCost", "CollectionCenter", "cauca", {"stat": "Maximum", "label": "cauca"}],
+          ["AromaPacifico/Cost", "MonthToDateCost", "CollectionCenter", "huila", {"stat": "Maximum", "label": "huila"}],
+          ["AromaPacifico/Cost", "MonthToDateCost", "CollectionCenter", "tolima", {"stat": "Maximum", "label": "tolima"}],
+          ["AromaPacifico/Cost", "MonthToDateCost", "CollectionCenter", "none", {"stat": "Maximum", "label": "none"}]
+        ]
+      }
+    },
+    {
+      "type": "metric",
+      "x": 8,
+      "y": 12,
+      "width": 8,
+      "height": 6,
+      "properties": {
+        "title": "CO-08 Farms line, month to date and mean per enrolled farm",
+        "region": "us-east-1",
+        "view": "singleValue",
+        "stat": "Maximum",
+        "period": 86400,
+        "metrics": [
+          ["AromaPacifico/Cost", "MonthToDateCost", "CostLine", "farms", {"stat": "Maximum", "id": "f", "label": "Farms line"}],
+          [{"expression": "f / ${enrolled_farms}", "label": "Mean per enrolled farm", "id": "e1"}]
+        ]
+      }
+    },
+    {
+      "type": "metric",
+      "x": 16,
+      "y": 12,
+      "width": 8,
+      "height": 6,
+      "properties": {
+        "title": "CO-09 Estimated charges by linked account",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Maximum",
+        "period": 21600,
+        "metrics": [{"expression": "SEARCH('{AWS/Billing,Currency,LinkedAccount} MetricName=\"EstimatedCharges\"', 'Maximum', 21600)", "id": "e1"}]
+      }
+    },
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 18,
+      "width": 12,
+      "height": 7,
+      "properties": {
+        "title": "CO-10 Daily cost by driver",
+        "region": "us-east-1",
+        "view": "bar",
+        "stat": "Maximum",
+        "period": 86400,
+        "metrics": [{"expression": "SEARCH('{AromaPacifico/Cost,Driver} MetricName=\"DailyCost\"', 'Maximum', 86400)", "id": "e1"}],
+        "start": "-P35D",
+        "end": "P0D",
+        "stacked": true
+      }
+    },
+    {
+      "type": "metric",
+      "x": 12,
+      "y": 18,
+      "width": 12,
+      "height": 7,
+      "properties": {
+        "title": "CO-11 Estimated charges by AWS service",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Maximum",
+        "period": 21600,
+        "metrics": [{"expression": "SEARCH('{AWS/Billing,Currency,ServiceName} MetricName=\"EstimatedCharges\"', 'Maximum', 21600)", "id": "e1"}]
+      }
+    },
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 25,
+      "width": 6,
+      "height": 5,
+      "properties": {
+        "title": "CO-12 IoT Core messages",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Maximum",
+        "period": 86400,
+        "metrics": [
+          ["AromaPacifico/Cost", "DailyCost", "Driver", "iot-core", {"stat": "Maximum", "label": "Daily cost (USD)"}],
+          ["AromaPacifico/Cost", "DailyUsage", "Driver", "iot-core", {"stat": "Maximum", "label": "Daily usage quantity", "yAxis": "right"}]
+        ],
+        "start": "-P35D",
+        "end": "P0D"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 6,
+      "y": 25,
+      "width": 6,
+      "height": 5,
+      "properties": {
+        "title": "CO-13 Lambda requests",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Maximum",
+        "period": 86400,
+        "metrics": [
+          ["AromaPacifico/Cost", "DailyCost", "Driver", "lambda", {"stat": "Maximum", "label": "Daily cost (USD)"}],
+          ["AromaPacifico/Cost", "DailyUsage", "Driver", "lambda", {"stat": "Maximum", "label": "Daily usage quantity", "yAxis": "right"}]
+        ],
+        "start": "-P35D",
+        "end": "P0D"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 12,
+      "y": 25,
+      "width": 6,
+      "height": 5,
+      "properties": {
+        "title": "CO-14 Bedrock input and output tokens",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Maximum",
+        "period": 86400,
+        "metrics": [
+          ["AromaPacifico/Cost", "DailyCost", "Driver", "bedrock", {"stat": "Maximum", "label": "Daily cost (USD)"}],
+          ["AromaPacifico/Cost", "DailyUsage", "Driver", "bedrock", {"stat": "Maximum", "label": "Daily usage quantity", "yAxis": "right"}]
+        ],
+        "start": "-P35D",
+        "end": "P0D"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 18,
+      "y": 25,
+      "width": 6,
+      "height": 5,
+      "properties": {
+        "title": "CO-15 DynamoDB request units",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Maximum",
+        "period": 86400,
+        "metrics": [
+          ["AromaPacifico/Cost", "DailyCost", "Driver", "dynamodb", {"stat": "Maximum", "label": "Daily cost (USD)"}],
+          ["AromaPacifico/Cost", "DailyUsage", "Driver", "dynamodb", {"stat": "Maximum", "label": "Daily usage quantity", "yAxis": "right"}]
+        ],
+        "start": "-P35D",
+        "end": "P0D"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 30,
+      "width": 6,
+      "height": 5,
+      "properties": {
+        "title": "CO-16 S3 storage and requests",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Maximum",
+        "period": 86400,
+        "metrics": [
+          ["AromaPacifico/Cost", "DailyCost", "Driver", "s3", {"stat": "Maximum", "label": "Daily cost (USD)"}],
+          ["AromaPacifico/Cost", "DailyUsage", "Driver", "s3", {"stat": "Maximum", "label": "Daily usage quantity", "yAxis": "right"}]
+        ],
+        "start": "-P35D",
+        "end": "P0D"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 6,
+      "y": 30,
+      "width": 6,
+      "height": 5,
+      "properties": {
+        "title": "CO-17 VPN and Transit Gateway hours and bytes",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Maximum",
+        "period": 86400,
+        "metrics": [
+          ["AromaPacifico/Cost", "DailyCost", "Driver", "vpn-and-transit", {"stat": "Maximum", "label": "Daily cost (USD)"}],
+          ["AromaPacifico/Cost", "DailyUsage", "Driver", "vpn-and-transit", {"stat": "Maximum", "label": "Daily usage quantity", "yAxis": "right"}]
+        ],
+        "start": "-P35D",
+        "end": "P0D"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 12,
+      "y": 30,
+      "width": 6,
+      "height": 5,
+      "properties": {
+        "title": "CO-18 NAT gateway hours (expected 0)",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Maximum",
+        "period": 86400,
+        "metrics": [
+          ["AromaPacifico/Cost", "DailyCost", "Driver", "nat", {"stat": "Maximum", "label": "Daily cost (USD)"}],
+          ["AromaPacifico/Cost", "DailyUsage", "Driver", "nat", {"stat": "Maximum", "label": "Daily usage quantity", "yAxis": "right"}]
+        ],
+        "start": "-P35D",
+        "end": "P0D"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 18,
+      "y": 30,
+      "width": 6,
+      "height": 5,
+      "properties": {
+        "title": "CO-19 CloudFront requests and bytes",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Maximum",
+        "period": 86400,
+        "metrics": [
+          ["AromaPacifico/Cost", "DailyCost", "Driver", "cloudfront", {"stat": "Maximum", "label": "Daily cost (USD)"}],
+          ["AromaPacifico/Cost", "DailyUsage", "Driver", "cloudfront", {"stat": "Maximum", "label": "Daily usage quantity", "yAxis": "right"}]
+        ],
+        "start": "-P35D",
+        "end": "P0D"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 35,
+      "width": 6,
+      "height": 5,
+      "properties": {
+        "title": "CO-20 WAF requests",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Maximum",
+        "period": 86400,
+        "metrics": [
+          ["AromaPacifico/Cost", "DailyCost", "Driver", "waf", {"stat": "Maximum", "label": "Daily cost (USD)"}],
+          ["AromaPacifico/Cost", "DailyUsage", "Driver", "waf", {"stat": "Maximum", "label": "Daily usage quantity", "yAxis": "right"}]
+        ],
+        "start": "-P35D",
+        "end": "P0D"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 6,
+      "y": 35,
+      "width": 6,
+      "height": 5,
+      "properties": {
+        "title": "CO-21 SMS and push messages",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Maximum",
+        "period": 86400,
+        "metrics": [
+          ["AromaPacifico/Cost", "DailyCost", "Driver", "sms-and-push", {"stat": "Maximum", "label": "Daily cost (USD)"}],
+          ["AromaPacifico/Cost", "DailyUsage", "Driver", "sms-and-push", {"stat": "Maximum", "label": "Daily usage quantity", "yAxis": "right"}]
+        ],
+        "start": "-P35D",
+        "end": "P0D"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 12,
+      "y": 35,
+      "width": 6,
+      "height": 5,
+      "properties": {
+        "title": "CO-22 CloudWatch",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Maximum",
+        "period": 86400,
+        "metrics": [
+          ["AromaPacifico/Cost", "DailyCost", "Driver", "cloudwatch", {"stat": "Maximum", "label": "Daily cost (USD)"}],
+          ["AromaPacifico/Cost", "DailyUsage", "Driver", "cloudwatch", {"stat": "Maximum", "label": "Daily usage quantity", "yAxis": "right"}]
+        ],
+        "start": "-P35D",
+        "end": "P0D"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 18,
+      "y": 35,
+      "width": 6,
+      "height": 5,
+      "properties": {
+        "title": "CO-23 KMS requests",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Maximum",
+        "period": 86400,
+        "metrics": [
+          ["AromaPacifico/Cost", "DailyCost", "Driver", "kms", {"stat": "Maximum", "label": "Daily cost (USD)"}],
+          ["AromaPacifico/Cost", "DailyUsage", "Driver", "kms", {"stat": "Maximum", "label": "Daily usage quantity", "yAxis": "right"}]
+        ],
+        "start": "-P35D",
+        "end": "P0D"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 40,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "title": "CO-24 Budgets: actual percent of the amount",
+        "region": "us-east-1",
+        "view": "bar",
+        "stat": "Maximum",
+        "period": 86400,
+        "metrics": [{"expression": "SEARCH('{AromaPacifico/Cost,BudgetName} MetricName=\"BudgetActualPercent\"', 'Maximum', 86400)", "id": "e1"}],
+        "annotations": {"horizontal": [{"label": "80 %", "value": 80}, {"label": "100 %", "value": 100}]}
+      }
+    },
+    {
+      "type": "metric",
+      "x": 12,
+      "y": 40,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "title": "CO-25 Budgets: forecasted percent of the amount",
+        "region": "us-east-1",
+        "view": "bar",
+        "stat": "Maximum",
+        "period": 86400,
+        "metrics": [{"expression": "SEARCH('{AromaPacifico/Cost,BudgetName} MetricName=\"BudgetForecastPercent\"', 'Maximum', 86400)", "id": "e1"}],
+        "annotations": {"horizontal": [{"label": "100 %", "value": 100}]}
+      }
+    },
+    {
+      "type": "text",
+      "x": 0,
+      "y": 46,
+      "width": 24,
+      "height": 2,
+      "properties": {
+        "markdown": "## CO-26 Per-farm cost\nThe per-farm, per-trip and per-campaign cost is the usage allocation of the landing zone (section 5.3, ASM-065), computed monthly from the CUR 2.0 export and the usage counts of the platform stores. Cost Anomaly Detection alerts and budget alerts arrive on the budget topic of the landing zone, not on this dashboard."
+      }
+    }
+  ]
+}
