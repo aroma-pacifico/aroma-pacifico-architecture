@@ -42,7 +42,7 @@ Both templates have the same sections, so a reader finds the same answer in the 
 | 1. Change | "qué cambia" | What and why, linked issue and pull request, pipeline, release candidate commit, components, diagram boxes D01 to D13 (PD-180), `qa` acceptance | Rule IDs with validity and audit class, Terraform plan with destroys and replacements first, center device backups |
 | 2. Window | "la ventana" | Planned start and end in Colombia time, harvest-week check, expected end before 05:00 | Device changes count in the expected end |
 | 3. Impact | "el impacto" | Producers, collection centers, transporters, buyers, the Federation; downtime, degradation, data and schema compatibility (ASM-175, ASM-185) | Buffered data on nodes, ground stations and outboxes |
-| 4. Approval | "la aprobación" | Approver roles by stage (ASM-172), approval record from GitHub | Audit of rules by a person other than the author (PD-125) |
+| 4. Approval | "la aprobación" | Approver roles by stage (ASM-172), approval record of the two-step approval (ASM-321) | Audit of rules by a person other than the author (PD-125) |
 | 5. Notice | "el aviso a la Federación" | Recipient role, channel, sent at, lead time required and met, summary, outcome notice | None |
 | 6. Rollback | "cómo se vuelve atrás" | Mechanism, trigger, target time (ASM-174), rollback target, deciding role, what cannot be rolled back | Revert commit and center configuration restore (ASM-184) |
 | 7. Verification | Not named; needed to know a rollback is required | Checks with expected and observed result | Records before `pdn` go-live: PD-125, PD-167, PD-176 |
@@ -50,7 +50,7 @@ Both templates have the same sections, so a reader finds the same answer in the 
 
 ## 4. Who fills a note and where it is stored
 
-The change owner, the author of the release candidate (one of SR1, SR2, JR1, JR2), copies the template and fills every row marked **Owner** before the notice is sent. The pipeline never writes to a repository (A18 section 4.4), so rows marked **Pipeline** are copied by the change owner from the deployment event of A18 section 12, which GitHub keeps as the deployment status and which is also published to the `pdn` release topic. The `pdn` approver approves the run that the note describes; the platform operator applies center device changes and runs the verification; an auditor role other than the author records the audit of rules (PD-125).
+The change owner, the author of the release candidate (one of SR1, SR2, JR1, JR2), copies the template and fills every row marked **Owner** before the notice is sent. The pipeline never writes to a repository (A18 section 4.4), so rows marked **Pipeline** are copied by the change owner from the deployment event of A18 section 12, which GitHub keeps as the deployment status and which is also published to the `pdn` release topic. The `pdn` approver approves the reviewed plan that the note describes, in the approval run (ASM-321), and the change owner copies the run links and the approval record into the note; the platform operator applies center device changes and runs the verification; an auditor role other than the author records the audit of rules (PD-125).
 
 The templates live here, in the architecture repository. A filled note is committed at `release-notes/<release_id>.md` of `aroma-pacifico-infrastructure`, in the pull request of the release candidate, and linked from its body, because that is the pull request the `pdn` job reads. The release record (section 9 of each template) is added in a follow-up pull request within 1 business day of the release (ASM-180). The layout of the infrastructure repository is fixed by B01, which must reserve that directory (PD-181).
 
@@ -60,9 +60,9 @@ The procedure below follows the promotion of A18 section 4.4; the steps are sequ
 
 1. The change owner opens the pull request of the release candidate with its filled note, status `draft`, and with the planned window of section 2 checked against the harvest calendar (ASM-008).
 2. When the note is complete, the change owner sends the notice through the channel named under Q-15, records `notice_sent_at` and sets the status to `notice_sent`. For a standard change this happens at least 2 business days, Colombia time, before `planned_start` (ASM-173).
-3. After review the pull request is merged; the promotion plans and applies `dev`, then `qa` with its approval and acceptance suite.
+3. After review the pull request is merged; the promotion plans `dev` and `qa` (ASM-320). Design target if the plan-only boundary is lifted: it applies `dev`, then `qa` with its approval and acceptance suite.
 4. The `pdn` job reads the note's tables by field key and refuses to run while a mandatory field is empty, the lead time is not met or the window is not allowed. When it starts waiting for approval, the pipeline publishes the note to the `pdn` release topic (ASM-182).
-5. A `pdn` approver approves; the job applies and deploys, and any center device change of the note is made by the platform operator in the same window (ASM-184).
+5. A `pdn` approver, other than the person who started the promotion, starts the approval run, which accepts only if the digest of the reviewed plan, the commit and the window still hold and writes the approval record (ASM-321); nothing is applied (ASM-320). Design target if the boundary is lifted: the job then applies and deploys. Any center device change of the note is made by the platform operator in the same window (ASM-184).
 6. The pipeline publishes the outcome, including any automatic rollback, to the same topic; the operator runs the verification of section 7.
 7. Within 1 business day the change owner adds the release record in a follow-up pull request.
 
@@ -77,8 +77,8 @@ An incident is the only exception. It is declared by SR1 or SR2, on a report fro
 | Step | Rule | Source |
 |---|---|---|
 | Declaration | Reference `INC-<YYYYMMDD>-<NN>`, declaring role, time and why the change cannot wait | ASM-183 |
-| Approval | SR1 or SR2 with the incident reference in the approval; GitHub still prevents self-approval | A18 section 8, ASM-172 |
-| Shortened notice | Sent at the decision, before the apply, on the same channel, marked as incident | ASM-173 |
+| Approval | SR1 or SR2 listed in `PDN_APPROVERS`; the incident reference is given when the promotion starts and the approval run cannot add one, and the approval run is refused for the person who started the promotion | A18 section 8, ASM-172, ASM-321 |
+| Shortened notice | Sent at the decision, before the change is released, on the same channel, marked as incident | ASM-173 |
 | Completed note | Within 1 business day of the change | ASM-173 |
 | Retrospective note | Within 5 business days: what happened, why inside the restricted hours, whether a rollback was needed, follow-up issues | ASM-183 |
 
@@ -91,7 +91,7 @@ PD-174 asked that the templates take from the pipeline the commit, digests, wind
 | Commit | `release_candidate_commit` (section 1) | Deployment event |
 | Digests | Artifact table (application section 1); `module_tags` and plan table (infrastructure section 1) | `releases.tfvars`, checked by the `CodeSha256` step (A18 section 4.3) |
 | Window | `planned_start`, `planned_end`, `harvest_week`, `outside_restricted_hours`, `expected_end_before_0500`, `window_decision` (section 2) | Owner, then the window decision of the deployment event |
-| Approval record | `approval_record` (section 4) | GitHub deployment |
+| Approval record | `approval_record` (section 4) | Artifact `approval-record-pdn` and run links of the two-step approval (ASM-321) |
 | Notice fields | `notice_recipient_role`, `notice_channel`, `notice_sent_at`, `lead_time_required`, `lead_time_met`, `outcome_notice` (section 5); the first five are mandatory | Owner; outcome from the release topic |
 | Rollback mechanism and target | `mechanism`, `trigger`, `target_time`, `rollback_target` (section 6) | A18 section 10 and ASM-174; target from the deployment record |
 
