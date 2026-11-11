@@ -10,6 +10,10 @@
 | Feeds | A09 identities (aroma-pacifico/aroma-pacifico-roadmap#9), A12 firewall policy table (aroma-pacifico/aroma-pacifico-roadmap#12), A16 sack and trip (aroma-pacifico/aroma-pacifico-roadmap#16), A19 complete diagram (aroma-pacifico/aroma-pacifico-roadmap#19), A21 observability (aroma-pacifico/aroma-pacifico-roadmap#34), A23 cost (aroma-pacifico/aroma-pacifico-roadmap#36) |
 | Decision-log entries | ASM-080 to ASM-089, PD-090 to PD-096 |
 
+## Diagrams
+
+- [Collection Center Network Pattern (SVG)](https://github.com/aroma-pacifico/aroma-pacifico-diagrams/blob/main/network/collection-center.svg) ([PNG](https://github.com/aroma-pacifico/aroma-pacifico-diagrams/blob/main/network/collection-center.png)): Models the standardized regional collection center LAN architecture across seven segmented network zones, perimeter firewall enforcement, dual WAN IPsec links to Transit Gateway, and local logistics workflows.
+
 ## 1. Purpose and scope
 
 Point 3 of the [case statement](case/case-statement.pdf) says that every collection center is born without a LAN and that one must be designed, with segmentation and a WAN exit to the cloud ("Cada centro de acopio nace sin LAN. Hay que diseñarla, con segmentación y salida WAN hacia la nube"). It asks for a "WLAN segmentada por zona, con SSID propio. La VLAN de visitantes no enruta hacia logística ni gerencia", for a reference capacity of "2 Mbps de bajada y 0,5 Mbps de subida" per active client, and for control of non-operational traffic ("Hay control de tráfico no operativo"). Part D adds "Wifi y firewall del inventario", "Puestos de logística que registran la recepción", "Impresión de hojas de códigos para los sacos que lleguen sin código" and "El mismo patrón, tres veces, sin redibujar tres redes distintas si el patrón ya está".

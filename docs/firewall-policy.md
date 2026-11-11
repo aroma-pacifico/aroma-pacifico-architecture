@@ -10,6 +10,10 @@
 | Feeds | B04 network module (aroma-pacifico/aroma-pacifico-roadmap#24), B05 collection-center association (aroma-pacifico/aroma-pacifico-roadmap#25), B06 security module (aroma-pacifico/aroma-pacifico-roadmap#26), aroma-pacifico/aroma-pacifico-roadmap#27, A19 complete diagram (aroma-pacifico/aroma-pacifico-roadmap#19), A21 observability (aroma-pacifico/aroma-pacifico-roadmap#34), A23 cost (aroma-pacifico/aroma-pacifico-roadmap#36) |
 | Decision-log entries | PD-011, PD-052, PD-083, PD-091 and PD-093 (closed here), ASM-120 to ASM-129, PD-120 to PD-125 |
 
+## Diagrams
+
+- [Perimeter and Cloud Firewall Policy (SVG)](https://github.com/aroma-pacifico/aroma-pacifico-diagrams/blob/main/security/firewall-policy.svg) ([PNG](https://github.com/aroma-pacifico/aroma-pacifico-diagrams/blob/main/security/firewall-policy.png)): Depicts the multi-tier defense-in-depth security perimeter, including on-premises collection center firewall rules, cloud security groups, interface endpoint policies, and AWS WAF rate limiting.
+
 ## 1. Purpose and scope
 
 Point 3 of the [case statement](case/case-statement.pdf) asks for "Firewall de perímetro en cada centro y firewall de nube. Tabla de políticas: origen, destino, puerto, acción y si la regla queda en el piloto o es temporal", and repeats that "La VLAN de visitantes no enruta hacia logística ni gerencia". Epic 6 then codes, in the security module, the "reglas de firewall marcadas como permanentes en el diagrama". This document is that policy table: one table for the perimeter firewall of a collection center, written once with `10.4x` for the three centers, and one table for the cloud, enforced by managed AWS mechanisms. Quotations are in the original Spanish, which prevails over the English rendering (ASM-001).

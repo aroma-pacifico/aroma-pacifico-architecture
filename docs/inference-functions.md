@@ -10,6 +10,10 @@
 | Feeds | A19 architecture document and complete diagram (aroma-pacifico/aroma-pacifico-roadmap#19), A21 observability (aroma-pacifico/aroma-pacifico-roadmap#34), A23 cost (aroma-pacifico/aroma-pacifico-roadmap#36), B09 ingestion module (aroma-pacifico/aroma-pacifico-roadmap#29), B10 function pattern (aroma-pacifico/aroma-pacifico-roadmap#30) |
 | Decision-log entries | PD-013, PD-014, PD-015, PD-111, PD-112 and PD-135 (closed here), PD-018 (stays open), ASM-160 to ASM-169, PD-160 to PD-167 |
 
+## Diagrams
+
+- [Event-Driven Inference Functions Architecture (SVG)](https://github.com/aroma-pacifico/aroma-pacifico-diagrams/blob/main/flows/inference-functions.svg) ([PNG](https://github.com/aroma-pacifico/aroma-pacifico-diagrams/blob/main/flows/inference-functions.png)): Architecturally diagrams the four event-driven inference triggers, Amazon Bedrock foundation model invocation, SQS dead-letter queues, and on-device person screening.
+
 ## 1. Purpose and requirements
 
 Part E of the [case statement](case/case-statement.pdf) makes inference event-driven: "La función se invoca con un disparador y termina al persistir el resultado. [...] No hay cómputo persistente en espera de objetos." It also separates the function from the store: "La función no es el almacén. Lee el objeto ya persistido, llama a un servicio de inferencia administrado y escribe el resultado en el expediente." This document designs the four functions that Part E names, and is the function design that A13, A14 and A15 defer to (PD-014, PD-111, PD-112, PD-135). Quotations are in the original Spanish, which prevails over the English rendering (ASM-001). No figure in this document is a measurement; every count is arithmetic on the case figures and every other value is a design value recorded in the decision log.

@@ -10,6 +10,11 @@
 | Feeds | A19 architecture document and complete diagram (aroma-pacifico/aroma-pacifico-roadmap#19), A21 observability and SLOs (aroma-pacifico/aroma-pacifico-roadmap#34), A23 cost (aroma-pacifico/aroma-pacifico-roadmap#36), the release notes template of an application change, the design system |
 | Decision-log entries | PD-051, PD-096 and PD-102 (closed here), PD-110 (closed here; copied into the log from A13), ASM-150 to ASM-159, PD-150 to PD-155 |
 
+## Diagrams
+
+- [Sack and Trip Custody Sequence (SVG)](https://github.com/aroma-pacifico/aroma-pacifico-diagrams/blob/main/flows/sack-and-trip-sequence.svg) ([PNG](https://github.com/aroma-pacifico/aroma-pacifico-diagrams/blob/main/flows/sack-and-trip-sequence.png)): Models the interaction lifecycle for sack registration, transporter custody transfers across transit legs, and unauthenticated buyer QR code verification.
+- [Sack Lifecycle State Machine (SVG)](https://github.com/aroma-pacifico/aroma-pacifico-diagrams/blob/main/flows/sack-states.svg) ([PNG](https://github.com/aroma-pacifico/aroma-pacifico-diagrams/blob/main/flows/sack-states.png)): Specifies the finite state transitions for 60 kg coffee sacks from wet mill creation to port delivery and commercial sale.
+
 ## 1. Purpose and requirements
 
 Part C of the [case statement](case/case-statement.pdf) is the requirement, together with the sack lookup of the pilot capabilities ("Consulta de un saco, por código, para el caficultor, el centro de acopio y el comprador") and the code sheets of Part D. Quotations are in the original Spanish, which prevails over the English rendering (ASM-001). No figure in this document is a measurement: capacities are arithmetic on the case figures, and recovery times are design targets to be verified by a future rehearsal (PD-153).

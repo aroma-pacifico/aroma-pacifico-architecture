@@ -10,6 +10,11 @@
 | Feeds | A19 architecture document (aroma-pacifico/aroma-pacifico-roadmap#19), A20 100-hour plan (aroma-pacifico/aroma-pacifico-roadmap#20), A21 observability (aroma-pacifico/aroma-pacifico-roadmap#34), A22 release notes (aroma-pacifico/aroma-pacifico-roadmap#35), B13 pipeline (aroma-pacifico/aroma-pacifico-roadmap#33) |
 | Decision-log entries | ASM-170 to ASM-179, PD-170 to PD-176 |
 
+## Diagrams
+
+- [Telemetry Ingestion and Flight-Object Reception Pipelines (SVG)](https://github.com/aroma-pacifico/aroma-pacifico-diagrams/blob/main/pipelines/ingestion-and-flight-objects.svg) ([PNG](https://github.com/aroma-pacifico/aroma-pacifico-diagrams/blob/main/pipelines/ingestion-and-flight-objects.png)): Depicts the parallel telemetry ingestion engine and the pre-signed S3 flight object reception pipeline with SHA-256 validation and quarantine routing.
+- [Platform CI/CD Deployment Pipeline (SVG)](https://github.com/aroma-pacifico/aroma-pacifico-diagrams/blob/main/pipelines/platform-pipeline.svg) ([PNG](https://github.com/aroma-pacifico/aroma-pacifico-diagrams/blob/main/pipelines/platform-pipeline.png)): Illustrates the GitHub Actions CI/CD deployment pipeline, branch promotion gates across environments, reviewable plan generation, and harvest-week freeze windows.
+
 ## 1. Purpose and requirements
 
 Challenge point 4 of the [case statement](case/case-statement.pdf) asks for "Pipeline de la plataforma, de la ingesta y de la recepción de objetos de vuelo", "Ambientes de desarrollo, pruebas y producción, con promoción controlada" and "Secretos fuera del repositorio y fuera del estado". It also says "No hay cambio productivo entre las 05:00 y las 18:00 en semana de cosecha, salvo incidente", and the release notes it requires must let a reader see "la aprobación, el aviso a la Federación y cómo se vuelve atrás". Criterion 4 of the evaluation repeats it: "las plantillas permiten aprobar, avisar y volver atrás". Quotations are in the original Spanish, which prevails over the English rendering (ASM-001).

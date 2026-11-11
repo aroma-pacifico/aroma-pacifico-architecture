@@ -10,6 +10,10 @@
 | Feeds | aroma-pacifico/aroma-pacifico-roadmap#10 (A10), aroma-pacifico/aroma-pacifico-roadmap#11 (A11), aroma-pacifico/aroma-pacifico-roadmap#12 (firewall policy table), aroma-pacifico/aroma-pacifico-roadmap#24 (B04, network module) |
 | Decision-log entries | PD-009 (closed here), ASM-030 to ASM-036, PD-050 to PD-052 |
 
+## Diagrams
+
+- [Cloud and Site Addressing Plan (SVG)](https://github.com/aroma-pacifico/aroma-pacifico-diagrams/blob/main/network/addressing-plan.svg) ([PNG](https://github.com/aroma-pacifico/aroma-pacifico-diagrams/blob/main/network/addressing-plan.png)): Details the top-level RFC 1918 partition across on-premises, AWS primary cloud, and undeployed Azure space, including VPC subnet tiering and scaling from 200 to 1,000 farms without address redesign.
+
 ## 1. Purpose and constraints
 
 This plan fixes the private IPv4 addressing of the pilot's cloud networks. Point 3 of the [case statement](case/case-statement.pdf) asks for "Plan de direccionamiento de la nube, sin solapar 10.41.0.0/16, 10.42.0.0/16 ni 10.43.0.0/16. Subredes mínimas: ingreso de telemetría, ingreso de objetos de dron, aplicación, datos, object storage, administración y consulta pública. Desarrollo, pruebas y producción usan CIDR distintos." The technical constraints add that the network and ingestion pattern scales from 200 to 1,000 farms without redesigning the addressing or the ingestion point ("El patrón de red y de ingesta escala de 200 a 1.000 fincas sin rediseñar el direccionamiento ni el punto de ingesta").

@@ -10,6 +10,11 @@
 | Feeds | A17 inference functions (aroma-pacifico/aroma-pacifico-roadmap#17), A19 architecture document and complete diagram (aroma-pacifico/aroma-pacifico-roadmap#19), A21 observability (aroma-pacifico/aroma-pacifico-roadmap#34), A23 cost (aroma-pacifico/aroma-pacifico-roadmap#36), B04 network module (aroma-pacifico/aroma-pacifico-roadmap#24) |
 | Decision-log entries | PD-012, PD-032, PD-104 and PD-121 (closed here), ASM-140 to ASM-149, PD-140 to PD-143 |
 
+## Diagrams
+
+- [Drone Fumigation Sequence (SVG)](https://github.com/aroma-pacifico/aroma-pacifico-diagrams/blob/main/flows/drone-fumigation-sequence.svg) ([PNG](https://github.com/aroma-pacifico/aroma-pacifico-diagrams/blob/main/flows/drone-fumigation-sequence.png)): Traces the end-to-end pest-to-fumigation event sequence across its eight ordered gates from alert triggering through agronomist MFA authorization to flight record persistence and case closure.
+- [Drone State Machines (SVG)](https://github.com/aroma-pacifico/aroma-pacifico-diagrams/blob/main/flows/drone-state-machines.svg) ([PNG](https://github.com/aroma-pacifico/aroma-pacifico-diagrams/blob/main/flows/drone-state-machines.png)): Defines the dual state machine models governing drone mission execution and prescription lifecycle transitions.
+
 ## 1. Purpose and scope
 
 The drone section of the [case statement](case/case-statement.pdf) asks for a service, not a loose flight: "La plataforma crea la orden, la autoriza, la entrega al equipo de vuelo y guarda el resultado." Epic 4 covers "Los cinco servicios, la orden de fumigación y el enlace", and Part B adds the campaign cadence. [ADR-002](adr/adr-002-drone-flight-mode-and-governance.md) already decided the combined flight mode, the five services and their gates, the switching events, the fields and states of the fumigation order, who flies and who authorizes, and the cadence. This document does not reopen any of that. It designs how the platform implements it: the records it keeps, the transitions it allows and who may cause each one, what the ground station downloads and uploads, how objects are named, which event starts each inference function, and which endpoints the ground station uses.
