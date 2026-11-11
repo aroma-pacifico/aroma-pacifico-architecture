@@ -8,6 +8,21 @@
 | Roadmap issue | aroma-pacifico/aroma-pacifico-roadmap#4 |
 | Supersedes | none |
 | Superseded by | none |
+| Updated | 2026-11-11, see [Update 2026-11-11](#update-2026-11-11): the `pdn` approval (ASM-320, ASM-321, PD-020 closed) |
+
+## Update 2026-11-11
+
+This note does not change the decision of this ADR. Terraform, the remote state, the repository layout and the pattern module stand, and the status stays Accepted. It records that the part of the CI and CD constraints about the `pdn` apply and its approval has been overtaken by merged entries of the [decision log](../decision-log.md), and it points to them so that nobody reads the original text as the pipeline that is coded. The original text below is kept as written. The decision log keeps the lead's record: ASM-214 is "Superseded (in part by ASM-320)".
+
+| Original text of this ADR | Reading since 2026-11-11 |
+|---|---|
+| Consequences: the approval gate is left open, "whether the GitHub plan supports the production approval gate on a private repository (PD-020)" | PD-020 is closed. On 2026-11-11 the organization was on the GitHub Free plan, where required reviewers on an Environment of a private repository are not available (ASM-321). |
+| No static keys: "The apply role trusts only the `pdn` or `qa` deployment environment subject." | The coded pipeline has no apply step and uses no GitHub Environment, so no apply role is coded or run (ASM-320, ASM-321). The apply role stays a design target. |
+| Approval before production: "The `pdn` apply job runs in a GitHub deployment environment with required reviewers, and it applies the saved plan reviewed in the same run" and "The approval record (who, when) is kept by GitHub." | The coded promotion is plan-only (ASM-320). The approval is a two-step approval inside the workflow (ASM-321): run 1 plans and publishes the review with the plan digest; run 2, started by a different person listed in the repository variable `PDN_APPROVERS`, is accepted only if the digest, the commit and the harvest-week window still hold. The record is the artifact `approval-record-pdn` of run 2. Nothing is applied. The apply of the reviewed saved plan remains the target if the plan-only boundary is ever lifted. |
+| Harvest-week window: "Before applying to `pdn`, the job checks the harvest calendar" | The check runs when the promotion starts and again when run 2 approves, with the calendar supplied as pipeline configuration (ASM-322). There is no apply to precede. |
+| Compliance with the case statement: "`pdn` apply gated by required reviewers on the reviewed saved plan (PD-020)" and "Pre-apply window check with an incident override" | Read as the two-step approval of the reviewed saved plan and the window check at promotion and at approval, with the incident reference given in run 1 (ASM-321, ASM-322). |
+
+Limitation, as ASM-321 states it: on the Free plan anyone with write access can change the workflow or the repository variable, and `main` has no branch protection, so the gate is verifiable evidence that binds two named humans to the reviewed plan, not a technical barrier. The implemented flow is in `docs/cd-pipeline.md` of `aroma-pacifico-infrastructure`, and the design view is in [automation and pipelines](../automation-and-pipelines.md#8-approval) section 8.
 
 ## Context
 
