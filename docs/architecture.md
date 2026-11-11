@@ -29,7 +29,7 @@ The Federation restarts in 2026 a coffee traceability pilot designed in 2020 and
 
 **Infrastructure as code.** Terraform, one natively locked S3 state per environment, GitHub OIDC with separate plan and apply roles, and telemetry ingestion as the single pattern module of Epic 6 ([ADR-003](adr/adr-003-iac-tool-remote-state-and-pattern-module.md)). The thirteen boxes D01 to D13 of the complete diagram mark what the code builds, one box per Epic 6 task, and [section 14](#14-diagram-boxes-d01-to-d13-and-traceability-to-the-iac) names the document section that defines each one. The delivery is plan-only: nothing is applied or deployed.
 
-**What is still open.** The answers of the clarification session, the Federation's thresholds and contracts, the live re-check of the AWS features this design relies on, the observability design, the release notes, the cost document and the design system are pending. [Section 17](#17-open-decisions-for-the-defense) lists every open decision by who closes it and what it blocks.
+**What is still open.** The answers of the clarification session, the Federation's thresholds and contracts, the live re-check of the AWS features this design relies on, the release notes, and the design system are pending; the observability design ([`docs/observability.md`](observability.md)) and the cost document ([`docs/pilot-costs.md`](pilot-costs.md)) are delivered. [Section 17](#17-open-decisions-for-the-defense) lists every open decision by who closes it and what it blocks.
 
 | Question the defense will be asked | Decision | Record |
 |---|---|---|
@@ -298,7 +298,7 @@ Each box marks, in the complete diagram, one component that an Epic 6 task codes
 
 ## 15. Decisions that lower or avoid cost
 
-Criterion 6 of the case statement asks for at least three decisions that lower or avoid spend. No price is quoted here; the cost document (aroma-pacifico/aroma-pacifico-roadmap#36) prices each line under PD-017.
+Criterion 6 of the case statement asks for at least three decisions that lower or avoid spend. Each line is priced and justified in the [pilot cost document](pilot-costs.md#9-architectural-decisions-that-lower-or-avoid-expenditure-closes-acceptance-criterion-3-asm-251) under PD-017 and ASM-251.
 
 | Decision | What it avoids | Record |
 |---|---|---|
@@ -329,7 +329,7 @@ The case statement gives 20 minutes before a Federation architect and names thre
 | 3. Viability from the case figures; flight mode sustained; IaC within 100 hours and 2 weeks | [7](#7-point-5-workloads), [11](#11-pest-to-fumigation-flow), [14](#14-diagram-boxes-d01-to-d13-and-traceability-to-the-iac) |
 | 4. Automation and change: code matches the diagram; templates approve, notify and roll back | [6](#6-point-4-automation-and-change), [14](#14-diagram-boxes-d01-to-d13-and-traceability-to-the-iac) |
 | 5. Security: separate identities, encrypted readings and photos, firewall, buyer view | [4](#4-point-2-security), [5](#5-point-3-network-and-connectivity) |
-| 6. Current cost: visible assumptions, farm hardware, drones, function invocations in harvest, three cost-saving decisions | [15](#15-decisions-that-lower-or-avoid-cost); prices in the cost document (PD-017) |
+| 6. Current cost: visible assumptions, farm hardware, drones, function invocations in harvest, three cost-saving decisions | [15](#15-decisions-that-lower-or-avoid-cost); [`docs/pilot-costs.md`](pilot-costs.md) (PD-017) |
 | 7. Design system applied to farmer, transporter and sack lookup | [9](#9-point-7-design-system) |
 | 8. Clarity of the defense | [1](#1-executive-summary), this section |
 
@@ -375,7 +375,7 @@ Most of these are asked in the 30-minute clarification session ([clarification q
 | A13 (aroma-pacifico/aroma-pacifico-roadmap#13) | PD-081 | Satellite IoT service with an IP bearer and dual-mode modules verified, or a republishing bridge designed. | The out-of-coverage farm path. |
 | A09 follow-up (aroma-pacifico/aroma-pacifico-roadmap#9) | PD-090 | Private CA and enrollment of center devices and the ground station for EAP-TLS. | Staff Wi-Fi admission at the centers. |
 | A21 (aroma-pacifico/aroma-pacifico-roadmap#34) | PD-077, PD-082, PD-094, PD-134, PD-141, PD-151, PD-162, PD-173 | Closed by [`docs/observability.md`](observability.md#13-decisions-closed-and-what-remains) section 13 and [`docs/dashboards/`](dashboards/README.md): SLO objectives, alarm thresholds and windows, dashboards, rollback alarm set. Open from it: PD-220 to PD-223. | Point 6 and the rollback alarms of CodeDeploy. |
-| A23 (aroma-pacifico/aroma-pacifico-roadmap#36) | PD-017, PD-031, PD-076, PD-084, PD-095, PD-124, PD-133, PD-152, PD-163 | Every price, hardware cost, drone campaign cost and invocation cost, with its assumptions. | Epic 7 cost and budget amounts. |
+| A23 (aroma-pacifico/aroma-pacifico-roadmap#36) | PD-017, PD-031, PD-076, PD-084, PD-095, PD-124, PD-133, PD-152, PD-163, PD-222 | Closed by [`docs/pilot-costs.md`](pilot-costs.md): farm hardware, field connectivity, collection centers, drone campaign, function invocations, cloud workloads, observability, six cost savings decisions and landing zone budgets. Open: PD-230. | Epic 7 cost and budget amounts. |
 | Design system task (Epic 7) | PD-154 | Seven sack states mapped to four badges. | Point 7. |
 | Before `pdn` go-live, no roadmap task | PD-092, PD-125, PD-153, PD-167, PD-176 | Site survey of each center; audit of the rules marked Audit; recovery rehearsal; model evaluation; rollback rehearsal. | Go-live; none blocks the defense, and none may be reported as done. |
 
