@@ -33,6 +33,7 @@ The [case statement](docs/case/case-statement.pdf) is the only source of require
 | [`docs/inference-functions.md`](docs/inference-functions.md) | Event-driven inference functions: the four triggers, managed inference in `us-east-1`, result record, retries, dead-letter queues and observation point, objects that leave Colombia, cost per thousand invocations and objects that contain a person. |
 | [`docs/automation-and-pipelines.md`](docs/automation-and-pipelines.md) | Platform, ingestion and flight object reception pipelines: repositories and paths, artifacts, gates, promotion from `dev` to `qa` to `pdn`, approval, notice to the Federation, rollback and secrets. |
 | [`docs/observability.md`](docs/observability.md) | Observability of point 6: metrics, logs and traces of ingestion, applications, databases, the three WAN links and flight object arrival; the five detections; the crop alert delivery and sack lookup availability SLOs with their SLIs and burn-rate alerts; the CodeDeploy rollback alarm set. |
+| [`docs/pilot-costs.md`](docs/pilot-costs.md) | Pilot costs: farm hardware, field connectivity, collection centers, commercial drone campaign, cloud workloads, function invocations and six cost-saving decisions. |
 | [`docs/dashboards/README.md`](docs/dashboards/README.md) | Operational and cost dashboards: every widget and the question it answers, split by farms, drones, collection centers and testing. |
 | [`docs/dashboards/operational.json`](docs/dashboards/operational.json) | CloudWatch dashboard body of the operational dashboard, a template the IaC would apply. |
 | [`docs/dashboards/cost.json`](docs/dashboards/cost.json) | CloudWatch dashboard body of the cost dashboard, a template the IaC would apply. |
@@ -77,6 +78,7 @@ aroma-pacifico-architecture/
 |   |-- landing-zone.md
 |   |-- legacy-2020.md
 |   |-- observability.md
+|   |-- pilot-costs.md
 |   |-- release-notes/
 |   |   |-- README.md
 |   |   |-- example-application-crop-alert-recommended-band.md
