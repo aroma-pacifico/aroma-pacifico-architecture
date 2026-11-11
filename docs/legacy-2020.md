@@ -4,6 +4,10 @@ This record traces every element of the 2020 design that the case statement ment
 
 [`docs/case/case-statement.pdf`](case/case-statement.pdf) is the only source of requirements, and the only source used here for what the 2020 design contained (ASM-040). The case statement frames the update in one sentence: "Se conserva el requisito que siga vigente y se reemplaza el supuesto de conectividad" (the requirement that is still valid is kept, and the connectivity assumption is replaced). Quotations are in the original Spanish, which prevails over the English rendering (ASM-001).
 
+## Diagrams
+
+- [2020 Legacy Mapping (SVG)](https://github.com/aroma-pacifico/aroma-pacifico-diagrams/blob/main/legacy/legacy-2020.svg) ([PNG](https://github.com/aroma-pacifico/aroma-pacifico-diagrams/blob/main/legacy/legacy-2020.png)): Maps the seventeen 2020 pilot elements to their definitive 2026 architectural decisions (Keep, Retire, or Replace) and corresponding IaC implementation boxes.
+
 ## Decision values
 
 | Decision | Meaning in this record |

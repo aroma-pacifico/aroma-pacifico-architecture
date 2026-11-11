@@ -10,6 +10,10 @@
 | Feeds | aroma-pacifico/aroma-pacifico-roadmap#9 (A09, identities), aroma-pacifico/aroma-pacifico-roadmap#34 (A21, dashboards), aroma-pacifico/aroma-pacifico-roadmap#36 (A23, cost), aroma-pacifico/aroma-pacifico-roadmap#23, #25, #28 and #29 (B03, B05, B08, B09) |
 | Decision-log entries | ASM-060 to ASM-069, PD-070 to PD-079 |
 
+## Diagrams
+
+- [Landing Zone, Governance & Auditing (SVG)](https://github.com/aroma-pacifico/aroma-pacifico-diagrams/blob/main/accounts/landing-zone.svg) ([PNG](https://github.com/aroma-pacifico/aroma-pacifico-diagrams/blob/main/accounts/landing-zone.png)): Illustrates the AWS Organization multi-account structure, root-level Service Control Policies and Tag Policies, four identity entry points, budget alerts, and five-year compliance audit trail.
+
 ## 1. Purpose and requirements
 
 This document defines the cloud operational baseline of the pilot: how accounts are separated, what is applied from the root of the organization, how resources are tagged so that cost can be split, which budgets and cost alerts exist, and how the four mandatory events are audited. Point 1 of the [case statement](case/case-statement.pdf) (Gobierno) is the requirement:

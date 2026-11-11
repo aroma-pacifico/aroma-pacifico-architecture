@@ -10,6 +10,10 @@
 | Feeds | A15 drone service (aroma-pacifico/aroma-pacifico-roadmap#15), A16 sack and lookup (aroma-pacifico/aroma-pacifico-roadmap#16), A17 functions (aroma-pacifico/aroma-pacifico-roadmap#17), A19 architecture document (aroma-pacifico/aroma-pacifico-roadmap#19), A21 observability and SLOs (aroma-pacifico/aroma-pacifico-roadmap#34), A23 cost (aroma-pacifico/aroma-pacifico-roadmap#36), B09 ingestion module (aroma-pacifico/aroma-pacifico-roadmap#29) |
 | Decision-log entries | PD-074 and PD-085 (closed here), ASM-130 to ASM-138, PD-130 to PD-135 |
 
+## Diagrams
+
+- [Farm Monitoring and Pilot Alerts Sequence (SVG)](https://github.com/aroma-pacifico/aroma-pacifico-diagrams/blob/main/flows/farm-monitoring-sequence.svg) ([PNG](https://github.com/aroma-pacifico/aroma-pacifico-diagrams/blob/main/flows/farm-monitoring-sequence.png)): Details the telemetry event sequence from sensor measurement to dual IoT topic ingestion, threshold evaluation, episode deduplication, and farmer notification delivery.
+
 ## 1. Purpose and requirements
 
 This document defines the functional and operational behavior of crop and drying monitoring in the pilot: the load the ingestion path must carry, how the Federation configures the alert ranges as data, how each reading is evaluated, how a farmer is alerted once and not once per reading, what happens with readings that arrive late from the 24-hour buffer, what the farmer sees, and what the farmer history and the pilot report read. It covers Part A of the [case statement](case/case-statement.pdf) and the crop alert of the pilot figures. It builds no application and no firmware: the case statement excludes both ("Quien presenta no implementa lógica de negocio, aplicaciones ni firmware"). Quotations are in the original Spanish, which prevails over the English rendering (ASM-001). No figure here is a measurement; latencies are design targets.

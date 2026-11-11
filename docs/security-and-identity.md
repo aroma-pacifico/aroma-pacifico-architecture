@@ -10,6 +10,11 @@
 | Feeds | A13 data paths (aroma-pacifico/aroma-pacifico-roadmap#13), A15 drone service (aroma-pacifico/aroma-pacifico-roadmap#15), A16 sack and public lookup (aroma-pacifico/aroma-pacifico-roadmap#16), A19 architecture document (aroma-pacifico/aroma-pacifico-roadmap#19), B06 security module (aroma-pacifico/aroma-pacifico-roadmap#26) |
 | Decision-log entries | PD-075 (closed here), ASM-090 to ASM-099, PD-100 to PD-104 |
 
+## Diagrams
+
+- [Identity & Access Architecture (SVG)](https://github.com/aroma-pacifico/aroma-pacifico-diagrams/blob/main/security/identity-and-access.svg) ([PNG](https://github.com/aroma-pacifico/aroma-pacifico-diagrams/blob/main/security/identity-and-access.png)): Defines the five functional security tiers encompassing human operators, edge IoT certificates, Cognito user pools, least-privilege IAM roles, and customer-managed KMS encryption keys.
+- [Credential & Identity Revocation Sequence (SVG)](https://github.com/aroma-pacifico/aroma-pacifico-diagrams/blob/main/security/revocation-sequence.svg) ([PNG](https://github.com/aroma-pacifico/aroma-pacifico-diagrams/blob/main/security/revocation-sequence.png)): Specifies the sequence for instant credential revocation, certificate retirement in AWS IoT Core, Cognito token invalidation, and session termination across all actor types.
+
 ## 1. Purpose and requirements
 
 This document defines the minimum security and identity model of the pilot: who the identities are, what each one may read and write and at which scope, where MFA is required, how telemetry, drone objects and personal data are encrypted, what the buyer sees of a sack, how long personal data lives, and how a device or a person is revoked. Point 2 (Seguridad) of the [case statement](case/case-statement.pdf) is the requirement. Quotations are in the original Spanish, which prevails over the English rendering (ASM-001).
