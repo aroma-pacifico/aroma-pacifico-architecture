@@ -19,6 +19,7 @@ The [case statement](docs/case/case-statement.pdf) is the only source of require
 | [`docs/adr/adr-001-primary-and-second-cloud.md`](docs/adr/adr-001-primary-and-second-cloud.md) | ADR-001: primary cloud and prepared second cloud. |
 | [`docs/adr/adr-002-drone-flight-mode-and-governance.md`](docs/adr/adr-002-drone-flight-mode-and-governance.md) | ADR-002: drone flight mode and operational governance. |
 | [`docs/adr/adr-003-iac-tool-remote-state-and-pattern-module.md`](docs/adr/adr-003-iac-tool-remote-state-and-pattern-module.md) | ADR-003: Terraform, remote state per environment and the telemetry ingestion pattern module. |
+| [`docs/adr/adr-004-drone-capability-orchestration.md`](docs/adr/adr-004-drone-capability-orchestration.md) | ADR-004: event-driven orchestration of the drone capabilities. |
 | [`docs/legacy-2020.md`](docs/legacy-2020.md) | 2020 legacy: which 2020 requirement is kept, retired or replaced, and which task designs the replacement. |
 | [`docs/landing-zone.md`](docs/landing-zone.md) | Landing zone: accounts, root controls, tagging scheme, budgets and audit of the four mandatory events. |
 | [`docs/clarification-questions.md`](docs/clarification-questions.md) | Prioritized questions for the 30-minute Q&A session, with impact and fallback assumptions. |
@@ -57,6 +58,7 @@ aroma-pacifico-architecture/
 |   |   |-- adr-001-primary-and-second-cloud.md
 |   |   |-- adr-002-drone-flight-mode-and-governance.md
 |   |   |-- adr-003-iac-tool-remote-state-and-pattern-module.md
+|   |   |-- adr-004-drone-capability-orchestration.md
 |   |   `-- template.md
 |   |-- addressing-plan.md
 |   |-- automation-and-pipelines.md
