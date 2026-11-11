@@ -30,8 +30,8 @@ Prices are stated in United States Dollars (USD), the contractual currency of Am
 | Farm Field Hardware (200 farms, 400 nodes) | $74,000.00 | $920.00 | $920.00 | $85,040.00 |
 | Collection Center Infrastructure (3 sites) | $8,550.00 | $645.00 | $645.00 | $16,290.00 |
 | Drone Campaign (Contracted Flight Service) | $0.00 | $583.33 | $8,500.00 | $45,250.00 |
-| AWS Cloud Workloads & Ingestion | $0.00 | $580.29 | $601.92 | $7,050.00 |
-| Total Pilot Expenditure | $82,550.00 | $2,728.62 | $10,666.92 | $153,630.00 |
+| AWS Cloud Workloads & Ingestion | $0.00 | $558.94 | $573.75 | $6,766.52 |
+| Total Pilot Expenditure | $82,550.00 | $2,707.27 | $10,638.75 | $153,346.52 |
 
 ---
 
@@ -235,9 +235,9 @@ All cloud services are hosted in AWS region `us-east-1` across a multi-account l
 | Event-Driven Compute & AI | Lambda compute, SQS queues, EventBridge Pipes, and Bedrock Nova Pro inferencing. | $0.30 | $5.21 | ASM-169, ASM-237; section 6 calculations. |
 | Farmer Notifications (SMS/Push) | AWS End User Messaging SMS to Colombia (+57) @ $0.055/msg; Push via SNS is free. | $4.95 (90 SMS) | $14.85 (270 SMS) | ASM-135, ASM-136; episode deduplication. |
 | Observability & Telemetry | CloudWatch custom metrics, alarms, log ingestion, Synthetics canary, and Cost Explorer export. | $60.72 | $60.72 | ASM-220, ASM-239; section 8 calculations. |
-| AWS Cloud Workload Total | Monthly AWS invoice total across all accounts. | **$580.29 USD** | **$601.92 USD** | Closes PD-076, PD-124, PD-152. |
+| AWS Cloud Workload Total | Monthly AWS invoice total across all accounts. | **$558.94 USD** | **$573.75 USD** | Closes PD-076, PD-124, PD-152. |
 
-Both the normal month AWS workload spend ($580.29 USD) and harvest month AWS workload spend ($601.92 USD) fall well within the monthly AWS Budgets ceilings established in Section 10 ($650.00 USD and $700.00 USD, respectively), providing approximately 11 % to 14 % operational margin for unpredicted traffic bursts.
+Both the normal month AWS workload spend ($558.94 USD) and harvest month AWS workload spend ($573.75 USD) fall well within the monthly AWS Budgets ceilings established in Section 10 ($650.00 USD and $700.00 USD, respectively), providing approximately 14 % to 18 % operational margin for unpredicted traffic bursts.
 
 ---
 
@@ -335,7 +335,7 @@ All budgets alert via Amazon SNS to the platform operations topic at 80 % of act
 
 | Acceptance Criterion | Verification Evidence in this Document | Compliance Status |
 |---|---|---|
-| The document includes the cost of a normal month, a harvest month, one farm's hardware, and the drone campaign. | Normal month OPEX ($2,728.62) and harvest month OPEX ($10,666.92) detailed in Section 1 and Section 7. One farm's hardware ($370.00) broken down in Section 3. Drone campaign ($8,500.00/harvest campaign, $45,250.00/year) detailed in Section 5. | SATISFIED |
+| The document includes the cost of a normal month, a harvest month, one farm's hardware, and the drone campaign. | Normal month OPEX ($2,707.27) and harvest month OPEX ($10,638.75) detailed in Section 1 and Section 7. One farm's hardware ($370.00) broken down in Section 3. Drone campaign ($8,500.00/harvest campaign, $45,250.00/year) detailed in Section 5. | SATISFIED |
 | Assumptions are visible and separate from the cost data. | Section 2 isolates every parameter, unit cost, and volume in dedicated table ASM-230 through ASM-251, with explicit architectural citations, prior to any cost calculations. | SATISFIED |
 | At least 3 decisions that reduce or avoid spending are justified. | Section 9 provides exhaustive technical and financial justifications for six distinct cost-avoidance decisions, quantifying $47,532.88 in annual OPEX savings and $230,000.00 in avoided CAPEX. | SATISFIED |
 | The document includes an estimate of function invocations during harvest. | Section 6.4 estimates 108,270 total function invocations and 420 Bedrock model calls during harvest, evaluating cost per thousand invocations using the formal ASM-169 formula. | SATISFIED |
