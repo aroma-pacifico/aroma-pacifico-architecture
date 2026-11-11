@@ -8,7 +8,7 @@
 | Roadmap issue | aroma-pacifico/aroma-pacifico-roadmap#18 (A18) |
 | Builds on | [ADR-003](adr/adr-003-iac-tool-remote-state-and-pattern-module.md) (Terraform, state, OIDC, gates, `pdn` approval, harvest-week window), [ADR-001](adr/adr-001-primary-and-second-cloud.md) (Region, accounts), [`docs/landing-zone.md`](landing-zone.md) (A08, production-change SCP, audit), [`docs/security-and-identity.md`](security-and-identity.md) (A09, permission sets, keys), [`docs/farm-monitoring.md`](farm-monitoring.md) (A14), [`docs/drone-service.md`](drone-service.md) (A15), [`docs/sack-and-trip.md`](sack-and-trip.md) (A16), [`docs/inference-functions.md`](inference-functions.md) (A17), [`docs/clarification-questions.md`](clarification-questions.md) (A06, Q-09 and Q-15) |
 | Feeds | A19 architecture document (aroma-pacifico/aroma-pacifico-roadmap#19), A20 100-hour plan (aroma-pacifico/aroma-pacifico-roadmap#20), A21 observability (aroma-pacifico/aroma-pacifico-roadmap#34), A22 release notes (aroma-pacifico/aroma-pacifico-roadmap#35), B13 pipeline (aroma-pacifico/aroma-pacifico-roadmap#33) |
-| Decision-log entries | ASM-170 to ASM-179, PD-170 to PD-176 |
+| Decision-log entries | ASM-170 to ASM-179, PD-170 to PD-176; updated by ASM-320 to ASM-324 and PD-020 (closed) |
 
 ## Diagrams
 
@@ -19,7 +19,7 @@
 
 Challenge point 4 of the [case statement](case/case-statement.pdf) asks for "Pipeline de la plataforma, de la ingesta y de la recepción de objetos de vuelo", "Ambientes de desarrollo, pruebas y producción, con promoción controlada" and "Secretos fuera del repositorio y fuera del estado". It also says "No hay cambio productivo entre las 05:00 y las 18:00 en semana de cosecha, salvo incidente", and the release notes it requires must let a reader see "la aprobación, el aviso a la Federación y cómo se vuelve atrás". Criterion 4 of the evaluation repeats it: "las plantillas permiten aprobar, avisar y volver atrás". Quotations are in the original Spanish, which prevails over the English rendering (ASM-001).
 
-ADR-003 already fixes the infrastructure side: Terraform, one natively locked S3 state per environment, GitHub OIDC with separate plan and apply roles, the gates on every pull request, the `pdn` apply in a GitHub deployment environment with required reviewers applying the saved plan, and the harvest-week window (ASM-007, ASM-008, ASM-055). This document does not reopen ADR-003. It extends it to the three pipelines the case statement names and records how each one builds, promotes, is approved, notifies and rolls back. No time in this document is a measurement; every duration is a design target recorded in the decision log.
+ADR-003 already fixes the infrastructure side: Terraform, one natively locked S3 state per environment, GitHub OIDC with separate plan and apply roles, the gates on every pull request, the `pdn` apply in a GitHub deployment environment with required reviewers applying the saved plan, and the harvest-week window (ASM-007, ASM-008, ASM-055). Since 2026-11-11 the coded pipeline stops at the plan and replaces the reviewers of an Environment with a two-step approval inside the workflow (ASM-320, ASM-321; see the paragraph after the plan-only boundary below and the update note of ADR-003). This document does not reopen ADR-003. It extends it to the three pipelines the case statement names and records how each one builds, promotes, is approved, notifies and rolls back. No time in this document is a measurement; every duration is a design target recorded in the decision log.
 
 | Requirement | Where it is met |
 |---|---|
@@ -31,6 +31,8 @@ ADR-003 already fixes the infrastructure side: Terraform, one natively locked S3
 | Hooks for the alarms of A21 and the release notes of A22 | Section 12 |
 
 **Plan-only boundary.** The academic delivery never runs `terraform apply`, never creates a deployment and never publishes an artifact to a cloud account (`AGENTS.md` section 4). Every step below that applies, stages or shifts traffic is designed, not executed; where a step would act on an account, the text says "would". How the executable plan of Epic 6 is evidenced is PD-019, and only the infrastructure plan path is coded, by B13.
+
+**What B12 codes (ASM-320, ASM-321).** The coded promotion `dev`, `qa`, `pdn` has no apply step, so the `pdn` apply, the apply role and the deployment environment with required reviewers that this document describes are the design target and not the coded pipeline. The coded pipeline plans each environment, estimates the cost, publishes the review of the `pdn` plan with its digest, and records a two-step approval by two named humans (section 8). ASM-214 is superseded in part by ASM-320, and PD-020 is closed by ASM-321. Where a sentence below says that a step applies, deploys or waits for required reviewers, it keeps the original design; it is marked as a design target where it matters, and it is what would be built if the faculty advisor ever lifted the boundary, with ASM-214 updated first. The implemented flow and its limits are in `docs/cd-pipeline.md` of `aroma-pacifico-infrastructure`.
 
 ## 2. Scope of each pipeline
 
@@ -67,6 +69,8 @@ Infrastructure follows ADR-003. Application and function code would live in one 
 | `qa` | Test account | `qa`, one reviewer (section 8) | Acceptance with the same artifact and the same deployment configuration as `pdn` (ASM-174, ASM-177). The only environment whose plan Epic 6 evaluates (ASM-051). |
 | `pdn` | Production account | `pdn`, required reviewers, harvest-week window, notice check (sections 8 and 9) | Production. Changes only through this pipeline (A08 section 3.1). |
 
+The deployment environments and their reviewers in this table are the design target. The coded pipeline uses no GitHub Environment, because required reviewers are not available on the private repository under the Free plan; it gates `pdn` with the two-step approval of section 8 (ASM-321).
+
 An environment differs from another only by its `.tfvars` and its backend file (ADR-003). The artifact, the module tags and the release entries are identical across the three.
 
 ### 3.3 Pipeline identities
@@ -76,7 +80,7 @@ Every pipeline identity is a GitHub OIDC role; no access key exists anywhere (A0
 | Role | Account | Trusted subject | Allows |
 |---|---|---|---|
 | Plan (ADR-003) | Each environment | Pull request and `main` tokens of `aroma-pacifico-infrastructure` | Read state, write `*.tflock`, read-only describe. |
-| Apply (ADR-003) | `qa`, `pdn` (and `dev`) | The repository's deployment environment of the same name | Apply the saved plan, and start and stop CodeDeploy deployments of that environment (section 4.3). |
+| Apply (ADR-003) | `qa`, `pdn` (and `dev`) | The repository's deployment environment of the same name | Apply the saved plan, and start and stop CodeDeploy deployments of that environment (section 4.3). Not coded and never run: the coded pipeline is plan-only (ASM-320). |
 | Artifact publisher (ASM-171) | Each environment | Tag pushes of `aroma-pacifico-platform` matching a release tag | `s3:PutObject` on `artifacts/*` of that environment's artifact bucket only; no read of any data, no Lambda, no CodeDeploy. |
 
 ## 4. Common release model
@@ -101,9 +105,9 @@ Gates run cheapest first, as ADR-003 sets. A failed gate stops the run; it is ne
 | Pull request, platform repository | Unit tests, lint, dependency vulnerability scan, secret scan, build of the package, and contract tests of the API and event schemas against the current and previous versions (ASM-175). |
 | Release tag, platform repository | Rebuild from the tag, SHA-256 digest, software bill of materials, then the artifact publisher writes the same bytes to the three artifact buckets. |
 | Pull request, infrastructure repository | The module gates above, secret scan, a check that every digest in `releases.tfvars` exists in all three artifact buckets, and a `terraform plan` of each affected stack for `dev`, `qa` and `pdn`, attached to the pull request with destroys and replacements listed first. |
-| `dev` | Apply the saved `dev` plan on merge, then the function deployments (section 4.3) with `AllAtOnce`. |
-| `qa` | One reviewer approves the `qa` plan; apply; function deployments with the `pdn` configuration; the acceptance suite of ASM-177, whose result is recorded in the GitHub deployment. |
-| `pdn` | `qa` succeeded for the same commit; the release note exists and its notice was sent with the lead time of ASM-173; the harvest-week window allows the run (section 4.4); required reviewers approve the `pdn` plan; apply the saved plan; function deployments with canary and automatic rollback. |
+| `dev` | Plan `dev` on merge (ASM-320). Design target if the boundary is lifted: apply the saved `dev` plan, then the function deployments (section 4.3) with `AllAtOnce`. |
+| `qa` | Plan `qa` and estimate its cost (ASM-320). Design target if the boundary is lifted: one reviewer approves the `qa` plan; apply; function deployments with the `pdn` configuration; the acceptance suite of ASM-177, whose result is recorded in the GitHub deployment. |
+| `pdn` | `qa` planned for the same commit; the release note link or an incident reference exists (the coded pipeline does not check the notice itself, ASM-214, ASM-324); the harvest-week window allows the run (section 4.4); the two-step approval of section 8 binds two named humans to the reviewed `pdn` plan (ASM-321). Nothing is applied (ASM-320). Design target if the boundary is lifted: the notice was sent with the lead time of ASM-173, required reviewers approve, the saved plan is applied, then the function deployments with canary and automatic rollback. |
 
 ### 4.3 How function code is deployed
 
@@ -122,14 +126,16 @@ This keeps ADR-003 whole. The code change is reviewed as part of the plan, it is
 ### 4.4 Promotion procedure and the harvest-week window
 
 1. The change owner merges a pull request on `main` of `aroma-pacifico-infrastructure` after its plans are reviewed. A pull request that bumps a module tag or a release entry is opened by a person; no workflow writes to another repository, so no repository token is needed.
-2. The promotion run plans and applies `dev`, and runs the function deployments.
-3. The run plans `qa`. A `qa` reviewer approves; the run applies, deploys and runs the acceptance suite (ASM-177).
-4. The run plans `pdn` only after step 3 succeeded, so the saved plan is fresh. The `pdn` job checks the release note and the notice (section 9) and the window, then waits for the required reviewers.
-5. After approval the job applies the saved `pdn` plan, then runs the function deployments and records the result as a GitHub deployment status and a deployment event (section 12).
+2. The promotion run plans `dev` (ASM-320). Design target if the boundary is lifted: it applies `dev` and runs the function deployments.
+3. The run plans `qa` and estimates its cost. Design target: a `qa` reviewer approves, and the run applies, deploys and runs the acceptance suite (ASM-177).
+4. The run plans `pdn` only after step 3 succeeded, so the saved plan is fresh. The `pdn` job checks the release note and the notice (section 9; the coded pipeline only requires the link to the note or an incident reference, ASM-214, ASM-324) and the window, then publishes the review with the digest of the saved plan and ends. This is run 1 of the two-step approval (ASM-321).
+5. A different person listed in the repository variable `PDN_APPROVERS` starts run 2 with the run identifier and the digest of run 1. Run 2 is accepted only if the digest, the commit and the harvest-week window still hold, and it writes the approval record; it applies nothing (ASM-320, ASM-321). Design target if the boundary is lifted: after approval the job would apply the saved `pdn` plan, run the function deployments and record the result as a GitHub deployment status and a deployment event (section 12).
 
-A later merge supersedes a run still waiting for approval; a run already applying is never cancelled. A pull request that reverts a commit is a release candidate like any other and follows the same steps.
+A later merge supersedes a review still waiting for approval, because it moves the commit and run 2 must be on the commit of run 1; in the design, a run already applying is never cancelled. A pull request that reverts a commit is a release candidate like any other and follows the same steps.
 
 The window check is the one ADR-003 designs, applied to the whole `pdn` job and not only to `terraform apply`, because a canary shift is a production change too. On a harvest-week day of any of the three departments (ASM-055), the job refuses to start between 05:00 and 18:00 Colombia time (ASM-007) and also refuses to start if its expected end, the apply plus every canary and its bake time, would pass 05:00 (ASM-178). An incident overrides it only with an incident reference recorded in the approval. Plans and the `dev` and `qa` stages are never blocked by the window.
+
+In the coded pipeline (ASM-320, ASM-322) the check looks at the time of the run: it runs when the promotion starts and again when run 2 approves, and it refuses 05:00 to 18:00 Colombia time on a day listed in the variable `HARVEST_WEEK_DATES`. That variable stays empty until the Federation supplies the calendar, and while it is empty the check warns and does not block. The incident reference is the one given in run 1; run 2 cannot add one. The expected-end part above, the apply plus every canary and its bake time, belongs to the designed job (ASM-178) and is not coded, because the pipeline has no apply and no canary.
 
 ## 5. Platform pipeline
 
@@ -178,14 +184,16 @@ The window check is the one ADR-003 designs, applied to the whole `pdn` job and 
 
 ## 8. Approval
 
-Approvers are role codes of the decision log, never people's names. GitHub prevents the author of a change from approving its own deployment, and the approval record (who, when, which run and which saved plan) is kept by GitHub and copied into the release note (ASM-172). Whether the organization's GitHub plan offers required reviewers on the private repository is still PD-020; if it does not, the fallback must still bind a named human to the reviewed plan.
+Approvers are role codes of the decision log, never people's names. The organization is on the GitHub Free plan, where required reviewers on an Environment of a private repository are not available, so the design could not rely on them; PD-020 is closed by ASM-321 with a two-step approval inside the workflow (checked on 2026-11-11). Run 1 plans, estimates the cost and publishes the review with the digest of the saved plan. Run 2 is started by a different person listed in the repository variable `PDN_APPROVERS` (humans in role SR1 or SR2, ASM-172) and is accepted only if the digest, the commit and the harvest-week window still hold. The approval record (requester, approver, both runs, commit, plan digest, window status and time) is the artifact `approval-record-pdn` and the job summary of run 2; the change owner copies it into the release note (ASM-172, ASM-180).
+
+The limitation is stated in ASM-321. On the Free plan anyone with write access can change the workflow or the variable, and `main` has no branch protection, so the gate is verifiable evidence that binds two named humans to the reviewed plan and not a technical barrier. The workflow does not check the part of ASM-172 that excludes the author of the change; it checks only that the approver differs from whoever started run 1. Design target if the boundary is lifted and the plan offers them: required reviewers on the Environment `pdn`, with GitHub preventing the author of a change from approving its own deployment (to be re-checked, PD-172).
 
 | Stage | Approves | Condition |
 |---|---|---|
 | Merge of a pull request, any repository | One reviewer of SR1, SR2, JR1, JR2 other than the author | Gates green; plan text attached for the infrastructure repository. |
-| `qa` apply and deploy | One reviewer of SR1, SR2, JR1, JR2 other than the author | Same commit succeeded in `dev`. |
-| `pdn` apply and deploy, standard change | One of SR1 or SR2, other than the author and other than the person who triggered the run | `qa` succeeded with acceptance recorded; release note with notice sent; window allows. |
-| `pdn` change inside the window, incident | One of SR1 or SR2 with an incident reference in the approval | The notice is sent at the time of the decision (ASM-173). |
+| `qa` apply and deploy (design target, not coded) | One reviewer of SR1, SR2, JR1, JR2 other than the author | Same commit succeeded in `dev`. |
+| `pdn` approval of the reviewed plan, standard change (the apply and deploy are the design target) | One of SR1 or SR2 listed in `PDN_APPROVERS`, other than the person who started run 1 (ASM-321); the exclusion of the author (ASM-172) is not checked by the workflow | Run 1 succeeded on the same commit with its release note link; window allows. Design target: `qa` succeeded with acceptance recorded; release note with notice sent. |
+| `pdn` change inside the window, incident | One of SR1 or SR2 as above, with the incident reference that run 1 stored; run 2 cannot add one | The notice is sent at the time of the decision (ASM-173). |
 | Rule marked Audit in the firewall policy | Audit by a person other than its author before go-live (PD-125) | Recorded in the infrastructure release note. |
 
 The platform operator does not approve deployments; it operates the platform through its permission sets (A09 section 5.3), redrives dead-letter queues and runs rollback deployments that a `pdn` approver authorizes. The `BreakGlass` permission set is not a deployment path.
@@ -278,16 +286,19 @@ A21 owns the alarms and dashboards and A22 owns the two templates. This section 
 | ASM-177 | Contents of the `qa` acceptance suites; results recorded in the deployment, never invented. |
 | ASM-178 | The window check covers the whole `pdn` job and its expected end. |
 | ASM-179 | Prompts and schemas ship inside the function package; Federation-configured values are data, not deployments. |
+| ASM-320 | The coded promotion `dev`, `qa`, `pdn` is plan-only with no apply step; it supersedes the part of ASM-214 that has the `pdn` job apply the reviewed saved plan. |
+| ASM-321 | The approval before `pdn` is a two-step approval inside the workflow; PD-020 is closed with its limitation stated. |
+| ASM-322 to ASM-324 | An empty harvest-week calendar warns and does not block; the cost before is the parent commit; `pdn` starts only by manual dispatch with a release note link or an incident reference. |
 | PD-170 to PD-176 | Platform repository, Federation notice, live feature re-check, A21 alarms, A22 fields, B13 scope, rollback rehearsal. |
 
 ## 15. References
 
 | Reference | Use |
 |---|---|
-| [`docs/decision-log.md`](decision-log.md) | ASM-170 to ASM-179, PD-170 to PD-176; ASM-007, ASM-008, ASM-051, ASM-055, ASM-157 used as written. |
+| [`docs/decision-log.md`](decision-log.md) | ASM-170 to ASM-179, PD-170 to PD-176; ASM-320 to ASM-324 and PD-020 (closed); ASM-007, ASM-008, ASM-051, ASM-055, ASM-157 used as written. |
 | [ADR-003](adr/adr-003-iac-tool-remote-state-and-pattern-module.md) | Tool, state, OIDC roles, gates, `pdn` approval and window, extended here. |
 | [`standards/iac-rules/pc-iac-010.md`](../standards/iac-rules/pc-iac-010.md) | Section 3.2, `ignore_changes` only for attributes changed by an agent outside Terraform. |
 | [`docs/inference-functions.md`](inference-functions.md) | Function queues, idempotency, dead-letter redrive and alarm names. |
 | [`docs/sack-and-trip.md`](sack-and-trip.md) | Event log write path and lookup recovery budget. |
 | [AWS CodeDeploy deployment configurations on AWS Lambda](https://docs.aws.amazon.com/codedeploy/latest/userguide/deployment-configurations.html) | `LambdaCanary10Percent5Minutes`, `LambdaAllAtOnce` (PD-172). |
-| [GitHub deployment environments](https://docs.github.com/actions/reference/environments) | Required reviewers, prevention of self-review (PD-020, PD-172). |
+| [GitHub deployment environments](https://docs.github.com/actions/reference/environments) | Required reviewers, prevention of self-review: the design target; their availability on the Free plan is decided by ASM-321, and the live re-check stays PD-172. |
