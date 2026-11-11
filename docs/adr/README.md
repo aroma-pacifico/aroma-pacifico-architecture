@@ -37,4 +37,5 @@ The procedure below is sequential, so it is a numbered list.
 | [`adr-001-primary-and-second-cloud.md`](adr-001-primary-and-second-cloud.md) | ADR-001: AWS primary in `us-east-1`, Azure prepared as an undeployed export target. |
 | [`adr-002-drone-flight-mode-and-governance.md`](adr-002-drone-flight-mode-and-governance.md) | ADR-002: combined flight mode, contracted certified operator flies, Federation agronomist authorizes each fumigation. |
 | [`adr-003-iac-tool-remote-state-and-pattern-module.md`](adr-003-iac-tool-remote-state-and-pattern-module.md) | ADR-003: IaC tool, remote state and pattern module (Accepted). |
+| [`adr-004-drone-capability-orchestration.md`](adr-004-drone-capability-orchestration.md) | ADR-004: drone capabilities are orchestrated with events (bus, rules, per-function queues), with the mission state machine as source of truth (Proposed). |
 | `adr-NNN-<kebab-slug>.md` | One file per ADR; the reserved file names of the ADRs not yet written are listed in the decision log. |
