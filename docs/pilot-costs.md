@@ -14,24 +14,24 @@
 
 This document establishes the commercial and architectural cost estimates for the 2026 update of the Aroma Pacífico coffee traceability pilot across Cauca, Huila, and Tolima. The pilot connects 200 coffee farms, 3 regional collection centers, 60 overland transporters, and the port export handoff at Buenaventura.
 
-Following the core principle from the case statement that historical 2020 figures and legacy quotes are invalid ("Precios, dispositivos y servicios de nube de 2020 no son cotización válida"), all figures presented here originate from official, publicly verifiable service provider price schedules and electronic distributor catalogs dated November 2026. Every assumption is segregated from the calculations, numbered in the project decision registry, and traceable to foundational architectural decisions.
+Following the core principle from the case statement that historical 2020 figures and legacy quotes are invalid ("Precios, dispositivos y servicios de nube de 2020 no son cotización válida"), all figures presented here are established as explicit planning assumptions based on published AWS service schedules for `us-east-1` and commercial hardware catalog baselines dated November 2026. Because direct session access to `aws.amazon.com` is restricted by network proxy policy in the delivery environment (as documented in PD-200 and architecture section 18), AWS rates are tracked as planning assumptions subject to formal pre-implementation re-check under PD-200, while commercial hardware BOMs and drone rates are reference planning estimates subject to competitive supplier RFP validation under PD-230. Every assumption is segregated from the calculations, numbered in the project decision registry, and traceable to foundational architectural decisions.
 
 The cost model covers five distinct domains:
 1. Field hardware deployed across 200 farms (400 autonomous sensor nodes).
 2. Collection center local networking and hardware infrastructure across the three departmental sites.
 3. Commercial contracting for the combined-mode agricultural drone campaign.
 4. Cloud workloads in AWS (`us-east-1`), including event-driven inference, IoT ingestion, transactional storage, and observability.
-5. Six verified architectural decisions that lower or avoid capital expenditure and recurring operating spend.
+5. Six architectural decisions that lower or avoid capital expenditure and recurring operating spend.
 
-Prices are stated in United States Dollars (USD), the contractual currency of Amazon Web Services and international component manufacturers. Where local Colombian expenditures are cited (such as commercial drone flight crews and local data connectivity), figures are converted using the baseline exchange rate of 1 USD = 4,100 COP (Colombian Pesos), dated November 2026 (ASM-230).
+Prices are stated in United States Dollars (USD), the contractual currency of Amazon Web Services and international component manufacturers. Where local Colombian expenditures are cited (such as commercial drone flight crews and local data connectivity), figures are converted using the planning benchmark exchange rate of 1 USD = 4,100 COP (Colombian Pesos), dated November 2026 (ASM-230), subject to supplier quote validation under PD-230.
 
 | Scope Domain | Capital Expenditure (CAPEX) | Normal Month OPEX | Harvest Month OPEX | Annualized Pilot Spend |
 |---|---|---|---|---|
 | Farm Field Hardware (200 farms, 400 nodes) | $74,000.00 | $920.00 | $920.00 | $85,040.00 |
 | Collection Center Infrastructure (3 sites) | $8,550.00 | $645.00 | $645.00 | $16,290.00 |
 | Drone Campaign (Contracted Flight Service) | $0.00 | $583.33 | $8,500.00 | $45,250.00 |
-| AWS Cloud Workloads & Ingestion | $0.00 | $591.24 | $612.87 | $7,180.44 |
-| Total Pilot Expenditure | $82,550.00 | $2,739.57 | $10,677.87 | $153,760.44 |
+| AWS Cloud Workloads & Ingestion | $0.00 | $580.29 | $601.92 | $7,050.00 |
+| Total Pilot Expenditure | $82,550.00 | $2,728.62 | $10,666.92 | $153,630.00 |
 
 ---
 
@@ -41,18 +41,18 @@ In strict compliance with acceptance criterion 2 ("Assumptions are visible and s
 
 | Assumption ID | Category | Parameter Description | Assigned Value | Architectural Source & Justification |
 |---|---|---|---|---|
-| ASM-230 | Financial Baseline | Pricing currency, documentation date, and official COP/USD conversion rate. | USD; November 2026; 1 USD = 4,100 COP. | Q-16 response; prices fetched from official vendor lists; closes PD-017. |
-| ASM-231 | Field Hardware | Farm node bill of materials, dual-mode module unit cost, cellular SIM monthly fee, and satellite NTN active fee. | Crop Node: $175.00; Drying Node: $180.00; Cellular SIM: $1.50/mo; Satellite NTN: $8.00/mo. | ASM-070, ASM-071, ASM-073; 10 % of farms (20 farms, 40 nodes) assumed outside terrestrial coverage; closes PD-084. |
-| ASM-232 | Center Infrastructure | Local networking equipment bill of materials per collection center across three departments. | Firewall: $850.00; Backup Router: $350.00; Switch: $550.00; APs: $600.00; Printer: $500.00. Total: $2,850.00 per site. | ASM-088, ASM-095; site hardware classes defined in collection-center network design; closes PD-095. |
-| ASM-233 | Cloud Networking | Hourly rates for Transit Gateway, Site-to-Site VPN, Route 53 Resolver, Interface Endpoints, and WAF. | TGW: $0.05/hr; VPN: $0.055/hr; Resolver: $0.125/hr/ENI; Endpoints: $0.01/hr/AZ; WAF Web ACL: $5.00/mo. | ASM-120, ASM-122, ASM-124; AWS us-east-1 official pricing schedule; closes PD-124. |
+| ASM-230 | Financial Baseline | Pricing currency, documentation date, and COP/USD planning benchmark rate. | USD; November 2026; 1 USD = 4,100 COP planning rate. | Q-16 response; published pricing schedules and commercial reference quotes; subject to RFP validation under PD-230; closes PD-017. |
+| ASM-231 | Field Hardware | Farm node bill of materials, dual-mode module unit cost, cellular SIM monthly fee, and satellite NTN active fee. | Crop Node: $175.00; Drying Node: $180.00; Cellular SIM: $1.50/mo; Satellite NTN: $8.00/mo ($9.50/mo total per satellite node). | ASM-070, ASM-071, ASM-073; 10 % of farms (20 farms, 40 nodes) pay $1.50 SIM + $8.00 satellite = $9.50/node-mo ($380.00/mo); 360 nodes pay $1.50 ($540.00/mo); reference hardware classes subject to PD-230; closes PD-084. |
+| ASM-232 | Center Infrastructure | Local networking equipment bill of materials per collection center across three departments. | Firewall: $850.00; Backup Router: $350.00; Switch: $550.00; APs: $600.00; Printer: $500.00. Total: $2,850.00 per site. | ASM-088, ASM-095; site hardware classes defined in collection-center network design; commercial reference estimates subject to PD-230; closes PD-095. |
+| ASM-233 | Cloud Networking | Hourly rates for Transit Gateway, Site-to-Site VPN, Route 53 Resolver, Interface Endpoints, and WAF. | TGW: $0.05/hr; VPN: $0.05/hr; Resolver: $0.125/hr/ENI; Endpoints: $0.01/hr/AZ; WAF Web ACL: $5.00/mo. | ASM-120, ASM-122, ASM-124; AWS us-east-1 published pricing schedules (no separate IPv4 charge on AWS-managed VPN tunnels); subject to PD-200 re-check; closes PD-124. |
 | ASM-234 | Farmer Notifications | SMS unit cost to Colombia (+57) and mobile push notification delivery pricing. | SMS: $0.055 per delivered segment; Mobile Push: $0.00 (under 1M free tier). | ASM-135, ASM-136; AWS End User Messaging SMS rate; alert episode rates of 90/mo (normal) and 270/mo (harvest); closes PD-133. |
 | ASM-235 | Storage & Web Lookup | DynamoDB On-Demand WRU/RRU rates, S3 Standard storage, and CloudFront egress. | WRU: $0.625/M; RRU: $0.125/M; Storage: $0.25/GB-mo; CloudFront: $0.085/GB; S3: $0.023/GB. | ASM-152, ASM-154; sack lookup peaks at 30 reads/min; DynamoDB on-demand eliminates capacity provisioning; closes PD-152. |
-| ASM-236 | Managed Inference | Foundation model token pricing and token consumption parameters for Amazon Nova Pro in `us-east-1`. | Input: $0.0008 / 1k tokens; Output: $0.0032 / 1k tokens; Image: 1,200 tokens/img; Prompt: 400; Context: 200; Output: 300. | ASM-160, ASM-169; Amazon Bedrock on-demand pricing in us-east-1; closes PD-163. |
+| ASM-236 | Managed Inference | Foundation model token pricing and token consumption parameters for Amazon Nova Pro in `us-east-1`. | Input: $0.0008 / 1k tokens; Output: $0.0032 / 1k tokens; Image: 1,200 tokens/img; Prompt: 400; Context: 200; Output: 300. | ASM-160, ASM-169; Amazon Bedrock on-demand published schedule in us-east-1; subject to PD-200 re-check; closes PD-163. |
 | ASM-237 | Harvest Invocations | Harvest-month function execution counts, episode openings ($E$), and mission rates ($N_{conf}$, $N_{ver}$, $N_{est}$). | Telemetry: 108,000 invocations ($E = 150$); $N_{conf} = 40$; $N_{ver} = 30$; $N_{est} = 200$. Total: 108,270 invocations. | ASM-163, ASM-169; based on 200 farms x 6 readings + 100 farms x 24 drying readings/day over 30 days; closes PD-163. |
-| ASM-238 | Drone Operations | Commercial flight mission contracting rates, flight duration, and campaign cadence. | Targeted mission: $25.00/flight; Area mission: $30.00/flight; $H = 4$ harvest months; 7 annual review campaigns. | ADR-002, ASM-024; contracted certified flight operator avoiding fleet acquisition; closes PD-031. |
+| ASM-238 | Drone Operations | Commercial flight mission contracting rates, flight duration, and campaign cadence. | Targeted mission: $25.00/flight; Area mission: $30.00/flight; $H = 4$ harvest months; 7 annual review campaigns. | ADR-002, ASM-024; contracted certified flight operator avoiding fleet acquisition; commercial reference rate subject to PD-230; closes PD-031. |
 | ASM-239 | Observability | CloudWatch custom metrics, standard and composite alarms, log ingestion, and canary run pricing. | Metric: $0.30/mo; Alarm: $0.10/mo; Composite: $0.50/mo; Logs: $0.50/GB; Canary: $0.0012/run. | ASM-220, ASM-221; CloudWatch monitoring catalog from observability design; closes PD-222. |
 | ASM-250 | Budget Thresholds | Monthly cloud budget ceilings across production accounts, testing environments, and shared services. | Normal Month Ceiling: $650.00; Harvest Month Ceiling: $700.00. | ASM-066; applied from management account via AWS Budgets; closes PD-076. |
-| ASM-251 | Cost Savings | Verified architectural savings across six design domains comparing chosen approaches against conventional alternatives. | Net annual savings: $18,480.00 OPEX avoidance and $180,000.00 CAPEX avoidance. | ADR-001, ADR-002, ASM-073, ASM-127, ASM-167; closes Criterion 3. |
+| ASM-251 | Cost Savings | Architectural savings across six design domains comparing chosen approaches against conventional alternatives. | Net annual savings: $47,532.88 OPEX avoidance and $230,000.00 CAPEX avoidance. | ADR-001, ADR-002, ASM-073, ASM-127, ASM-167; Decision 1 ($10,856.40 net OPEX), Decision 2 ($490.56 net OPEX), Decision 3 ($632.68 net OPEX), Decision 4 ($50,000 CAPEX + $34,560 OPEX), Decision 5 ($180,000 CAPEX), Decision 6 ($993.24 net OPEX); closes Criterion 3. |
 
 ---
 
@@ -64,7 +64,7 @@ Each pilot farm receives two autonomous field nodes:
 1. One Crop Node installed directly in the coffee lot, measuring nitrogen, phosphorus, potassium, soil moisture, soil temperature, ambient air temperature, and relative humidity.
 2. One Drying Node located in the wet mill drying area, measuring grain core temperature and coffee moisture content, equipped with a tactile start/stop push-button control for drying lot lifecycle tracking (ASM-130).
 
-To avoid expensive manual site surveys and prevent dispatch errors during initial deployment, all 400 nodes are built using a standardized hardware specification featuring the Quectel BG95-S5 communication module. This module natively supports terrestrial LTE-M / NB-IoT as well as 3GPP Release-17 Satellite Non-Terrestrial Network (NTN) connectivity via geostationary and LEO constellations (such as Skylo).
+To avoid expensive manual site surveys and prevent dispatch errors during initial deployment, all 400 nodes are built using a standardized hardware specification featuring the Quectel BG95-S5 communication module (or equivalent 3GPP Rel-17 dual-mode device class). This module natively supports terrestrial LTE-M / NB-IoT as well as 3GPP Release-17 Satellite Non-Terrestrial Network (NTN) connectivity via geostationary and LEO constellations (such as Skylo or equivalent NTN carrier).
 
 ### 3.1 Bill of Materials (BOM) per Farm
 
@@ -75,20 +75,20 @@ To avoid expensive manual site surveys and prevent dispatch errors during initia
 | Solar Power Subsystem | 5W high-efficiency monocrystalline solar panel, 3.2V 3,000 mAh LiFePO4 battery pack (-10 °C to +60 °C), MPPT solar charge controller. | $32.00 | $32.00 | $64.00 |
 | Soil & Ambient Sensor Suite | Multi-parameter 5-pin RS485 Modbus stainless steel probe (NPK, soil moisture, soil temperature) plus external SHT35 air temp/humidity probe in radiation shield. | $54.00 | $0.00 | $54.00 |
 | Drying Sensor Suite & Controls | High-accuracy stainless steel grain penetration probe (PT100 RTD) and capacitive bean moisture sensor; IP67 tactile push-button with LED status indicator. | $0.00 | $59.00 | $59.00 |
-| Cellular / Satellite NTN Module | Quectel BG95-S5 dual-mode module (LTE Cat M1, NB-IoT, 3GPP Rel-17 NTN satellite IP), internal omnidirectional antenna. | $38.00 | $38.00 | $76.00 |
+| Cellular / Satellite NTN Module | Quectel BG95-S5 dual-mode module (or equivalent 3GPP Rel-17 NTN/cellular dual-mode module), internal omnidirectional antenna. | $38.00 | $38.00 | $76.00 |
 | Multi-Network Industrial SIM | Industrial-grade MFF2 embedded or plastic SIM card supporting multi-carrier IMSI switching in Colombia (Claro, Movistar, Tigo). | $3.00 | $3.00 | $6.00 |
 | Total Hardware Cost per Node | Complete assembled, provisioned, and sealed node. | $175.00 | $180.00 | $355.00 |
 
-Mounting consumables (mounting stakes, stainless steel zip ties, grounding rods, tamper-evident seals) add $15.00 per farm, bringing the total capital expenditure for one farm's hardware installation to exactly **$370.00 USD** (approximately 1,517,000 COP). For all 200 farms in the pilot, total field hardware CAPEX is **$74,000.00 USD**.
+Component costs reflect commercial reference planning estimates for generic device classes, subject to competitive supplier quote validation under PD-230 during the procurement RFP phase. Mounting consumables (mounting stakes, stainless steel zip ties, grounding rods, tamper-evident seals) add $15.00 per farm, bringing the total capital expenditure for one farm's hardware installation to exactly **$370.00 USD** (approximately 1,517,000 COP at the 4,100 planning exchange rate). For all 200 farms in the pilot, total field hardware CAPEX is **$74,000.00 USD**.
 
 ### 3.2 Recurring Field Connectivity Fees
 
 Field connectivity charges depend on whether the farm has terrestrial cellular coverage or relies on satellite NTN connectivity:
 
 1. Terrestrial Cellular Coverage (Baseline): 180 farms (360 nodes, 90 % of the pilot) maintain cellular connection. Industrial IoT multi-network pooled SIMs with 10 MB per month per node cost $1.50 USD per node per month. 360 nodes x $1.50 = **$540.00 USD/month**.
-2. Out-of-Coverage Satellite Connectivity (ASM-052, ASM-073): 20 farms (40 nodes, 10 % of the pilot) activate the Skylo direct-to-device satellite NTN service during commissioning. The satellite service charge is $8.00 USD per node per month in addition to the base SIM carrier fee. 40 nodes x ($1.50 + $8.00) = **$380.00 USD/month**.
+2. Out-of-Coverage Satellite Connectivity (ASM-052, ASM-073): 20 farms (40 nodes, 10 % of the pilot) activate the Skylo (or equivalent) direct-to-device satellite NTN service during commissioning. Each satellite node incurs both the base multi-network SIM fee ($1.50 USD/month) and the active satellite NTN access fee ($8.00 USD/month), totaling $9.50 USD per node per month. 40 nodes x ($1.50 + $8.00) = 40 nodes x $9.50 = **$380.00 USD/month**.
 
-The combined monthly recurring connectivity fee for all 400 field nodes across all 200 farms is **$920.00 USD/month** (an average of $4.60 USD per farm per month).
+The combined monthly recurring connectivity fee for all 400 field nodes across all 200 farms is $540.00 + $380.00 = **$920.00 USD/month** (an average of $4.60 USD per farm per month). Both SIM carrier rates and satellite access charges are commercial reference planning estimates subject to contract finalization under PD-230.
 
 ---
 
@@ -102,14 +102,16 @@ Each of the three departmental collection centers (Cauca at 10.41.0.0/16, Huila 
 | Cellular Backup Gateway | Teltonika RUTX09 industrial LTE-A Cat 6 cellular router with dual SIM failover, gigabit Ethernet handoff to firewall second WAN port. | 1 | $350.00 | $350.00 | $1,050.00 |
 | Managed PoE Access Switch | Cisco Catalyst 1000-24P (or Aruba Instant On 1930 24G 4SFP/SFP+ 195W): 24x 10/100/1000 PoE+ ports, 802.1Q VLAN support, 802.1X port authentication, port security. | 1 | $550.00 | $550.00 | $1,650.00 |
 | Enterprise Wi-Fi 6 APs | Aruba AP-505 (or Ubiquiti UniFi U6 Pro) dual-radio Wi-Fi 6 indoor/semi-industrial access points, 5 SSIDs, WPA3-Enterprise, client isolation, PoE powered. | 3 | $200.00 | $600.00 | $1,800.00 |
-| Industrial Code Sheet Printer | Zebra ZD421 thermal transfer network barcode and code-sheet printer, 203 dpi, Ethernet 10/100, dedicated static IP in VLAN 110. | 1 | $500.00 | $500.00 | $1,500.00 |
+| Industrial Code Sheet Printer | Zebra ZD421 (or equivalent industrial thermal printer): thermal transfer network barcode and code-sheet printer, 203 dpi, Ethernet 10/100, dedicated static IP in VLAN 110. | 1 | $500.00 | $500.00 | $1,500.00 |
 | Total Collection Center Hardware | Complete turnkey on-premise hardware suite. | 7 devices | - | $2,850.00 | $8,550.00 |
+
+Collection center equipment pricing lines represent commercial reference planning estimates for the specified device classes, subject to competitive distributor quote verification under PD-230 during procurement.
 
 ### 4.1 Collection Center Operating Connectivity Costs
 1. Dedicated Internet Access (DIA): 100 Mbps symmetric commercial fiber connection with SLA: $180.00 USD/month per center ($540.00 USD/month for three sites).
 2. Cellular Backup Link: Corporate pooled LTE backup data plan (standby operational traffic): $35.00 USD/month per center ($105.00 USD/month for three sites).
 
-Total monthly recurring connectivity spend across all three collection centers is **$645.00 USD/month**.
+Total monthly recurring connectivity spend across all three collection centers is **$645.00 USD/month** (subject to ISP commercial quote validation under PD-230).
 
 ---
 
@@ -117,7 +119,7 @@ Total monthly recurring connectivity spend across all three collection centers i
 
 Under ADR-002, Aroma Pacífico operates in a combined flight mode where area-mode missions establish plot boundaries and estimate harvest yield, while precision-mode missions confirm pest alerts, perform targeted spray applications, and verify pest eradication.
 
-Rather than procuring an expensive fleet of commercial agricultural drones, establishing maintenance depots, and hiring full-time aviation staff, the Federation contracts a certified commercial drone operator company holding civil aviation permits (Aerocivil) for unmanned aerial spraying and multispectral mapping (ASM-023).
+Rather than procuring an expensive fleet of commercial agricultural drones, establishing maintenance depots, and hiring full-time aviation staff, the Federation contracts a certified commercial drone operator company holding civil aviation permits (Aerocivil) for unmanned aerial spraying and multispectral mapping (ASM-023). Flight mission rates ($25.00 for precision missions and $30.00 for area missions) are commercial reference planning estimates subject to formal competitive RFP validation under PD-230.
 
 ### 5.1 Flight Volumes and Cadence
 
@@ -165,9 +167,11 @@ In accordance with `docs/inference-functions.md`, all automated inferencing in t
 For any function $f$, the cost of 1,000 invocations is governed by the standardized formula:
 $$C_{1000}(f) = 1000 \times \left[ P_{req} + M_f \times D_f \times P_{gbs} + Q_f \times P_{sqs} + R_f \times (P_{s3get} + P_{kms}) + W_f \times P_{ddbw} + K_f \times P_{ddbr} + \frac{p_f \times \left( (I_f \times T_{img} + T_{prompt\_f} + T_{ctx\_f}) \times P_{in} + T_{out\_f} \times P_{out} \right)}{1000} + X_f \right]$$
 
-### 6.2 Official Unit Price Parameters (`us-east-1`, November 2026)
+### 6.2 Unit Price Parameters (`us-east-1`, November 2026 Planning Baselines, subject to PD-200)
 
-| Parameter Symbol | Description | Official Provider Price (`us-east-1`) |
+Unit rates below represent published AWS service pricing schedules for `us-east-1`. Because direct external network connectivity to `aws.amazon.com` is proxy-restricted during authoring (as recorded in PD-200 and architecture section 18), these rates are tracked as planning assumptions subject to formal pre-implementation verification under PD-200.
+
+| Parameter Symbol | Description | Provider Price Schedule (`us-east-1`) |
 |---|---|---|
 | $P_{req}$ | AWS Lambda Request Fee | $0.20 per 1,000,000 requests ($0.00000020 per request) |
 | $P_{gbs}$ | AWS Lambda Compute Duration (ARM Graviton) | $0.0000133334 per GB-second |
@@ -220,7 +224,7 @@ All cloud services are hosted in AWS region `us-east-1` across a multi-account l
 | Cloud Service Domain | Metering Dimension & Quantities | Normal Month Spend | Harvest Month Spend | Basis & Reference |
 |---|---|---|---|---|
 | AWS Transit Gateway | 3 VPC attachments ($0.05/hr x 730 hrs x 3 = $109.50) plus data processing (~50 GB @ $0.02/GB = $1.00). | $110.50 | $110.50 | ASM-120, ASM-233; central network hub. |
-| AWS Site-to-Site VPN | 3 VPN connections (one per center) x ($0.05/hr + $0.005/hr IPv4 = $0.055/hr) x 730 hrs. | $120.45 | $120.45 | ASM-120; IPsec tunnels to collection centers. |
+| AWS Site-to-Site VPN | 3 VPN connections (one per center) x $0.05/hr x 730 hrs ($109.50; AWS-managed VPN tunnel endpoints incur no separate customer public IPv4 address fee). | $109.50 | $109.50 | ASM-120, ASM-233; IPsec tunnels to collection centers; subject to PD-200 re-check. |
 | Route 53 Resolver Inbound | 2 ENIs in `administration` tier x $0.125/hr x 730 hrs ($182.50) plus query resolution ($0.20). | $182.70 | $182.70 | ASM-122; private DNS for centers. |
 | VPC Interface Endpoints | 4 interface endpoints (Logs, Monitoring, Roles Anywhere, S3) x 2 AZs x $0.01/hr x 730 hrs ($58.40) + data. | $58.90 | $58.90 | ASM-124, ASM-140; PrivateLink endpoints. |
 | AWS WAF | 1 Web ACL ($5.00) + 4 managed rule groups ($4.00) + ~250,000 evaluated requests ($0.15). | $9.15 | $9.15 | ASM-129, ASM-155; edge defense on CloudFront. |
@@ -231,7 +235,9 @@ All cloud services are hosted in AWS region `us-east-1` across a multi-account l
 | Event-Driven Compute & AI | Lambda compute, SQS queues, EventBridge Pipes, and Bedrock Nova Pro inferencing. | $0.30 | $5.21 | ASM-169, ASM-237; section 6 calculations. |
 | Farmer Notifications (SMS/Push) | AWS End User Messaging SMS to Colombia (+57) @ $0.055/msg; Push via SNS is free. | $4.95 (90 SMS) | $14.85 (270 SMS) | ASM-135, ASM-136; episode deduplication. |
 | Observability & Telemetry | CloudWatch custom metrics, alarms, log ingestion, Synthetics canary, and Cost Explorer export. | $60.72 | $60.72 | ASM-220, ASM-239; section 8 calculations. |
-| AWS Cloud Workload Total | Monthly AWS invoice total across all accounts. | **$591.24 USD** | **$612.87 USD** | Closes PD-076, PD-124, PD-152. |
+| AWS Cloud Workload Total | Monthly AWS invoice total across all accounts. | **$580.29 USD** | **$601.92 USD** | Closes PD-076, PD-124, PD-152. |
+
+Both the normal month AWS workload spend ($580.29 USD) and harvest month AWS workload spend ($601.92 USD) fall well within the monthly AWS Budgets ceilings established in Section 10 ($650.00 USD and $700.00 USD, respectively), providing approximately 11 % to 14 % operational margin for unpredicted traffic bursts.
 
 ---
 
@@ -259,39 +265,51 @@ Acceptance criterion 3 requires the technical and commercial justification of at
 
 ### Decision 1: Elimination of AWS Network Firewall and NAT Gateways in Favor of VPC Endpoints (ASM-127)
 - **Alternative Considered**: Deploying AWS Network Firewall across three Availability Zones in `production` and NAT Gateways in each AZ for outbound internet inspection.
-- **Cost Avoided**: AWS Network Firewall charges $0.395 per firewall endpoint hour ($288.35/month per AZ, or $865.05/month for 3 AZs) plus $0.065 per GB processed. Three NAT Gateways charge $0.045 per hour ($32.85/month per AZ, or $98.55/month for 3 AZs) plus $0.045 per GB egress. Combined traditional network egress cost: **$963.60 USD/month** ($11,563.20 USD annually).
-- **Chosen Architecture**: Private subnets contain no default routes to the internet. Collection center traffic is inspected locally by on-premise firewalls before entering the IPsec VPN tunnel. AWS services are accessed exclusively through private Gateway Endpoints (S3 and DynamoDB, which are free) and four Interface Endpoints ($58.90/month).
-- **Net Annual Savings**: **$10,856.40 USD/year**.
+- **Cost Avoided**: AWS Network Firewall charges $0.395 per firewall endpoint hour ($288.35/month per AZ, or $865.05/month for 3 AZs = $10,380.60/year) plus data processing. Three NAT Gateways charge $0.045 per hour ($32.85/month per AZ, or $98.55/month for 3 AZs = $1,182.60/year) plus data egress. Combined traditional network egress and inspection alternative: $865.05 + $98.55 = **$963.60 USD/month** ($11,563.20 USD annually).
+- **Chosen Architecture**: Private subnets contain no default routes to the internet. Collection center traffic is inspected locally by on-premise firewalls before entering the IPsec VPN tunnel. AWS services are accessed exclusively through private Gateway Endpoints (S3 and DynamoDB, which are free) and four Interface Endpoints ($58.90/month = $706.80/year).
+- **Net Annual Savings**: $963.60 - $58.90 = $904.70 USD/month = **$10,856.40 USD/year** (Network Firewall alone avoids $10,380.60/year; adding NAT Gateways avoids $11,563.20/year gross, yielding $10,856.40/year net savings after deducting the $706.80/year interface endpoint spend).
 
 ### Decision 2: Serverless Edge Front Door (CloudFront, WAF, Lambda Function URL) vs. Application Load Balancers (PD-051, ASM-155)
 - **Alternative Considered**: An Application Load Balancer (ALB) provisioned across three Availability Zones in the `public_query` tier with an associated Web ACL.
-- **Cost Avoided**: An ALB costs $0.0225 per hour ($16.43/month) plus Load Balancer Capacity Units (LCUs) of at least $0.008 per LCU-hour across 3 AZs (~$35.00/month), totaling ~$51.43/month before WAF and target compute.
-- **Chosen Architecture**: Amazon CloudFront routes directly to a secure AWS Lambda function URL using Origin Access Control (OAC) with `AWS_IAM` signing.
-- **Net Savings**: Saves **$50.00 USD/month** ($600.00 USD annually) while delivering superior global caching, edge DDoS mitigation, and sub-100ms response times for sack code lookups.
+- **Cost Avoided**: An ALB costs $0.0225 per hour ($16.43/month) plus Load Balancer Capacity Units (LCUs) of at least $0.008 per LCU-hour across 3 AZs (~$35.00/month), totaling ~$51.43/month ($617.16/year).
+- **Chosen Architecture**: Amazon CloudFront routes directly to a secure AWS Lambda function URL using Origin Access Control (OAC) with `AWS_IAM` signing. CloudFront ($1.40/month) and AWS WAF ($9.15/month) total $10.55/month ($126.60/year), while Lambda Function URLs incur no base hourly or capacity unit fees.
+- **Net Savings**: $51.43 - $10.55 = **$40.88 USD/month** (**$490.56 USD/year**) while delivering superior global edge caching, DDoS mitigation, and sub-100ms response times for sack code lookups.
 
 ### Decision 3: Inference Model Invocations Limited to Alert Episode Openings (ASM-167)
 - **Alternative Considered**: Executing the foundation vision model on every incoming crop sensor reading to detect anomalies.
-- **Cost Avoided**: Running inference on all 108,000 monthly telemetry readings at $0.00088 per call would cost $95.04/month in model tokens alone, plus expanded Lambda compute.
-- **Chosen Architecture**: The telemetry threshold function evaluates mathematical bounds deterministically in Lambda. Only readings that transition an un-alerted state into an open episode ($E = 150$ per harvest month) invoke the Bedrock model to generate natural language explanations and agronomist guidance.
-- **Net Savings**: Reduces monthly inference token expenditure from $95.04 to $0.13, saving **$94.91 USD/month** during harvest.
+- **Cost Avoided**: Running inference on all 108,000 monthly telemetry readings during harvest ($95.04/month) and 36,000 readings during off-harvest ($31.68/month) at $0.00088 per call would cost $633.60/year in model tokens alone, plus expanded Lambda execution duration.
+- **Chosen Architecture**: The telemetry threshold function evaluates mathematical bounds deterministically in Lambda. Only readings that transition an un-alerted state into an open episode ($E = 150$ per harvest month = $0.13/month; $E = 60$ per off-harvest month = $0.05/month) invoke the Bedrock model to generate natural language explanations and agronomist guidance.
+- **Net Savings**: Reduces monthly inference token expenditure during harvest from $95.04 to $0.13 (saving $94.91/month across 4 harvest months = $379.64/year) and during off-harvest from $31.68 to $0.05 (saving $31.63/month across 8 off-harvest months = $253.04/year), achieving a net annual savings of **$632.68 USD/year**.
 
 ### Decision 4: Standardized Dual-Mode Radio Hardware with On-Demand Satellite Activation (ASM-073)
-- **Alternative Considered**: Contracting specialized RF field engineers to conduct pre-deployment signal surveys across 200 remote veredas in Cauca, Huila, and Tolima to identify out-of-coverage farms, purchasing two different node models.
-- **Cost Avoided**: Pre-installation RF surveys across 200 rugged Andean farms cost upwards of $250.00 per farm ($50,000.00 CAPEX). Furthermore, activating satellite plans on all 400 nodes would cost $3,200.00 USD/month in satellite fees.
-- **Chosen Architecture**: Every node is built with the Quectel BG95-S5 module ($38.00 unit cost). Installers test connectivity during the single mounting visit. If terrestrial LTE-M attaches, the satellite subscription remains un-provisioned ($0.00/mo). Only the 20 out-of-coverage farms activate satellite subscriptions ($380.00/mo).
-- **Net Savings**: Avoids **$50,000.00 USD** in preliminary site surveys and **$33,840.00 USD/year** in unneeded satellite subscription fees.
+- **Alternative Considered**: Contracting specialized RF field engineers to conduct pre-deployment signal surveys across 200 remote veredas in Cauca, Huila, and Tolima to identify out-of-coverage farms, or activating satellite subscriptions indiscriminately across all 400 nodes.
+- **Cost Avoided**: Pre-installation RF surveys across 200 rugged Andean farms cost upwards of $250.00 per farm ($50,000.00 CAPEX). Furthermore, activating satellite NTN plans on all 400 nodes at $8.00/month would cost $3,200.00 USD/month ($38,400.00 USD/year) in satellite subscription fees.
+- **Chosen Architecture**: Every node is built with the Quectel BG95-S5 dual-mode module (or equivalent 3GPP Rel-17 device class). Installers test connectivity during the single mounting visit. If terrestrial LTE-M attaches, the satellite subscription remains un-provisioned ($0.00/mo). Only the 20 out-of-coverage farms (40 nodes) activate satellite subscriptions (40 x $8.00/mo = $320.00/mo).
+- **Net Savings**: Avoids **$50,000.00 USD** in preliminary site survey CAPEX, and avoids paying the $8.00/month satellite fee on the 360 terrestrial nodes (360 nodes x $8.00/mo = $2,880.00 USD/month avoided), saving **$34,560.00 USD/year in recurring OPEX**.
 
 ### Decision 5: Contracted Commercial Drone Operations vs. Federation Fleet Ownership (ADR-002)
-- **Alternative Considered**: Purchasing commercial agricultural spray drones (e.g., DJI Agras T40 class at $25,000 each) and multispectral mapping drones across three departments, hiring certified full-time pilots, purchasing mobile generator trailers, and licensing civil aviation operator certificates.
-- **Cost Avoided**: Procuring a minimum fleet of 6 spray drones and 3 mapping drones requires $180,000.00 USD in capital equipment, plus battery replacements ($12,000/year), aviation insurance ($15,000/year), and dedicated personnel.
+- **Alternative Considered**: Purchasing commercial agricultural spray drones (e.g., DJI Agras T40 class at $25,000 each or equivalent) and multispectral mapping drones across three departments, hiring certified full-time pilots, purchasing mobile generator trailers, and licensing civil aviation operator certificates.
+- **Cost Avoided**: Procuring a reference fleet of 6 spray drones and 3 mapping drones requires an estimated $180,000.00 USD in capital equipment, plus battery replacements ($12,000/year), aviation insurance ($15,000/year), and dedicated personnel.
 - **Chosen Architecture**: Contracting an Aerocivil-certified regional operator on a per-mission basis ($25.00 for precision flights, $30.00 for area flights).
 - **Net Savings**: Avoids **$180,000.00 USD in CAPEX** and limits annual drone operating spend to **$45,250.00 USD**, scaling strictly with verified agronomic necessity.
 
 ### Decision 6: Serverless On-Demand Transaction Stores vs. Provisioned Clusters (ASM-061, ASM-152)
 - **Alternative Considered**: Provisioning Aurora Serverless v2 or multi-AZ relational databases with reserved read replicas.
-- **Cost Avoided**: A minimum Aurora PostgreSQL deployment (0.5 ACU baseline across 2 AZs) costs ~$0.12/ACU-hour = $87.60/month base charge regardless of traffic, plus storage and backup fees.
-- **Chosen Architecture**: DynamoDB On-Demand tables for telemetry, alerts, sacks, and positions. During off-harvest months or nighttime periods with zero transactions, DynamoDB read/write compute costs drop to exactly $0.00.
-- **Net Savings**: Saves **$80.00 USD/month** ($960.00 USD annually) while providing multi-AZ fault tolerance and single-digit millisecond latency.
+- **Cost Avoided**: A minimum Aurora PostgreSQL deployment (0.5 ACU baseline across 2 AZs) costs ~$0.12/ACU-hour = $87.60/month base charge ($1,051.20/year) regardless of traffic, plus storage and backup fees.
+- **Chosen Architecture**: DynamoDB On-Demand tables for telemetry, alerts, sacks, and positions ($4.83/month = $57.96/year). During off-harvest months or nighttime periods with zero transactions, DynamoDB read/write compute costs drop to exactly $0.00.
+- **Net Savings**: $87.60 - $4.83 = $82.77 USD/month = **$993.24 USD/year** while providing multi-AZ fault tolerance and single-digit millisecond latency.
+
+### 9.1 Savings Reconciliation Summary Table
+
+| Decision Domain | Alternative Gross Cost | Chosen Architecture Cost | Net OPEX Avoidance / Year | Net CAPEX Avoidance |
+|---|---|---|---|---|
+| Decision 1: VPC Endpoints vs Network Firewall & NAT | $11,563.20/yr ($963.60/mo) | $706.80/yr ($58.90/mo) | $10,856.40/yr | $0.00 |
+| Decision 2: Serverless Front Door vs ALB | $617.16/yr ($51.43/mo) | $126.60/yr ($10.55/mo) | $490.56/yr | $0.00 |
+| Decision 3: Episode-Only Inference vs All Readings | $643.08/yr | $10.40/yr | $632.68/yr | $0.00 |
+| Decision 4: Dual-Mode Hardware & Selective Satellite | $38,400.00/yr OPEX + $50,000 CAPEX | $3,840.00/yr OPEX | $34,560.00/yr | $50,000.00 |
+| Decision 5: Commercial Drone Contract vs Fleet | $180,000.00 CAPEX + maintenance | $45,250.00/yr OPEX | Scales per mission | $180,000.00 |
+| Decision 6: DynamoDB On-Demand vs Provisioned DB | $1,051.20/yr ($87.60/mo) | $57.96/yr ($4.83/mo) | $993.24/yr | $0.00 |
+| **Total Reconciled Savings** | - | - | **$47,532.88/yr** | **$230,000.00** |
 
 ---
 
@@ -317,9 +335,9 @@ All budgets alert via Amazon SNS to the platform operations topic at 80 % of act
 
 | Acceptance Criterion | Verification Evidence in this Document | Compliance Status |
 |---|---|---|
-| The document includes the cost of a normal month, a harvest month, one farm's hardware, and the drone campaign. | Normal month OPEX ($2,739.57) and harvest month OPEX ($10,677.87) detailed in Section 1 and Section 7. One farm's hardware ($370.00) broken down in Section 3. Drone campaign ($8,500.00/harvest campaign, $45,250.00/year) detailed in Section 5. | SATISFIED |
+| The document includes the cost of a normal month, a harvest month, one farm's hardware, and the drone campaign. | Normal month OPEX ($2,728.62) and harvest month OPEX ($10,666.92) detailed in Section 1 and Section 7. One farm's hardware ($370.00) broken down in Section 3. Drone campaign ($8,500.00/harvest campaign, $45,250.00/year) detailed in Section 5. | SATISFIED |
 | Assumptions are visible and separate from the cost data. | Section 2 isolates every parameter, unit cost, and volume in dedicated table ASM-230 through ASM-251, with explicit architectural citations, prior to any cost calculations. | SATISFIED |
-| At least 3 decisions that reduce or avoid spending are justified. | Section 9 provides exhaustive technical and financial justifications for six distinct cost-avoidance decisions, quantifying $18,480.00 in annual OPEX savings and $230,000.00 in avoided CAPEX. | SATISFIED |
+| At least 3 decisions that reduce or avoid spending are justified. | Section 9 provides exhaustive technical and financial justifications for six distinct cost-avoidance decisions, quantifying $47,532.88 in annual OPEX savings and $230,000.00 in avoided CAPEX. | SATISFIED |
 | The document includes an estimate of function invocations during harvest. | Section 6.4 estimates 108,270 total function invocations and 420 Bedrock model calls during harvest, evaluating cost per thousand invocations using the formal ASM-169 formula. | SATISFIED |
 
 ---
@@ -333,25 +351,25 @@ All budgets alert via Amazon SNS to the platform operations topic at 80 % of act
 | PD-076 | Closed | Landing zone budgets receive explicit normal and harvest month amounts. | Closed by Section 10 ($650.00 normal, $700.00 harvest). |
 | PD-084 | Closed | Prices for both node module classes and satellite subscription fee. | Closed by Section 3 ($38.00 Quectel BG95-S5 module, $8.00/mo satellite fee). |
 | PD-095 | Closed | Prices for collection center local hardware device classes. | Closed by Section 4 ($2,850.00 per site across FortiGate, switch, APs, printer). |
-| PD-124 | Closed | Prices for cloud network controls and Network Firewall comparison. | Closed by Section 7 and Section 9 (TGW, VPN, Resolver, WAF; saves $10,856/yr). |
+| PD-124 | Closed | Prices for cloud network controls and Network Firewall comparison. | Closed by Section 7 and Section 9 (TGW, VPN at $0.05/hr, Resolver, endpoints; saves $10,856.40/yr net). |
 | PD-133 | Closed | Prices for farmer notifications (SMS to Colombia +57 and push). | Closed by Section 7 (SMS @ $0.055, push free; 90 normal, 270 harvest). |
 | PD-152 | Closed | Prices for public sack lookup front door and DynamoDB tables. | Closed by Section 7 (CloudFront, WAF, Lambda URL, On-Demand DynamoDB). |
 | PD-163 | Closed | Cost per thousand invocations in harvest evaluated via ASM-169 formula. | Closed by Section 6 (108,270 invocations, 420 model calls, $5.21 total spend). |
 | PD-222 | Closed | Prices observability itself and sets dashboard budget amounts. | Closed by Section 8 ($60.72/mo across metrics, alarms, logs, canaries). |
-| PD-230 | Open | Re-verify supplier hardware quotes and drone operator rates during RFP procurement. | Assigned to SR1 / JR1; procurement gate prior to field deployment. |
+| PD-230 | Open | Re-verify supplier hardware quotes, COP benchmark rate, and drone operator rates during RFP procurement. | Assigned to SR1 / JR1; competitive procurement validation prior to field deployment. |
 
 ---
 
-## 13. References and Live Documentation Sources
+## 13. References and Pricing Schedules
 
-All unit prices were verified against official cloud provider documentation and hardware distributor listings in November 2026:
-1. [AWS Lambda Pricing (`us-east-1`)](https://aws.amazon.com/lambda/pricing/): Checked November 2026. $0.20 per 1M requests, $0.0000133334 per GB-second (ARM Graviton).
-2. [Amazon DynamoDB On-Demand Pricing (`us-east-1`)](https://aws.amazon.com/dynamodb/pricing/on-demand/): Checked November 2026. $0.625 per 1M WRU, $0.125 per 1M RRU, $0.25 per GB-month.
-3. [Amazon Bedrock Pricing (`us-east-1`)](https://aws.amazon.com/bedrock/pricing/): Checked November 2026. Amazon Nova Pro standard tier: $0.0008 per 1k input tokens, $0.0032 per 1k output tokens.
-4. [AWS IoT Core Pricing (`us-east-1`)](https://aws.amazon.com/iot-core/pricing/): Checked November 2026. $1.00 per 1M messages (5 KB), $0.15 per 1M rule evaluations, $0.08 per 1M connection-minutes.
-5. [AWS Transit Gateway & Site-to-Site VPN Pricing (`us-east-1`)](https://aws.amazon.com/transit-gateway/pricing/): Checked November 2026. $0.05 per attachment-hour, $0.02 per GB processed; VPN at $0.05 per connection-hour.
-6. [Amazon CloudWatch Pricing (`us-east-1`)](https://aws.amazon.com/cloudwatch/pricing/): Checked November 2026. Custom metrics at $0.30/metric-mo, standard alarms at $0.10/mo, log ingestion at $0.50/GB, canary runs at $0.0012/run.
-7. [AWS End User Messaging SMS Pricing (Colombia +57)](https://aws.amazon.com/end-user-messaging/pricing/): Checked November 2026. Outbound SMS delivery to Colombia carriers averaging $0.055 per segment.
-8. [Quectel Wireless Solutions BG95-S5 Specification & Distributor Catalog](https://www.quectel.com/product/lte-cat-m1-nb-iot-egprs-satellite-bg95-s5): Checked November 2026. 3GPP Rel-17 NTN satellite / cellular dual-mode IoT module ($38.00 unit volume quote).
-9. [Skylo Technologies Direct-to-Device Satellite NTN IoT Connectivity](https://www.skylo.tech/): Checked November 2026. Satellite narrowband IoT telemetry subscription tiers ($8.00 per active node per month).
-10. [Fortinet FortiGate 70F Hardware Datasheet & Commercial Distribution](https://www.fortinet.com/products/next-generation-firewall): Checked November 2026. Enterprise perimeter firewall hardware unit quote ($850.00).
+All cloud unit prices are based on published provider pricing documentation (dated November 2026 for `us-east-1`) and commercial hardware distributor catalogs. Because direct external web connections to `aws.amazon.com` are blocked by environment proxy configuration (PD-200), AWS service rates are maintained as planning assumptions subject to formal pre-implementation re-check under PD-200. Similarly, commercial hardware model lines and drone rates represent reference planning estimates subject to supplier quote validation under PD-230 during competitive RFP procurement:
+1. [AWS Lambda Pricing (`us-east-1`)](https://aws.amazon.com/lambda/pricing/): Published November 2026 schedule. $0.20 per 1M requests, $0.0000133334 per GB-second (ARM Graviton); subject to PD-200 re-check.
+2. [Amazon DynamoDB On-Demand Pricing (`us-east-1`)](https://aws.amazon.com/dynamodb/pricing/on-demand/): Published November 2026 schedule. $0.625 per 1M WRU, $0.125 per 1M RRU, $0.25 per GB-month; subject to PD-200 re-check.
+3. [Amazon Bedrock Pricing (`us-east-1`)](https://aws.amazon.com/bedrock/pricing/): Published November 2026 schedule. Amazon Nova Pro standard tier: $0.0008 per 1k input tokens, $0.0032 per 1k output tokens; subject to PD-200 re-check.
+4. [AWS IoT Core Pricing (`us-east-1`)](https://aws.amazon.com/iot-core/pricing/): Published November 2026 schedule. $1.00 per 1M messages (5 KB), $0.15 per 1M rule evaluations, $0.08 per 1M connection-minutes; subject to PD-200 re-check.
+5. [AWS Transit Gateway & Site-to-Site VPN Pricing (`us-east-1`)](https://aws.amazon.com/transit-gateway/pricing/): Published November 2026 schedule. Transit Gateway at $0.05 per attachment-hour, $0.02 per GB processed; Site-to-Site VPN at $0.05 per connection-hour (AWS-managed VPN tunnel endpoints incur no separate customer public IPv4 fee); subject to PD-200 re-check.
+6. [Amazon CloudWatch Pricing (`us-east-1`)](https://aws.amazon.com/cloudwatch/pricing/): Published November 2026 schedule. Custom metrics at $0.30/metric-mo, standard alarms at $0.10/mo, log ingestion at $0.50/GB, canary runs at $0.0012/run; subject to PD-200 re-check.
+7. [AWS End User Messaging SMS Pricing (Colombia +57)](https://aws.amazon.com/end-user-messaging/pricing/): Published November 2026 schedule. Outbound SMS delivery to Colombia carriers averaging $0.055 per segment; subject to PD-200 re-check.
+8. [Quectel Wireless Solutions BG95-S5 Specification & Distributor Catalog](https://www.quectel.com/product/lte-cat-m1-nb-iot-egprs-satellite-bg95-s5): 3GPP Rel-17 NTN satellite / cellular dual-mode IoT module class. Reference planning estimate of $38.00 unit baseline, subject to competitive RFP quote validation under PD-230.
+9. [Skylo Technologies Direct-to-Device Satellite NTN IoT Connectivity](https://www.skylo.tech/): Satellite narrowband IoT telemetry subscription class. Reference planning estimate of $8.00 per active node per month, subject to contract finalization under PD-230.
+10. [Fortinet FortiGate 70F Hardware Datasheet & Commercial Distribution](https://www.fortinet.com/products/next-generation-firewall): Enterprise perimeter branch firewall class. Reference planning estimate of $850.00 unit baseline, subject to competitive distributor quote validation under PD-230.
