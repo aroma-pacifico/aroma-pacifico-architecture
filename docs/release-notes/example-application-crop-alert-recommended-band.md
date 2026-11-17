@@ -70,7 +70,7 @@
 | Field | Value | Source |
 |---|---|---|
 | `qa_approver_role` | One of SR1, SR2, JR1 other than the author JR2 (ASM-172) | Approver |
-| `pdn_approver_role` * | SR1 or SR2, not the author and not the person who triggers the run (ASM-172) | Owner states the role; Approver |
+| `pdn_approver_role` * | SR1 or SR2 listed in `PDN_APPROVERS`, not the person who starts the promotion run (ASM-321) and not the author (ASM-172) | Owner states the role; Approver |
 | `approval_record` | None: no approval has been given for this example | Pipeline |
 | `additional_review` | Not applicable: no buyer view, WAF or code format change | Owner |
 

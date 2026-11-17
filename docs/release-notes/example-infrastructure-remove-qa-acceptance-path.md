@@ -27,7 +27,7 @@
 | `path` * | `firewall` and `network` | Owner |
 | `pipeline` * | Shared foundation stacks (A18 section 3.1) and `center_device` (ASM-184) | Owner |
 | `release_candidate_commit` * | `0000000000000000000000000000000000example` (placeholder) | Pipeline |
-| `stacks_and_accounts` * | `stacks/security` in the `qa` account (security group rule); `stacks/network` of the hub in the network account (transit gateway route tables `centers` and `qa`), applied through the `pdn` deployment environment (ASM-184); configuration of the three center firewalls | Owner |
+| `stacks_and_accounts` * | `stacks/security` in the `qa` account (security group rule); `stacks/network` of the hub in the network account (transit gateway route tables `centers` and `qa`), reviewed and approved as a `pdn` plan through the two-step approval (ASM-184, ASM-321); configuration of the three center firewalls | Owner |
 | `module_tags` | Not applicable: the declarations are removed from the stacks; no module changes | Owner |
 | `diagram_boxes` | D05 (center association: hub VPN and attachments) and D07 (security group rules and Transit Gateway route-table routes, ASM-200), from the catalog in [architecture](../architecture.md) section 14 | Owner |
 | `qa_acceptance` * | Not run (plan-only). In a real release the `qa` stage removes the security group rule; the ASM-177 suites do not use the center path, and the reachability checks of section 7 replace them. | Pipeline |
@@ -60,11 +60,11 @@
 
 | Field | Value | Source |
 |---|---|---|
-| `planned_start` * | `D 19:00` Colombia time: the `pdn` job applies the hub plan, then the platform operator changes the three center firewalls one after the other | Owner |
+| `planned_start` * | `D 19:00` Colombia time: the approval run accepts the reviewed hub plan, then the platform operator changes the three center firewalls one after the other | Owner |
 | `planned_end` * | `D 22:00` Colombia time | Owner |
 | `harvest_week` * | `yes`: in this example at least one department is in harvest week on `D` (ASM-055) | Owner |
 | `outside_restricted_hours` * | `yes`: 19:00 to 22:00 does not touch 05:00 to 18:00. The `qa` security group stage is not a `pdn` change and is not blocked by the window. | Owner |
-| `expected_end_before_0500` * | `yes`: one apply without canary and three device configuration changes; a device change not finished by 22:00 is stopped and continued in a later window with its own notice (ASM-182) | Owner, checked by Pipeline |
+| `expected_end_before_0500` * | `yes`: one approved hub plan without canary and three device configuration changes; a device change not finished by 22:00 is stopped and continued in a later window with its own notice (ASM-182) | Owner, checked by Pipeline |
 | `window_decision` | Not run (plan-only) | Pipeline |
 
 ## 3. Impact
@@ -89,7 +89,7 @@
 | Field | Value | Source |
 |---|---|---|
 | `qa_approver_role` | One of SR1, JR1, JR2 other than the author SR2 (ASM-172) | Approver |
-| `pdn_approver_role` * | SR1, the only `pdn` approver who is not the author SR2 (ASM-172); the same approval authorizes the three center device changes (ASM-184) | Owner states the role; Approver |
+| `pdn_approver_role` * | SR1, the only `pdn` approver who is not the author SR2 (ASM-172), listed in `PDN_APPROVERS` and different from the person who starts the promotion run (ASM-321); the same approval authorizes the three center device changes (ASM-184) | Owner states the role; Approver |
 | `approval_record` | None: no approval has been given for this example | Pipeline |
 | `audit_of_rules` | Required: a role other than the author (SR1, JR1 or JR2) confirms against the configuration backups after the change and the route tables that CC-LNK-06 and CL-LNK-05 are gone (PD-125). Not performed (example). | Auditor |
 
@@ -124,7 +124,7 @@
 
 | Check | Expected | Result | Source |
 |---|---|---|---|
-| Applied plan equals the reviewed plan | The saved plan was applied; the next plan of both stacks shows no change | Not run (plan-only) | Pipeline |
+| Approved plan equals the reviewed plan | The approval run recomputed the digest of the reviewed plan of both stacks and it equals the approved digest; nothing was applied | Not run (plan-only) | Pipeline |
 | `pdn` path from each center | A reception post at each center reaches the application API in `pdn` `application` (CC-LOG-01) | Not run (plan-only) | Operator |
 | `qa` path from each center is closed | An HTTPS attempt from a Logística post to `qa` `application` fails and appears in the firewall log as a logged deny (CC-LOG-04 or CC-DEF-01) | Not run (plan-only) | Operator |
 | Hub route tables | `centers` holds only the routes of CL-LNK-01 and the blackholes of CL-LNK-02; `qa` holds only the blackhole of CL-LNK-04 | Not run (plan-only) | Operator |

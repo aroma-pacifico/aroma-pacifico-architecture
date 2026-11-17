@@ -73,8 +73,8 @@ If the `pdn` job cannot start inside the planned window, the window is reschedul
 | Field | Value | Source |
 |---|---|---|
 | `qa_approver_role` | One of SR1, SR2, JR1, JR2, not the author (ASM-172) | Approver |
-| `pdn_approver_role` * | SR1 or SR2, not the author and not the person who triggered the run (ASM-172) | Owner states the role; Approver |
-| `approval_record` | `<GitHub deployment and run link, saved plan reference, approved at>`; GitHub keeps who approved | Pipeline |
+| `pdn_approver_role` * | SR1 or SR2 listed in `PDN_APPROVERS`, not the person who started the promotion run (ASM-321) and not the author (ASM-172, not checked by the workflow) | Owner states the role; Approver |
+| `approval_record` | `<link to the promotion run, link to the approval run, artifact approval-record-pdn, plan digest, approved at>`; the record names the requester and the approver (ASM-321) | Pipeline |
 | `additional_review` | `<security review against A09 for a buyer view, WAF or code format change (A18 section 5); otherwise Not applicable>` | Owner |
 
 ## 5. Notice to the Federation
@@ -123,7 +123,7 @@ Fill only when `change_type` is `incident`; otherwise write `Not applicable` onc
 | `declared_by_role` * | SR1 or SR2 (ASM-183) | Owner |
 | `declared_at` * | `<YYYY-MM-DD HH:MM>` Colombia time | Owner |
 | `why_it_cannot_wait` * | `<harm that waiting until 18:00 would cause: lost or wrong events, wrong or undelivered alerts, lookup down, security exposure>` | Owner |
-| `shortened_notice_sent_at` * | `<at the decision, before the apply, marked as incident (ASM-173)>` | Owner |
+| `shortened_notice_sent_at` * | `<at the decision, before the change is released, marked as incident (ASM-173)>` | Owner |
 | `completed_note_due` | Within 1 business day of the change (ASM-173) | Owner |
 | `retrospective_due` | Within 5 business days of the change (ASM-183) | Owner |
 
